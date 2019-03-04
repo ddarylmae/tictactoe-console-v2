@@ -184,17 +184,17 @@ namespace TictactoeVer2Tests
         [Fact]
         public void ShouldReturnTrueWhenPlayerHasQuit()
         {
-            var game = new Tictactoe();
+            var validator = new UserInputValidator();
 
-            Assert.True(game.HasUserQuit("q"));
+            Assert.True(validator.HasUserQuit("q"));
         }
         
         [Fact]
         public void ShouldReturnFalseWhenPlayerHasNotQuit()
         {
-            var game = new Tictactoe();
+            var validator = new UserInputValidator();
 
-            Assert.False(game.HasUserQuit("1,1"));
+            Assert.False(validator.HasUserQuit("1,1"));
         }
 
         [Fact]
@@ -205,6 +205,36 @@ namespace TictactoeVer2Tests
             game.MakeMove("q");
             
             Assert.Equal(GameStatus.Ended, game.Status);
+        }
+        
+        [Fact]
+        public void ShouldReturnFalseWhenInputIsInvalid()
+        {
+            var validator = new UserInputValidator();
+
+            var isInputValid = validator.IsValidInput("aaaa");
+            
+            Assert.False(isInputValid);
+        }
+
+        [Fact]
+        public void ShouldReturnTrueWhenInputIsValid()
+        {
+            var validator = new UserInputValidator();
+
+            var isInputValid = validator.IsValidInput("1,1");
+            
+            Assert.True(isInputValid);
+        }
+
+        [Fact]
+        public void ShouldNotEndGameWhenInputInvalid()
+        {
+            var game = new Tictactoe();
+            
+            game.MakeMove("aaaa");
+            
+            Assert.Equal(GameStatus.Playing, game.Status);
         }
 
 //        [Fact]

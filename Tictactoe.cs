@@ -8,20 +8,30 @@ namespace TictactoeVer2
         public GameStatus Status { get; set; }
         public Player Winner { get; set; }
         public GameBoard Board { get; set; }
+        public UserInputValidator Validator { get; set; }
 
         public Tictactoe()
         {
             CurrentPlayer = Player.X;
             Board = new GameBoard();
+            Validator = new UserInputValidator();
         }
 
         public void MakeMove(string input)
         {
-            var symbol = CurrentPlayer == Player.X ? 'X' : 'O';
-            var isMoveSuccessful = Board.FillCoordinate(input, symbol);
-            if (isMoveSuccessful)
+            var hasUserQuit = Validator.HasUserQuit(input);
+            if (Validator.IsValidInput(input) && !hasUserQuit)
             {
-                SwitchPlayer();
+                var symbol = CurrentPlayer == Player.X ? 'X' : 'O';
+                var isMoveSuccessful = Board.FillCoordinate(input, symbol);
+                if (isMoveSuccessful)
+                {
+                    SwitchPlayer();
+                }
+            }
+            if(hasUserQuit)
+            {
+                Status = GameStatus.Ended;
             }
         }
 
@@ -30,10 +40,7 @@ namespace TictactoeVer2
             CurrentPlayer = CurrentPlayer == Player.X ? Player.O : Player.X;
         }
 
-        public bool HasUserQuit(string input)
-        {
-            return input == "q";
-        }
+        
     }
 
     public enum GameStatus
