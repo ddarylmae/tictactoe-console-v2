@@ -147,6 +147,7 @@ namespace TictactoeVer2Tests
             Assert.Equal(Player.X, game.CurrentPlayer);
         }
         
+        // TODO REMOVE
         [Fact]
         public void ShouldReturnTrueWhenCoordinateNotFilled()
         {
@@ -157,12 +158,13 @@ namespace TictactoeVer2Tests
             Assert.True(isFilledSuccessfully);
         }
 
+        // TODO REMOVE
         [Fact]
         public void ShouldReturnFalseWhenCoordinateIsFilled()
         {
             var board = new GameBoard();
-            
             board.FillCoordinate("1,1", 'X');
+            
             var isFilledSuccessfully = board.FillCoordinate("1,1", 'O');
             
             Assert.False(isFilledSuccessfully);
@@ -177,6 +179,32 @@ namespace TictactoeVer2Tests
             game.MakeMove("1,1");
             
             Assert.Equal(Player.O, game.CurrentPlayer);
+        }
+
+        [Fact]
+        public void ShouldReturnTrueWhenPlayerHasQuit()
+        {
+            var game = new Tictactoe();
+
+            Assert.True(game.HasUserQuit("q"));
+        }
+        
+        [Fact]
+        public void ShouldReturnFalseWhenPlayerHasNotQuit()
+        {
+            var game = new Tictactoe();
+
+            Assert.False(game.HasUserQuit("1,1"));
+        }
+
+        [Fact]
+        public void ShouldEndGameWhenPlayerInputsQ()
+        {
+            var game = new Tictactoe();
+            
+            game.MakeMove("q");
+            
+            Assert.Equal(GameStatus.Ended, game.Status);
         }
 
 //        [Fact]

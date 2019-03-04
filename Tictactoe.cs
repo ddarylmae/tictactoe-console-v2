@@ -29,11 +29,17 @@ namespace TictactoeVer2
         {
             CurrentPlayer = CurrentPlayer == Player.X ? Player.O : Player.X;
         }
+
+        public bool HasUserQuit(string input)
+        {
+            return input == "q";
+        }
     }
 
     public enum GameStatus
     {
-        Playing
+        Playing,
+        Ended
     }
 
     public enum Player
