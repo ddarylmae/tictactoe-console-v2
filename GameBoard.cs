@@ -59,5 +59,23 @@ namespace TictactoeVer2
         {
             return IndexMapper[input];
         }
+
+        public bool IsWinningMove(char symbol)
+        {
+            if (Board[0] == symbol && Board[1] == symbol && Board[2] == symbol ||
+                Board[3] == symbol && Board[4]== symbol && Board[5] == symbol ||
+                Board[6] == symbol && Board[7]== symbol && Board[8] == symbol ||
+                Board[0] == symbol && Board[3]== symbol && Board[6] == symbol ||
+                Board[1] == symbol && Board[4]== symbol && Board[7] == symbol ||
+                Board[2] == symbol && Board[5]== symbol && Board[8] == symbol ||
+                Board[0] == symbol && Board[4]== symbol && Board[8] == symbol ||
+                Board[2] == symbol && Board[4]== symbol && Board[6] == symbol)
+                
+            {
+                return true;
+            }
+
+            return false;
+        }
     }
 }

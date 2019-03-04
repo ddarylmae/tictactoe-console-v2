@@ -26,6 +26,7 @@ namespace TictactoeVer2
                 var isMoveSuccessful = Board.FillCoordinate(input, symbol);
                 if (isMoveSuccessful)
                 {
+                    Winner = Board.IsWinningMove(symbol) ? CurrentPlayer : Player.None;
                     SwitchPlayer();
                 }
             }
