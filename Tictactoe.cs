@@ -27,8 +27,13 @@ namespace TictactoeVer2
                 if (isMoveSuccessful)
                 {
                     Winner = Board.IsWinningMove(symbol) ? CurrentPlayer : Player.None;
+                    if (Winner == Player.None && Board.IsBoardFilled)
+                    {
+                        Status = GameStatus.Draw;
+                    }
                     SwitchPlayer();
                 }
+
             }
             if(hasUserQuit)
             {
@@ -47,7 +52,8 @@ namespace TictactoeVer2
     public enum GameStatus
     {
         Playing,
-        Ended
+        Ended,
+        Draw
     }
 
     public enum Player

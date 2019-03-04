@@ -1,11 +1,13 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace TictactoeVer2
 {
     public class GameBoard
     {
         private char[] Board;
-        private Dictionary<string, int> IndexMapper;
+        private readonly Dictionary<string, int> IndexMapper;
 
         public GameBoard()
         {
@@ -22,7 +24,10 @@ namespace TictactoeVer2
                 {"3,2", 7},
                 {"3,3", 8}
             };
+            
         }
+
+        public bool IsBoardFilled { get; set; }
 
         public void InitialiseBoard()
         {
@@ -44,10 +49,16 @@ namespace TictactoeVer2
             if (Board[index] == '.')
             {
                 Board[index] = symbol;
+                CheckBoardFilled();
                 return true;    
             }
 
             return false;
+        }
+
+        private void CheckBoardFilled()
+        {
+            IsBoardFilled = Board.All(element => element != '.');
         }
 
         public int GetBoardSize()

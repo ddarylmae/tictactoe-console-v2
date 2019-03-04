@@ -271,5 +271,41 @@ namespace TictactoeVer2Tests
             
             Assert.Equal(Player.O, game.Winner);
         }
+        
+        
+        [Fact]
+        public void ShouldEndGameWhenBoardFilledAndNoWinner()
+        {
+            var game = new Tictactoe();
+            
+            game.MakeMove("1,1");
+            game.MakeMove("1,3");
+            game.MakeMove("1,2");
+            game.MakeMove("2,2");
+            game.MakeMove("3,1");
+            game.MakeMove("2,1");
+            game.MakeMove("2,3");
+            game.MakeMove("3,3");
+            game.MakeMove("3,2");
+            
+            Assert.Equal(GameStatus.Draw, game.Status);
+        }
+        
+        [Fact]
+        public void ShouldNotEndGameWhenBoardNotFilledAndNoWinner()
+        {
+            var game = new Tictactoe();
+            
+            game.MakeMove("1,1");
+            game.MakeMove("1,3");
+            game.MakeMove("1,2");
+            game.MakeMove("2,2");
+            game.MakeMove("3,1");
+            game.MakeMove("2,1");
+            game.MakeMove("2,3");
+            game.MakeMove("3,3");
+            
+            Assert.Equal(GameStatus.Playing, game.Status);
+        }
     }
 }
