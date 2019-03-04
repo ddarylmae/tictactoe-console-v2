@@ -38,9 +38,16 @@ namespace TictactoeVer2
             return Board[GetIndexFromInput(input)];
         }
 
-        public void FillCoordinate(string input, char symbol)
+        public bool FillCoordinate(string input, char symbol)
         {
-            Board[GetIndexFromInput(input)] = symbol;
+            var index = GetIndexFromInput(input);
+            if (Board[index] == '.')
+            {
+                Board[index] = symbol;
+                return true;    
+            }
+
+            return false;
         }
 
         public int GetBoardSize()

@@ -31,11 +31,19 @@ namespace TictactoeVer2Tests
         }
 
         [Fact]
+        public void ShouldInitialiseWithEmptyBoard()
+        {
+            var game = new Tictactoe();
+            
+            Assert.Equal(9, game.Board.GetBoardSize());
+        }
+
+        [Fact]
         public void ShouldInitialiseBoardWithDots()
         {
             var game = new Tictactoe();
             
-//            Assert.All(game.Board, x => x == '.');
+//            Assert.All(game.Board, x => Assert.Equal('.', x));
 
             Assert.Equal('.', game.Board.GetElementAt("1,1"));
             Assert.Equal('.', game.Board.GetElementAt("1,2"));
@@ -70,6 +78,7 @@ namespace TictactoeVer2Tests
             Assert.Equal(expectedIndex, actualIndex);
         }
         
+        // TODO REMOVE
         [Fact]
         public void ShouldUpdateBoard()
         {
@@ -137,5 +146,51 @@ namespace TictactoeVer2Tests
             
             Assert.Equal(Player.X, game.CurrentPlayer);
         }
+        
+        [Fact]
+        public void ShouldReturnTrueWhenCoordinateNotFilled()
+        {
+            var board = new GameBoard();
+            
+            var isFilledSuccessfully = board.FillCoordinate("1,1", 'X');
+            
+            Assert.True(isFilledSuccessfully);
+        }
+
+        [Fact]
+        public void ShouldReturnFalseWhenCoordinateIsFilled()
+        {
+            var board = new GameBoard();
+            
+            board.FillCoordinate("1,1", 'X');
+            var isFilledSuccessfully = board.FillCoordinate("1,1", 'O');
+            
+            Assert.False(isFilledSuccessfully);
+        }
+
+        [Fact]
+        public void ShouldNotChangeCurrentPlayerWhenMoveInvalid()
+        {
+            var game = new Tictactoe();
+            
+            game.MakeMove("1,1");
+            game.MakeMove("1,1");
+            
+            Assert.Equal(Player.O, game.CurrentPlayer);
+        }
+
+//        [Fact]
+//        public void ShouldDeclarePlayerXAsWinner()
+//        {
+//            var game = new Tictactoe();
+//            
+//            game.MakeMove("1,1");
+//            game.MakeMove("1,3");
+//            game.MakeMove("2,1");
+//            game.MakeMove("3,3");
+//            game.MakeMove("3,1");
+//            
+//            Assert.Equal(Player.X, game.Winner);
+//        }
     }
 }

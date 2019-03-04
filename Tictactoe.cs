@@ -18,8 +18,11 @@ namespace TictactoeVer2
         public void MakeMove(string input)
         {
             var symbol = CurrentPlayer == Player.X ? 'X' : 'O';
-            Board.FillCoordinate(input, symbol);
-            SwitchPlayer();
+            var isMoveSuccessful = Board.FillCoordinate(input, symbol);
+            if (isMoveSuccessful)
+            {
+                SwitchPlayer();
+            }
         }
 
         public void SwitchPlayer()
