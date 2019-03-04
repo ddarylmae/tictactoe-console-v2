@@ -181,6 +181,7 @@ namespace TictactoeVer2Tests
             Assert.Equal(Player.O, game.CurrentPlayer);
         }
 
+        // TODO REMOVE
         [Fact]
         public void ShouldReturnTrueWhenPlayerHasQuit()
         {
@@ -189,6 +190,7 @@ namespace TictactoeVer2Tests
             Assert.True(validator.HasUserQuit("q"));
         }
         
+        // TODO REMOVE
         [Fact]
         public void ShouldReturnFalseWhenPlayerHasNotQuit()
         {
@@ -196,45 +198,21 @@ namespace TictactoeVer2Tests
 
             Assert.False(validator.HasUserQuit("1,1"));
         }
-
-        [Fact]
-        public void ShouldEndGameWhenPlayerInputsQ()
-        {
-            var game = new Tictactoe();
-            
-            game.MakeMove("q");
-            
-            Assert.Equal(GameStatus.Ended, game.Status);
-        }
         
-        [Fact]
-        public void ShouldReturnFalseWhenInputIsInvalid()
-        {
-            var validator = new UserInputValidator();
-
-            var isInputValid = validator.IsValidInput("aaaa");
-            
-            Assert.False(isInputValid);
-        }
-
-        [Fact]
-        public void ShouldReturnTrueWhenInputIsValid()
-        {
-            var validator = new UserInputValidator();
-
-            var isInputValid = validator.IsValidInput("1,1");
-            
-            Assert.True(isInputValid);
-        }
-
-        [Fact]
-        public void ShouldNotEndGameWhenInputInvalid()
+        [Theory]
+        [InlineData("q", GameStatus.Ended)]
+        [InlineData("1,1", GameStatus.Playing)]
+        [InlineData("1,4", GameStatus.Playing)]
+        [InlineData("4,1", GameStatus.Playing)]
+        [InlineData("a,1", GameStatus.Playing)]
+        [InlineData("aaaa", GameStatus.Playing)]
+        public void ShouldSetCorrectGameStatus(string input, GameStatus expectedStatus)
         {
             var game = new Tictactoe();
+
+            game.MakeMove(input);
             
-            game.MakeMove("aaaa");
-            
-            Assert.Equal(GameStatus.Playing, game.Status);
+            Assert.Equal(expectedStatus, game.Status);
         }
 
 //        [Fact]
