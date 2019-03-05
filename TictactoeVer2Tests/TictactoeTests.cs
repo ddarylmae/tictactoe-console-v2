@@ -58,39 +58,6 @@ namespace TictactoeVer2Tests
             Assert.Equal('.', game.Board.GetElementAt("3,3"));
         }
 
-        // TODO REMOVE
-        [Theory]
-        [InlineData("1,1", 0)]
-        [InlineData("1,2", 1)]
-        [InlineData("1,3", 2)]
-        [InlineData("2,1", 3)]
-        [InlineData("2,2", 4)]
-        [InlineData("2,3", 5)]
-        [InlineData("3,1", 6)]
-        [InlineData("3,2", 7)]
-        [InlineData("3,3", 8)]
-        public void ShouldMapInputToArrayIndex(string input, int expectedIndex)
-        {
-            var board = new GameBoard();
-
-            var actualIndex = board.GetIndexFromInput(input);
-            
-            Assert.Equal(expectedIndex, actualIndex);
-        }
-        
-        // TODO REMOVE
-        [Fact]
-        public void ShouldUpdateBoard()
-        {
-            var board = new GameBoard();
-            
-            board.FillCoordinate("1,1", 'X');
-            
-            var actualSymbol = board.GetElementAt("1,1");
-            
-            Assert.Equal('X', actualSymbol);
-        }
-
         [Fact]
         public void ShouldMarkCoordinateWithX()
         {
@@ -168,34 +135,6 @@ namespace TictactoeVer2Tests
             game.MakeMove(input);
             
             Assert.Equal(expectedStatus, game.Status);
-        }
-
-        // TODO REMOVE
-        [Fact]
-        public void ShouldReturnTrueIfWinningMove()
-        {
-            var board = new GameBoard();
-
-            board.FillCoordinate("1,1", 'X');
-            board.FillCoordinate("1,2", 'X');
-            board.FillCoordinate("1,3", 'X');
-
-            var isWinningMove = board.IsWinningMove('X');
-            
-            Assert.True(isWinningMove);
-        }
-        
-        // TODO REMOVE
-        [Fact]
-        public void ShouldReturnFalseIfNotWinningMove()
-        {
-            var board = new GameBoard();
-            board.FillCoordinate("1,1", 'X');
-            board.FillCoordinate("1,2", 'X');
-
-            var isWinningMove = board.IsWinningMove('X');
-            
-            Assert.False(isWinningMove);
         }
 
         [Fact]
