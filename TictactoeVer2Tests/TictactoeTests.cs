@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using TictactoeVer2;
 using Xunit;
 
@@ -42,8 +43,6 @@ namespace TictactoeVer2Tests
         public void ShouldInitialiseBoardWithDots()
         {
             var game = new Tictactoe();
-            
-//            Assert.All(game.Board, x => Assert.Equal('.', x));
 
             Assert.Equal('.', game.Board.GetElementAt("1,1"));
             Assert.Equal('.', game.Board.GetElementAt("1,2"));
@@ -200,6 +199,5 @@ namespace TictactoeVer2Tests
             
             Assert.Equal(GameStatus.Playing, game.Status);
         }
-        
     }
 }
