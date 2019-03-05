@@ -96,5 +96,17 @@ namespace TictactoeVer2
                 IsWinningMove = true;
             }
         }
+
+        public void DisplayBoard()
+        {
+            for (int row = 0, index = 0; row < 3; row++)
+            {
+                for (int column = 0; column < 3; column++, index++)
+                {
+                    Console.Write($"{Board[index]} ");
+                }
+                Console.Write("\n");
+            }
+        }
     }
 }

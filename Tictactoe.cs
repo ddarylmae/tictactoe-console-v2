@@ -41,12 +41,15 @@ namespace TictactoeVer2
             }
         }
 
-        public void SwitchPlayer()
+        private void SwitchPlayer()
         {
             CurrentPlayer = CurrentPlayer == Player.X ? Player.O : Player.X;
         }
 
-        
+        public void GetBoard()
+        {
+            Board.DisplayBoard();
+        }
     }
 
     public enum GameStatus
