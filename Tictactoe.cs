@@ -33,22 +33,43 @@ namespace TictactoeVer2
         {
             var hasUserQuit = Validator.HasUserQuit(input);
             var isInputValid = Validator.IsValidInput(input);
+            
             if (isInputValid && !hasUserQuit)
             {
                 var symbol = CurrentPlayer == Player.X ? 'X' : 'O';
                 var isMoveSuccessful = Board.FillCoordinate(input, symbol);
                 if (isMoveSuccessful)
                 {
-                    Winner = Board.IsWinningMove ? CurrentPlayer : Player.None;
-                    if (Winner == Player.None && Board.IsBoardFilled)
-                    {
-                        MessageHandler.DisplayNoWinner();
-                        Status = GameStatus.Draw;
-                    }
-
                     MessageHandler.DisplayMoveAccepted();
-                    Board.DisplayBoard();
-                    SwitchPlayer();
+                    
+                    Winner = Board.IsWinningMove ? CurrentPlayer : Player.None;
+//                    if (Winner == Player.None && Board.IsBoardFilled)
+//                    {
+//                        MessageHandler.DisplayNoWinner();
+//                        Status = GameStatus.Draw;
+//                    }
+
+                    if (Winner == Player.None)
+                    {
+                        if (Board.IsBoardFilled)
+                        {
+                            MessageHandler.DisplayNoWinner();
+                            Status = GameStatus.Draw;
+                        }
+                        else
+                        {
+                            Board.DisplayBoard();
+                            SwitchPlayer(); 
+                            MessageHandler.DisplayMakeMove(CurrentPlayer);
+                        }
+                    }
+                    else
+                    {
+                        Board.DisplayBoard();
+                        MessageHandler.DisplayWinner(Winner);
+                        Status = GameStatus.Ended;
+                    }
+                    
                 }
                 else
                 {
@@ -62,12 +83,10 @@ namespace TictactoeVer2
                 MessageHandler.DisplayWinner(Winner);
                 Status = GameStatus.Ended;
             }
-            else
+            if(!isInputValid)
             {
                 MessageHandler.DisplayMoveInvalid();
             }
-            
-            
         }
 
         private void SwitchPlayer()

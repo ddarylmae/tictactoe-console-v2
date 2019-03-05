@@ -137,7 +137,7 @@ namespace TictactoeVer2Tests
         }
 
         [Fact]
-        public void ShouldDeclarePlayerXAsWinner()
+        public void ShouldEndGameAndDeclarePlayerXAsWinner()
         {
             var game = new Tictactoe();
             
@@ -147,11 +147,12 @@ namespace TictactoeVer2Tests
             game.MakeMove("3,3");
             game.MakeMove("3,1");
             
+            Assert.Equal(GameStatus.Ended, game.Status);
             Assert.Equal(Player.X, game.Winner);
         }
         
         [Fact]
-        public void ShouldDeclarePlayerOAsWinner()
+        public void ShouldEndGameAndDeclarePlayerOAsWinner()
         {
             var game = new Tictactoe();
             
@@ -162,6 +163,7 @@ namespace TictactoeVer2Tests
             game.MakeMove("2,3");
             game.MakeMove("3,2");
             
+            Assert.Equal(GameStatus.Ended, game.Status);
             Assert.Equal(Player.O, game.Winner);
         }
         

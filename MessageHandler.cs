@@ -22,7 +22,7 @@ namespace TictactoeVer2
 
         public void DisplayWinner(Player winner)
         {
-            Console.WriteLine($"Game has ended. Player {winner} has won!");
+            Console.WriteLine($"Game has ended. Player {winner.ToString()} has won!");
         }
 
         public void DisplayMoveInvalid()
@@ -32,7 +32,7 @@ namespace TictactoeVer2
 
         public void DisplayMoveAccepted()
         {
-            Console.WriteLine("Move accepted, ");
+            Console.WriteLine("Move accepted.");
         }
 
         public void DisplayCoordinateFilled()
