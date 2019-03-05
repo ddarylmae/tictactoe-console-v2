@@ -28,6 +28,7 @@ namespace TictactoeVer2
         }
 
         public bool IsBoardFilled { get; set; }
+        public bool IsWinningMove { get; set; }
 
         public void InitialiseBoard()
         {
@@ -49,6 +50,7 @@ namespace TictactoeVer2
             if (index > -1 && Board[index] == '.')
             {
                 Board[index] = symbol;
+                CheckWinningMove(symbol);
                 CheckBoardFilled();
                 return true;    
             }
@@ -80,7 +82,7 @@ namespace TictactoeVer2
             return index;
         }
 
-        public bool IsWinningMove(char symbol)
+        public void CheckWinningMove(char symbol)
         {
             if (Board[0] == symbol && Board[1] == symbol && Board[2] == symbol ||
                 Board[3] == symbol && Board[4]== symbol && Board[5] == symbol ||
@@ -90,12 +92,9 @@ namespace TictactoeVer2
                 Board[2] == symbol && Board[5]== symbol && Board[8] == symbol ||
                 Board[0] == symbol && Board[4]== symbol && Board[8] == symbol ||
                 Board[2] == symbol && Board[4]== symbol && Board[6] == symbol)
-                
             {
-                return true;
+                IsWinningMove = true;
             }
-
-            return false;
         }
     }
 }

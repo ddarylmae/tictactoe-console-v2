@@ -26,7 +26,7 @@ namespace TictactoeVer2
                 var isMoveSuccessful = Board.FillCoordinate(input, symbol);
                 if (isMoveSuccessful)
                 {
-                    Winner = Board.IsWinningMove(symbol) ? CurrentPlayer : Player.None;
+                    Winner = Board.IsWinningMove ? CurrentPlayer : Player.None;
                     if (Winner == Player.None && Board.IsBoardFilled)
                     {
                         Status = GameStatus.Draw;

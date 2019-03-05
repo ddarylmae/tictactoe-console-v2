@@ -166,7 +166,6 @@ namespace TictactoeVer2Tests
             Assert.Equal(Player.O, game.Winner);
         }
         
-        
         [Fact]
         public void ShouldEndGameWhenBoardFilledAndNoWinner()
         {
