@@ -9,12 +9,12 @@ namespace TictactoeVer2
         public static void Main(string[] args)
         {
             Tictactoe = new Tictactoe();
-
-//            while (Tictactoe.Status == GameStatus.Playing)
-//            {
-//                var input = Console.ReadLine();
-//                Tictactoe.MakeMove(input);
-//            }
+            
+            while (Tictactoe.Status == GameStatus.Playing)
+            {
+                var input = Console.ReadLine();
+                Tictactoe.MakeMove(input);
+            }
         }
     }
 }

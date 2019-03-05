@@ -25,12 +25,15 @@ namespace TictactoeVer2
         {
             MessageHandler.WelcomeToGame();
             Board.DisplayBoard();
+
+            MessageHandler.DisplayMakeMove(CurrentPlayer);
         }
 
         public void MakeMove(string input)
         {
             var hasUserQuit = Validator.HasUserQuit(input);
-            if (Validator.IsValidInput(input) && !hasUserQuit)
+            var isInputValid = Validator.IsValidInput(input);
+            if (isInputValid && !hasUserQuit)
             {
                 var symbol = CurrentPlayer == Player.X ? 'X' : 'O';
                 var isMoveSuccessful = Board.FillCoordinate(input, symbol);
@@ -39,16 +42,32 @@ namespace TictactoeVer2
                     Winner = Board.IsWinningMove ? CurrentPlayer : Player.None;
                     if (Winner == Player.None && Board.IsBoardFilled)
                     {
+                        MessageHandler.DisplayNoWinner();
                         Status = GameStatus.Draw;
                     }
+
+                    MessageHandler.DisplayMoveAccepted();
+                    Board.DisplayBoard();
                     SwitchPlayer();
                 }
-
+                else
+                {
+                    MessageHandler.DisplayCoordinateFilled();
+                }
             }
             if(hasUserQuit)
             {
+                MessageHandler.DisplayUserHasQuit(CurrentPlayer);
+                Winner = CurrentPlayer == Player.X ? Player.O : Player.X;
+                MessageHandler.DisplayWinner(Winner);
                 Status = GameStatus.Ended;
             }
+            else
+            {
+                MessageHandler.DisplayMoveInvalid();
+            }
+            
+            
         }
 
         private void SwitchPlayer()
