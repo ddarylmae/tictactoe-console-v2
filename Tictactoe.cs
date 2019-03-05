@@ -41,15 +41,15 @@ namespace TictactoeVer2
                 if (isMoveSuccessful)
                 {
                     MessageHandler.DisplayMoveAccepted();
-                    
-                    Winner = Board.IsWinningMove ? CurrentPlayer : Player.None;
-//                    if (Winner == Player.None && Board.IsBoardFilled)
-//                    {
-//                        MessageHandler.DisplayNoWinner();
-//                        Status = GameStatus.Draw;
-//                    }
+                    Board.DisplayBoard();
 
-                    if (Winner == Player.None)
+                    if (Board.IsWinningMove)
+                    {
+                        Winner = CurrentPlayer;
+                        MessageHandler.DisplayWinner(Winner);
+                        Status = GameStatus.Ended;
+                    }
+                    else
                     {
                         if (Board.IsBoardFilled)
                         {
@@ -58,18 +58,10 @@ namespace TictactoeVer2
                         }
                         else
                         {
-                            Board.DisplayBoard();
                             SwitchPlayer(); 
                             MessageHandler.DisplayMakeMove(CurrentPlayer);
                         }
                     }
-                    else
-                    {
-                        Board.DisplayBoard();
-                        MessageHandler.DisplayWinner(Winner);
-                        Status = GameStatus.Ended;
-                    }
-                    
                 }
                 else
                 {
