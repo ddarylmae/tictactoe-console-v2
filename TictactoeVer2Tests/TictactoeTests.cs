@@ -112,20 +112,6 @@ namespace TictactoeVer2Tests
             Assert.Equal('O', game.Board.GetElementAt("1,2"));
         }
         
-        // TODO REMOVE
-        [Theory]
-        [InlineData(Player.X, Player.O)]
-        [InlineData(Player.O, Player.X)]
-        public void ShouldSwitchPlayer(Player current, Player expected)
-        {
-            var game = new Tictactoe();
-            game.CurrentPlayer = current;
-
-            game.SwitchPlayer();
-            
-            Assert.Equal(expected, game.CurrentPlayer);
-        }
-        
         [Fact]
         public void ShouldSwitchToPlayerOWhenCurrentPlayerIsX()
         {
@@ -146,32 +132,9 @@ namespace TictactoeVer2Tests
             
             Assert.Equal(Player.X, game.CurrentPlayer);
         }
-        
-        // TODO REMOVE
-        [Fact]
-        public void ShouldReturnTrueWhenCoordinateNotFilled()
-        {
-            var board = new GameBoard();
-            
-            var isFilledSuccessfully = board.FillCoordinate("1,1", 'X');
-            
-            Assert.True(isFilledSuccessfully);
-        }
-
-        // TODO REMOVE
-        [Fact]
-        public void ShouldReturnFalseWhenCoordinateIsFilled()
-        {
-            var board = new GameBoard();
-            board.FillCoordinate("1,1", 'X');
-            
-            var isFilledSuccessfully = board.FillCoordinate("1,1", 'O');
-            
-            Assert.False(isFilledSuccessfully);
-        }
 
         [Fact]
-        public void ShouldNotChangeCurrentPlayerWhenMoveInvalid()
+        public void ShouldNotChangeCurrentPlayerWhenCoordinateFilled()
         {
             var game = new Tictactoe();
             
@@ -180,23 +143,15 @@ namespace TictactoeVer2Tests
             
             Assert.Equal(Player.O, game.CurrentPlayer);
         }
-
-        // TODO REMOVE
-        [Fact]
-        public void ShouldReturnTrueWhenPlayerHasQuit()
-        {
-            var validator = new UserInputValidator();
-
-            Assert.True(validator.HasUserQuit("q"));
-        }
         
-        // TODO REMOVE
         [Fact]
-        public void ShouldReturnFalseWhenPlayerHasNotQuit()
+        public void ShouldNotChangeCurrentPlayerWhenCoordinateOutOfBounds()
         {
-            var validator = new UserInputValidator();
-
-            Assert.False(validator.HasUserQuit("1,1"));
+            var game = new Tictactoe();
+            
+            game.MakeMove("1,4");
+            
+            Assert.Equal(Player.X, game.CurrentPlayer);
         }
         
         [Theory]
@@ -307,5 +262,6 @@ namespace TictactoeVer2Tests
             
             Assert.Equal(GameStatus.Playing, game.Status);
         }
+        
     }
 }
