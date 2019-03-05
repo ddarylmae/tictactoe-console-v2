@@ -9,12 +9,22 @@ namespace TictactoeVer2
         public Player Winner { get; set; }
         public GameBoard Board { get; set; }
         public UserInputValidator Validator { get; set; }
+        public MessageHandler MessageHandler { get; set; }
 
         public Tictactoe()
         {
             CurrentPlayer = Player.X;
             Board = new GameBoard();
             Validator = new UserInputValidator();
+            MessageHandler = new MessageHandler();
+
+            StartGame();
+        }
+
+        private void StartGame()
+        {
+            MessageHandler.WelcomeToGame();
+            Board.DisplayBoard();
         }
 
         public void MakeMove(string input)
@@ -44,11 +54,6 @@ namespace TictactoeVer2
         private void SwitchPlayer()
         {
             CurrentPlayer = CurrentPlayer == Player.X ? Player.O : Player.X;
-        }
-
-        public void GetBoard()
-        {
-            Board.DisplayBoard();
         }
     }
 
