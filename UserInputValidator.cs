@@ -6,15 +6,10 @@ namespace TictactoeVer2
     {
         public bool IsValidInput(string input)
         {
-            if (IsPlayerQuitting(input) || IsValidCoordinate(input))
-            {
-                return true;
-            }
-            
-            return false;
+            return IsPlayerQuitting(input) || IsValidCoordinate(input);
         }
 
-        private static bool IsValidCoordinate(string input)
+        private bool IsValidCoordinate(string input)
         {
             var coordinates = input.Split(',');
             return coordinates.Length == 2 && 
@@ -24,11 +19,10 @@ namespace TictactoeVer2
                    column > 0 && column < 4;
         }
 
-        private static bool IsPlayerQuitting(string input)
+        private bool IsPlayerQuitting(string input)
         {
             return input == "q";
         }
-
 
         public bool HasUserQuit(string input)
         {
