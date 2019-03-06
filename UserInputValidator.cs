@@ -16,9 +16,14 @@ namespace TictactoeVer2
                    IsRowANumber(coordinates, out var row) &&
                    IsColumnANumber(coordinates, out var column) && 
                    IsRowWithinRange(row) && 
-                   column > 0 && column < 4;
+                   IsColumnWithinRange(column);
         }
 
+        private bool IsColumnWithinRange(int column)
+        {
+            return column > 0 && column < 4;
+        }   
+        
         private bool IsRowWithinRange(int row)
         {
             return row > 0 && row < 4;
