@@ -8,7 +8,7 @@ namespace TictactoeVer2
         {
             var coordinates = input.Split(',');
             
-            if (input == "q" || coordinates.Length == 2 && 
+            if (IsPlayerQuitting(input) || coordinates.Length == 2 && 
                 int.TryParse(coordinates[0], out var row) &&
                 int.TryParse(coordinates[1], out var column) && 
                 row > 0 && row < 4 && 
@@ -19,7 +19,13 @@ namespace TictactoeVer2
             
             return false;
         }
-        
+
+        private static bool IsPlayerQuitting(string input)
+        {
+            return input == "q";
+        }
+
+
         public bool HasUserQuit(string input)
         {
             return input == "q";
