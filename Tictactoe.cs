@@ -29,56 +29,95 @@ namespace TictactoeVer2
             MessageHandler.DisplayMakeMove(CurrentPlayer);
         }
 
-        public void MakeMove(string input)
+        public void InterpretInput(string input)
         {
-            var hasUserQuit = Validator.HasUserQuit(input);
-            var isInputValid = Validator.IsValidInput(input);
+            if (CanTakeTurn(input))
+            {
+                PerformTurn(input);
+            }
             
-            if (isInputValid && !hasUserQuit)
+            if(Validator.HasUserQuit(input))
             {
-                var symbol = CurrentPlayer == Player.X ? 'X' : 'O';
-                var isMoveSuccessful = Board.FillCoordinate(input, symbol);
-                if (isMoveSuccessful)
-                {
-                    MessageHandler.DisplayMoveAccepted();
-                    Board.DisplayBoard();
-
-                    if (Board.IsWinningMove)
-                    {
-                        Winner = CurrentPlayer;
-                        MessageHandler.DisplayWinner(Winner);
-                        Status = GameStatus.Ended;
-                    }
-                    else
-                    {
-                        if (Board.IsBoardFilled)
-                        {
-                            MessageHandler.DisplayNoWinner();
-                            Status = GameStatus.Draw;
-                        }
-                        else
-                        {
-                            SwitchPlayer(); 
-                            MessageHandler.DisplayMakeMove(CurrentPlayer);
-                        }
-                    }
-                }
-                else
-                {
-                    MessageHandler.DisplayCoordinateFilled();
-                }
+                QuitGame();
             }
-            if(hasUserQuit)
-            {
-                MessageHandler.DisplayUserHasQuit(CurrentPlayer);
-                Winner = CurrentPlayer == Player.X ? Player.O : Player.X;
-                MessageHandler.DisplayWinner(Winner);
-                Status = GameStatus.Ended;
-            }
-            if(!isInputValid)
+            
+            if(!Validator.IsValidInput(input))
             {
                 MessageHandler.DisplayMoveInvalid();
             }
+        }
+
+        private void QuitGame()
+        {
+            MessageHandler.DisplayUserHasQuit(CurrentPlayer);
+            Winner = CurrentPlayer == Player.X ? Player.O : Player.X;
+            MessageHandler.DisplayWinner(Winner);
+            Status = GameStatus.Ended;
+        }
+
+        private void PerformTurn(string input)
+        {
+            var isMoveSuccessful = MakeMove(input);
+
+            if (isMoveSuccessful)
+            {
+                MessageHandler.DisplayMoveAccepted();
+                Board.DisplayBoard();
+
+                if (Board.IsWinningMove)
+                {
+                    DeclareWinner();
+                }
+                else
+                {
+                    if (Board.IsBoardFilled)
+                    {
+                        DeclareDraw();
+                    }
+                    else
+                    {
+                        ContinueGame();
+                    }
+                }
+            }
+            else
+            {
+                MessageHandler.DisplayCoordinateIsFilled();
+            }
+        }
+
+        private void ContinueGame()
+        {
+            SwitchPlayer();
+            MessageHandler.DisplayMakeMove(CurrentPlayer);
+        }
+
+        private void DeclareDraw()
+        {
+            MessageHandler.DisplayNoWinner();
+            Status = GameStatus.Draw;
+        }
+
+        private void DeclareWinner()
+        {
+            Winner = CurrentPlayer;
+            MessageHandler.DisplayWinner(Winner);
+            Status = GameStatus.Ended;
+        }
+
+        private bool MakeMove(string input)
+        {
+            var symbol = CurrentPlayer == Player.X ? 'X' : 'O';
+            var isMoveSuccessful = Board.FillCoordinate(input, symbol);
+            return isMoveSuccessful;
+        }
+
+        private bool CanTakeTurn(string input)
+        {
+            var hasUserQuit = Validator.HasUserQuit(input);
+            var isInputValid = Validator.IsValidInput(input);
+
+            return isInputValid && !hasUserQuit;
         }
 
         private void SwitchPlayer()

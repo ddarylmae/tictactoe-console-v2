@@ -35,7 +35,7 @@ namespace TictactoeVer2
             Console.WriteLine("Move accepted.");
         }
 
-        public void DisplayCoordinateFilled()
+        public void DisplayCoordinateIsFilled()
         {
             Console.WriteLine("Oh no, a piece is already at this place! Try again.");
         }

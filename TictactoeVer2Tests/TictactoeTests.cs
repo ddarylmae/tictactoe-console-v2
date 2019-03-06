@@ -62,7 +62,7 @@ namespace TictactoeVer2Tests
         {
             var game = new Tictactoe();
 
-            game.MakeMove("1,1");
+            game.InterpretInput("1,1");
             
             Assert.Equal('X', game.Board.GetElementAt("1,1"));
         }
@@ -72,8 +72,8 @@ namespace TictactoeVer2Tests
         {
             var game = new Tictactoe();
             
-            game.MakeMove("1,1");
-            game.MakeMove("1,2");
+            game.InterpretInput("1,1");
+            game.InterpretInput("1,2");
             
             Assert.Equal('O', game.Board.GetElementAt("1,2"));
         }
@@ -83,7 +83,7 @@ namespace TictactoeVer2Tests
         {
             var game = new Tictactoe();
 
-            game.MakeMove("1,1");
+            game.InterpretInput("1,1");
             
             Assert.Equal(Player.O, game.CurrentPlayer);
         }
@@ -93,8 +93,8 @@ namespace TictactoeVer2Tests
         {
             var game = new Tictactoe();
 
-            game.MakeMove("1,1");
-            game.MakeMove("1,2");
+            game.InterpretInput("1,1");
+            game.InterpretInput("1,2");
             
             Assert.Equal(Player.X, game.CurrentPlayer);
         }
@@ -104,8 +104,8 @@ namespace TictactoeVer2Tests
         {
             var game = new Tictactoe();
             
-            game.MakeMove("1,1");
-            game.MakeMove("1,1");
+            game.InterpretInput("1,1");
+            game.InterpretInput("1,1");
             
             Assert.Equal(Player.O, game.CurrentPlayer);
         }
@@ -115,7 +115,7 @@ namespace TictactoeVer2Tests
         {
             var game = new Tictactoe();
             
-            game.MakeMove("1,4");
+            game.InterpretInput("1,4");
             
             Assert.Equal(Player.X, game.CurrentPlayer);
         }
@@ -131,7 +131,7 @@ namespace TictactoeVer2Tests
         {
             var game = new Tictactoe();
 
-            game.MakeMove(input);
+            game.InterpretInput(input);
             
             Assert.Equal(expectedStatus, game.Status);
         }
@@ -141,11 +141,11 @@ namespace TictactoeVer2Tests
         {
             var game = new Tictactoe();
             
-            game.MakeMove("1,1");
-            game.MakeMove("1,3");
-            game.MakeMove("2,1");
-            game.MakeMove("3,3");
-            game.MakeMove("3,1");
+            game.InterpretInput("1,1");
+            game.InterpretInput("1,3");
+            game.InterpretInput("2,1");
+            game.InterpretInput("3,3");
+            game.InterpretInput("3,1");
             
             Assert.Equal(GameStatus.Ended, game.Status);
             Assert.Equal(Player.X, game.Winner);
@@ -156,12 +156,12 @@ namespace TictactoeVer2Tests
         {
             var game = new Tictactoe();
             
-            game.MakeMove("1,1");
-            game.MakeMove("1,2");
-            game.MakeMove("1,3");
-            game.MakeMove("2,2");
-            game.MakeMove("2,3");
-            game.MakeMove("3,2");
+            game.InterpretInput("1,1");
+            game.InterpretInput("1,2");
+            game.InterpretInput("1,3");
+            game.InterpretInput("2,2");
+            game.InterpretInput("2,3");
+            game.InterpretInput("3,2");
             
             Assert.Equal(GameStatus.Ended, game.Status);
             Assert.Equal(Player.O, game.Winner);
@@ -172,15 +172,15 @@ namespace TictactoeVer2Tests
         {
             var game = new Tictactoe();
             
-            game.MakeMove("1,1");
-            game.MakeMove("1,3");
-            game.MakeMove("1,2");
-            game.MakeMove("2,2");
-            game.MakeMove("3,1");
-            game.MakeMove("2,1");
-            game.MakeMove("2,3");
-            game.MakeMove("3,3");
-            game.MakeMove("3,2");
+            game.InterpretInput("1,1");
+            game.InterpretInput("1,3");
+            game.InterpretInput("1,2");
+            game.InterpretInput("2,2");
+            game.InterpretInput("3,1");
+            game.InterpretInput("2,1");
+            game.InterpretInput("2,3");
+            game.InterpretInput("3,3");
+            game.InterpretInput("3,2");
             
             Assert.Equal(GameStatus.Draw, game.Status);
         }
@@ -190,14 +190,14 @@ namespace TictactoeVer2Tests
         {
             var game = new Tictactoe();
             
-            game.MakeMove("1,1");
-            game.MakeMove("1,3");
-            game.MakeMove("1,2");
-            game.MakeMove("2,2");
-            game.MakeMove("3,1");
-            game.MakeMove("2,1");
-            game.MakeMove("2,3");
-            game.MakeMove("3,3");
+            game.InterpretInput("1,1");
+            game.InterpretInput("1,3");
+            game.InterpretInput("1,2");
+            game.InterpretInput("2,2");
+            game.InterpretInput("3,1");
+            game.InterpretInput("2,1");
+            game.InterpretInput("2,3");
+            game.InterpretInput("3,3");
             
             Assert.Equal(GameStatus.Playing, game.Status);
         }

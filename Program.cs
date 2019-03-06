@@ -13,7 +13,7 @@ namespace TictactoeVer2
             while (Tictactoe.Status == GameStatus.Playing)
             {
                 var input = Console.ReadLine();
-                Tictactoe.MakeMove(input);
+                Tictactoe.InterpretInput(input);
             }
         }
     }
