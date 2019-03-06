@@ -8,7 +8,7 @@ namespace TictactoeVer2
         {
             var coordinates = input.Split(',');
             
-            if (input.Equals("q") || coordinates.Length == 2 && 
+            if (input == "q" || coordinates.Length == 2 && 
                 int.TryParse(coordinates[0], out var row) &&
                 int.TryParse(coordinates[1], out var column) && 
                 row > 0 && row < 4 && 
