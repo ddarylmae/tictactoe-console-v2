@@ -26,7 +26,7 @@ namespace TictactoeVer2
             MessageHandler.WelcomeToGame();
             Board.DisplayBoard();
 
-            MessageHandler.DisplayMakeMove(CurrentPlayer);
+            MessageHandler.DisplayTakeTurn(CurrentPlayer);
         }
 
         public void InterpretInput(string input)
@@ -89,7 +89,7 @@ namespace TictactoeVer2
         private void ContinueGame()
         {
             SwitchPlayer();
-            MessageHandler.DisplayMakeMove(CurrentPlayer);
+            MessageHandler.DisplayTakeTurn(CurrentPlayer);
         }
 
         private void DeclareDraw()
