@@ -12,11 +12,21 @@ namespace TictactoeVer2
         private bool IsValidCoordinate(string input)
         {
             var coordinates = input.Split(',');
+
+            if (coordinates.Length != 2)
+            {
+                return false;
+            }
+
+            var IsRowANum = int.TryParse(coordinates[0], out var rowVal);
+            
+            var IsColANum = int.TryParse(coordinates[1], out var colVal);
+            
             return IsRowColumnPair(coordinates) && 
-                   IsRowANumber(coordinates, out var row) &&
-                   IsColumnANumber(coordinates, out var column) && 
-                   IsRowWithinRange(row) && 
-                   IsColumnWithinRange(column);
+                   IsRowANum &&
+                   IsColANum && 
+                   IsRowWithinRange(rowVal) && 
+                   IsColumnWithinRange(colVal);
         }
 
         private bool IsColumnWithinRange(int column)
