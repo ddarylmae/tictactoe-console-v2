@@ -18,15 +18,20 @@ namespace TictactoeVer2
                 return false;
             }
 
-            var IsRowANum = int.TryParse(coordinates[0], out var rowVal);
+            var row = coordinates[0];
+            var colVal = coordinates[1];
             
-            var IsColANum = int.TryParse(coordinates[1], out var colVal);
+            var IsColANumber = int.TryParse(coordinates[1], out var column);
             
             return IsRowColumnPair(coordinates) && 
-                   IsRowANum &&
-                   IsColANum && 
-                   IsRowWithinRange(rowVal) && 
-                   IsColumnWithinRange(colVal);
+                   IsElementANumberAndWithinRange(row) &&
+                   IsColANumber && 
+                   IsColumnWithinRange(column);
+        }
+
+        private bool IsElementANumberAndWithinRange(string element)
+        {
+            return int.TryParse(element, out var number) && number > 0 && number < 4;
         }
 
         private bool IsColumnWithinRange(int column)
@@ -37,16 +42,6 @@ namespace TictactoeVer2
         private bool IsRowWithinRange(int row)
         {
             return row > 0 && row < 4;
-        }
-
-        private bool IsColumnANumber(string[] coordinates, out int column)
-        {
-            return int.TryParse(coordinates[1], out column);
-        }
-
-        private bool IsRowANumber(string[] coordinates, out int row)
-        {
-            return int.TryParse(coordinates[0], out row);
         }
 
         private bool IsRowColumnPair(string[] coordinates)
