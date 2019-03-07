@@ -24,7 +24,6 @@ namespace TictactoeVer2
                 {"3,2", 7},
                 {"3,3", 8}
             };
-            
         }
 
         public bool IsBoardFilled { get; set; }
