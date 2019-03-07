@@ -41,10 +41,10 @@ namespace TictactoeVer2
                 QuitGame();
             }
             
-            if(!Validator.IsValidInput(input))
-            {
-                MessageHandler.DisplayMoveInvalid();
-            }
+//            if(!Validator.IsValidInput(input))
+//            {
+//                MessageHandler.DisplayMoveInvalid();
+//            }
         }
 
         private void QuitGame()

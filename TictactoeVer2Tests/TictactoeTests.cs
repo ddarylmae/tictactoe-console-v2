@@ -124,8 +124,6 @@ namespace TictactoeVer2Tests
         [InlineData("q", GameStatus.Ended)]
         [InlineData("1,1", GameStatus.Playing)]
         [InlineData("1,4", GameStatus.Playing)]
-        [InlineData("4,1", GameStatus.Playing)]
-        [InlineData("a,1", GameStatus.Playing)]
         [InlineData("aaaa", GameStatus.Playing)]
         public void ShouldSetCorrectGameStatus(string input, GameStatus expectedStatus)
         {

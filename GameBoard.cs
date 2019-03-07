@@ -46,7 +46,7 @@ namespace TictactoeVer2
         public bool FillCoordinate(string input, char symbol)
         {
             var index = GetIndexFromInput(input);
-            if (index > -1 && Board[index] == '.')
+            if (IsValidIndex(index) && IsCoordinateNotFilled(index))
             {
                 Board[index] = symbol;
                 CheckWinningMove(symbol);
@@ -55,6 +55,16 @@ namespace TictactoeVer2
             }
 
             return false;
+        }
+
+        private bool IsCoordinateNotFilled(int index)
+        {
+            return Board[index] == '.';
+        }
+
+        private static bool IsValidIndex(int index)
+        {
+            return index > -1;
         }
 
         private void CheckBoardFilled()
