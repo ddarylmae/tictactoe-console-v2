@@ -34,14 +34,12 @@ namespace TictactoeVer2
             if (CanTakeTurn(input))
             {
                 PerformTurn(input);
-            }
-            
-            if(Validator.HasUserQuit(input))
+            } 
+            else if(Validator.HasUserQuit(input))
             {
                 QuitGame();
             }
-            
-            if(!Board.IsValidCoordinate(input))
+            else
             {
                 MessageHandler.DisplayMoveInvalid();
             }
@@ -118,7 +116,6 @@ namespace TictactoeVer2
             var isInputValid = Board.IsValidCoordinate(input);
 
             return isInputValid && !hasUserQuit;
-//            return !hasUserQuit;
         }
 
         private void SwitchPlayer()

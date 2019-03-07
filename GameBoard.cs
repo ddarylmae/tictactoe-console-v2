@@ -119,15 +119,7 @@ namespace TictactoeVer2
 
         public bool IsValidCoordinate(string input)
         {
-            var index = -1;
-            try
-            {
-                index = IndexMapper[input];
-            }
-            catch(KeyNotFoundException e)
-            {
-                
-            }
+            var index = GetIndexFromInput(input);
             return index != -1;
         }
     }
