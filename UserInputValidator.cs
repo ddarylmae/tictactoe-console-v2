@@ -13,7 +13,7 @@ namespace TictactoeVer2
         {
             var coordinates = input.Split(',');
 
-            if (coordinates.Length != 2)
+            if (!IsRowColumnPair(coordinates))
             {
                 return false;
             }
@@ -21,8 +21,7 @@ namespace TictactoeVer2
             var row = coordinates[0];
             var column = coordinates[1];
             
-            return IsRowColumnPair(coordinates) && 
-                   IsElementANumberAndWithinRange(row) &&
+            return IsElementANumberAndWithinRange(row) && 
                    IsElementANumberAndWithinRange(column);
         }
 
