@@ -19,29 +19,16 @@ namespace TictactoeVer2
             }
 
             var row = coordinates[0];
-            var colVal = coordinates[1];
-            
-            var IsColANumber = int.TryParse(coordinates[1], out var column);
+            var column = coordinates[1];
             
             return IsRowColumnPair(coordinates) && 
                    IsElementANumberAndWithinRange(row) &&
-                   IsColANumber && 
-                   IsColumnWithinRange(column);
+                   IsElementANumberAndWithinRange(column);
         }
 
         private bool IsElementANumberAndWithinRange(string element)
         {
             return int.TryParse(element, out var number) && number > 0 && number < 4;
-        }
-
-        private bool IsColumnWithinRange(int column)
-        {
-            return column > 0 && column < 4;
-        }   
-        
-        private bool IsRowWithinRange(int row)
-        {
-            return row > 0 && row < 4;
         }
 
         private bool IsRowColumnPair(string[] coordinates)
