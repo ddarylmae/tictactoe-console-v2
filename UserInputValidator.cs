@@ -11,15 +11,15 @@ namespace TictactoeVer2
 
         private bool IsValidCoordinate(string input)
         {
-            var coordinates = input.Split(',');
+            var inputElements = input.Split(',');
 
-            if (!IsRowColumnPair(coordinates))
+            if (!IsRowColumnPair(inputElements))
             {
                 return false;
             }
 
-            var row = coordinates[0];
-            var column = coordinates[1];
+            var row = inputElements[0];
+            var column = inputElements[1];
             
             return IsElementANumberAndWithinRange(row) && 
                    IsElementANumberAndWithinRange(column);
@@ -27,12 +27,12 @@ namespace TictactoeVer2
 
         private bool IsElementANumberAndWithinRange(string element)
         {
-            return int.TryParse(element, out var number) && number > 0 && number < 4;
+            return int.TryParse(element, out var numValue) && numValue > 0 && numValue < 4;
         }
 
-        private bool IsRowColumnPair(string[] coordinates)
+        private bool IsRowColumnPair(string[] elements)
         {
-            return coordinates.Length == 2;
+            return elements.Length == 2;
         }
 
         private bool IsPlayerQuitting(string input)
