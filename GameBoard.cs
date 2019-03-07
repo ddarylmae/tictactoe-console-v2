@@ -25,7 +25,6 @@ namespace TictactoeVer2
                 {"3,3", 8}
             };
         }
-
         public bool IsBoardFilled { get; set; }
         public bool IsWinningMove { get; set; }
 
@@ -116,6 +115,11 @@ namespace TictactoeVer2
                 }
                 Console.Write("\n");
             }
+        }
+
+        public bool IsValidCoordinate(string input)
+        {
+            return false;
         }
     }
 }

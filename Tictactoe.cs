@@ -33,6 +33,7 @@ namespace TictactoeVer2
         {
             if (CanTakeTurn(input))
             {
+                
                 PerformTurn(input);
             }
             
@@ -115,9 +116,10 @@ namespace TictactoeVer2
         private bool CanTakeTurn(string input)
         {
             var hasUserQuit = Validator.HasUserQuit(input);
-            var isInputValid = Validator.IsValidInput(input);
+//            var isInputValid = Validator.IsValidInput(input);
 
-            return isInputValid && !hasUserQuit;
+//            return isInputValid && !hasUserQuit;
+            return !hasUserQuit;
         }
 
         private void SwitchPlayer()

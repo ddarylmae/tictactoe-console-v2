@@ -109,9 +109,19 @@ namespace TictactoeVer2Tests
             
             Assert.Equal(Player.O, game.CurrentPlayer);
         }
+
+        [Fact]
+        public void ShouldNotFillBoardWhenCoordinateInvalid()
+        {
+            var board = new GameBoard();
+
+            var isValidCoordinate = board.IsValidCoordinate("aaaa");
+            
+            Assert.Equal(false, isValidCoordinate);
+        }
         
         [Fact]
-        public void ShouldNotChangeCurrentPlayerWhenCoordinateOutOfBounds()
+        public void ShouldNotChangeCurrentPlayerWhenCoordinateInvalid()
         {
             var game = new Tictactoe();
             
