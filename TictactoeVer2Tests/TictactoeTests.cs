@@ -111,13 +111,23 @@ namespace TictactoeVer2Tests
         }
 
         [Fact]
-        public void ShouldNotFillBoardWhenCoordinateInvalid()
+        public void ShouldReturnFalseWhenCoordinateInvalid()
         {
             var board = new GameBoard();
 
             var isValidCoordinate = board.IsValidCoordinate("aaaa");
             
             Assert.Equal(false, isValidCoordinate);
+        }
+        
+        [Fact]
+        public void ShouldReturnTrueWhenCoordinateValid()
+        {
+            var board = new GameBoard();
+
+            var isValidCoordinate = board.IsValidCoordinate("1,3");
+            
+            Assert.Equal(true, isValidCoordinate);
         }
         
         [Fact]
