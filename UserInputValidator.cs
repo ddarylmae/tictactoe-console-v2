@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 
 namespace TictactoeVer2
@@ -27,7 +28,16 @@ namespace TictactoeVer2
 
         private bool IsElementANumberAndWithinRange(string element)
         {
-            return int.TryParse(element, out var numValue) && numValue > 0 && numValue < 4;
+            try
+            {
+                var numValue = Convert.ToInt32(element);
+                return numValue > 0 && numValue < 4;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Exception in converting");
+                return false;
+            }
         }
 
         private bool IsRowColumnPair(string[] elements)
