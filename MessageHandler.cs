@@ -12,7 +12,7 @@ namespace TictactoeVer2
 
         public void DisplayTakeTurn(Player currentPlayer)
         {
-            Console.WriteLine($"Player {currentPlayer.ToString()} please enter a coord x,y to place your move or 'q' to give up: ");
+            Console.WriteLine($"Player {currentPlayer} please enter a coord x,y to place your move or 'q' to give up: ");
         }
 
         public void DisplayNoWinner()

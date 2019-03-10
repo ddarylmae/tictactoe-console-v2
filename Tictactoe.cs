@@ -125,18 +125,4 @@ namespace TictactoeVer2
             CurrentPlayer = CurrentPlayer == Player.X ? Player.O : Player.X;
         }
     }
-
-    public enum GameStatus
-    {
-        Playing,
-        Ended,
-        Draw
-    }
-
-    public enum Player
-    {
-        None, 
-        X,
-        O
-    }
 }

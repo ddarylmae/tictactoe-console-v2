@@ -141,16 +141,23 @@ namespace TictactoeVer2Tests
         {
             var game = new Tictactoe();
             
-            game.InterpretInput("1,1");
-            game.InterpretInput("1,3");
-            game.InterpretInput("2,1");
-            game.InterpretInput("3,3");
-            game.InterpretInput("3,1");
+            PlayerMakesMove(Player.X, "1,1", game);
+            PlayerMakesMove(Player.O,"1,3", game);
+            PlayerMakesMove(Player.X,"2,1", game);
+            PlayerMakesMove(Player.O,"3,3", game);
+            PlayerMakesMove(Player.X,"3,1", game);
             
             Assert.Equal(GameStatus.Ended, game.Status);
             Assert.Equal(Player.X, game.Winner);
         }
-        
+
+        private static void PlayerMakesMove(Player player, string move, Tictactoe game)
+        {
+            Assert.Equal(player, game.CurrentPlayer);
+            game.InterpretInput(move);
+        }
+
+
         [Fact]
         public void ShouldEndGameAndDeclarePlayerOAsWinner()
         {

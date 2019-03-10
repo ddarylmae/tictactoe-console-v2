@@ -12,6 +12,7 @@ namespace TictactoeVer2
 
         private bool IsValidCoordinate(string input)
         {
+            
             var inputElements = input.Split(',');
 
             if (!IsRowColumnPair(inputElements))
@@ -25,6 +26,7 @@ namespace TictactoeVer2
             return IsElementANumberAndWithinRange(row) && 
                    IsElementANumberAndWithinRange(column);
         }
+
 
         private bool IsElementANumberAndWithinRange(string element)
         {
