@@ -8,7 +8,7 @@ namespace TictactoeVer2
         
         public static void Main(string[] args)
         {
-            Tictactoe = new Tictactoe();
+            Tictactoe = new Tictactoe(new OutputWriter());
             
             while (Tictactoe.Status == GameStatus.Playing)
             {

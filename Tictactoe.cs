@@ -10,11 +10,11 @@ namespace TictactoeVer2
         public GameBoard Board { get; set; }
         public MessageHandler MessageHandler { get; set; }
 
-        public Tictactoe()
+        public Tictactoe(IOutputWriter outputWriter)
         {
             CurrentPlayer = Player.X;
             Board = new GameBoard();
-            MessageHandler = new MessageHandler(new OutputWriter());
+            MessageHandler = new MessageHandler(outputWriter);
 
             StartGame();
         }
