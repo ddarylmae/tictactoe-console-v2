@@ -8,14 +8,12 @@ namespace TictactoeVer2
         public GameStatus Status { get; set; }
         public Player Winner { get; set; }
         public GameBoard Board { get; set; }
-        public UserInputValidator Validator { get; set; }
         public MessageHandler MessageHandler { get; set; }
 
         public Tictactoe()
         {
             CurrentPlayer = Player.X;
             Board = new GameBoard();
-            Validator = new UserInputValidator();
             MessageHandler = new MessageHandler();
 
             StartGame();
@@ -34,14 +32,12 @@ namespace TictactoeVer2
             if (CanTakeTurn(input))
             {
                 PerformTurn(input);
-            }
-            
-            if(Validator.HasUserQuit(input))
+            } 
+            else if(HasUserQuit(input))
             {
                 QuitGame();
             }
-            
-            if(!Validator.IsValidInput(input))
+            else
             {
                 MessageHandler.DisplayMoveInvalid();
             }
@@ -114,8 +110,8 @@ namespace TictactoeVer2
 
         private bool CanTakeTurn(string input)
         {
-            var hasUserQuit = Validator.HasUserQuit(input);
-            var isInputValid = Validator.IsValidInput(input);
+            var hasUserQuit = HasUserQuit(input);
+            var isInputValid = Board.IsValidCoordinate(input);
 
             return isInputValid && !hasUserQuit;
         }
@@ -123,6 +119,11 @@ namespace TictactoeVer2
         private void SwitchPlayer()
         {
             CurrentPlayer = CurrentPlayer == Player.X ? Player.O : Player.X;
+        }
+        
+        private bool HasUserQuit(string input)
+        {
+            return input == "q";
         }
     }
 
