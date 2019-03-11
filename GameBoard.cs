@@ -25,7 +25,6 @@ namespace TictactoeVer2
                 {"3,3", 8}
             };
         }
-
         public bool IsBoardFilled { get; set; }
         public bool IsWinningMove { get; set; }
 
@@ -46,7 +45,7 @@ namespace TictactoeVer2
         public bool FillCoordinate(string input, char symbol)
         {
             var index = GetIndexFromInput(input);
-            if (index > -1 && Board[index] == '.')
+            if (IsCoordinateNotFilled(index))
             {
                 Board[index] = symbol;
                 CheckWinningMove(symbol);
@@ -55,6 +54,11 @@ namespace TictactoeVer2
             }
 
             return false;
+        }
+
+        private bool IsCoordinateNotFilled(int index)
+        {
+            return Board[index] == '.';
         }
 
         private void CheckBoardFilled()
@@ -106,6 +110,12 @@ namespace TictactoeVer2
                 }
                 Console.Write("\n");
             }
+        }
+
+        public bool IsValidCoordinate(string input)
+        {
+            var index = GetIndexFromInput(input);
+            return index != -1;
         }
     }
 }
