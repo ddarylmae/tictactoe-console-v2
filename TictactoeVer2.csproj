@@ -40,7 +40,9 @@
   <ItemGroup>
     <Compile Include="GameBoard.cs" />
     <Compile Include="GameStatus.cs" />
+    <Compile Include="IOutputWriter.cs" />
     <Compile Include="MessageHandler.cs" />
+    <Compile Include="OutputWriter.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

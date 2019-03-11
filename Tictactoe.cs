@@ -14,7 +14,7 @@ namespace TictactoeVer2
         {
             CurrentPlayer = Player.X;
             Board = new GameBoard();
-            MessageHandler = new MessageHandler();
+            MessageHandler = new MessageHandler(new OutputWriter());
 
             StartGame();
         }

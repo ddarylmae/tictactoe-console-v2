@@ -4,7 +4,14 @@ namespace TictactoeVer2
 {
     public class MessageHandler
     {
-        private void OutputMessage(string message) => Console.WriteLine(message);
+        public IOutputWriter OutputWriter { get; set; }
+
+        public MessageHandler(IOutputWriter outputWriter)
+        {
+            OutputWriter = outputWriter;
+        }
+        
+        private void OutputMessage(string message) => OutputWriter.Write(message);
         
         public void WelcomeToGame()
         {
