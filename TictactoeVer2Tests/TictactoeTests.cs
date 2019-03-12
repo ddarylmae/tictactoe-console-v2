@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using Moq;
+﻿using Moq;
 using TictactoeVer2;
 using Xunit;
 

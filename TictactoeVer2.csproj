@@ -41,6 +41,7 @@
     <Compile Include="GameBoard.cs" />
     <Compile Include="GameStatus.cs" />
     <Compile Include="IOutputWriter.cs" />
+    <Compile Include="ITictactoe.cs" />
     <Compile Include="MessageHandler.cs" />
     <Compile Include="OutputWriter.cs" />
     <Compile Include="Player.cs" />

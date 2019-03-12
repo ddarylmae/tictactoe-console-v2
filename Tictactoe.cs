@@ -2,13 +2,13 @@ using System.Collections.Generic;
 
 namespace TictactoeVer2
 {
-    public class Tictactoe
+    public class Tictactoe : ITictactoe
     {
         public Player CurrentPlayer { get; set; }
         public GameStatus Status { get; set; }
         public Player Winner { get; set; }
         public GameBoard Board { get; set; }
-        public MessageHandler MessageHandler { get; set; }
+        private MessageHandler MessageHandler { get; set; }
 
         public Tictactoe(IOutputWriter outputWriter)
         {
