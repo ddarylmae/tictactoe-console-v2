@@ -17,6 +17,8 @@ namespace TictactoeVer2
         {
             OutputMessage("Welcome to Tic Tac Toe!");
             OutputMessage("Here's the current board: ");
+            
+            DisplayBoard();
         }
 
         public void DisplayTakeTurn(Player currentPlayer)
@@ -52,6 +54,11 @@ namespace TictactoeVer2
         public void DisplayUserHasQuit(Player currentPlayer)
         {
             OutputMessage($"Player {currentPlayer.ToString()} has quit.");
+        }
+
+        public void DisplayBoard()
+        {
+            OutputMessage(". . .\n. . .\n. . .");
         }
     }
 }

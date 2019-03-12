@@ -20,7 +20,7 @@ namespace TictactoeVer2Tests
         public void ShouldStartWithPlayerX()
         {
             Assert.Equal(Player.X, Game.CurrentPlayer);
-            _mockOutputWriter.Verify(output => output.Write("Here's the current board: "));
+            _mockOutputWriter.Verify(output => output.Write("Player X please enter a coord x,y to place your move or 'q' to give up: "));
         }
 
         [Fact]
@@ -106,7 +106,6 @@ namespace TictactoeVer2Tests
             Game.InterpretInput(move);
         }
 
-
         [Fact]
         public void ShouldEndGameAndDeclarePlayerOAsWinner()
         {
@@ -150,6 +149,12 @@ namespace TictactoeVer2Tests
             Game.InterpretInput("3,3");
             
             Assert.Equal(GameStatus.Playing, Game.Status);
+        }
+
+        [Fact]
+        public void ShouldDisplayInitialBoardWhenGameStarts()
+        {
+            _mockOutputWriter.Verify(output => output.Write(". . .\n. . .\n. . ."));
         }
     }
 }
