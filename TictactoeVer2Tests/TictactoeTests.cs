@@ -40,39 +40,6 @@ namespace TictactoeVer2Tests
         {
             Assert.Equal(9, Game.Board.GetBoardSize());
         }
-
-        [Fact]
-        public void ShouldInitialiseBoardWithDots()
-        {
-            Assert.Equal('.', Game.Board.GetElementAt("1,1"));
-            Assert.Equal('.', Game.Board.GetElementAt("1,2"));
-            Assert.Equal('.', Game.Board.GetElementAt("1,3"));
-            
-            Assert.Equal('.', Game.Board.GetElementAt("2,1"));
-            Assert.Equal('.', Game.Board.GetElementAt("2,2"));
-            Assert.Equal('.', Game.Board.GetElementAt("2,3"));
-            
-            Assert.Equal('.', Game.Board.GetElementAt("3,1"));
-            Assert.Equal('.', Game.Board.GetElementAt("3,2"));
-            Assert.Equal('.', Game.Board.GetElementAt("3,3"));
-        }
-
-        [Fact]
-        public void ShouldMarkCoordinateWithX()
-        {
-            Game.InterpretInput("1,1");
-            
-            Assert.Equal('X', Game.Board.GetElementAt("1,1"));
-        }
-
-        [Fact]
-        public void ShouldMarkCoordinateWithO()
-        {
-            Game.InterpretInput("1,1");
-            Game.InterpretInput("1,2");
-            
-            Assert.Equal('O', Game.Board.GetElementAt("1,2"));
-        }
         
         [Fact]
         public void ShouldSwitchToPlayerOWhenCurrentPlayerIsX()

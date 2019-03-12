@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace TictactoeVer2
 {
-    public class Tictactoe : ITictactoe
+    public class Tictactoe
     {
         public Player CurrentPlayer { get; set; }
         public GameStatus Status { get; set; }
