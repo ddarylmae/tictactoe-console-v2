@@ -125,10 +125,10 @@ namespace TictactoeVer2
             return input == "q";
         }
 
-        public void StartActualGame(int boardSize)
+        public void StartActualGame(int size)
         {
             Status = GameStatus.Playing;
-            Board = new GameBoard();
+            Board = new GameBoard(size);
             MessageHandler.DisplayBoard();
         }
     }

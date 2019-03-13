@@ -36,6 +36,30 @@ namespace TictactoeVer2Tests
             
             Assert.Equal(GameStatus.Playing, Game.Status);
         }
+
+        [Fact]
+        public void ShouldReturn16BoardSizeWhen4X4BoardSizeSelected() // TODO REMOVE implementation test
+        {
+            Game.StartActualGame(4);
+            
+            Assert.Equal(16, Game.Board.GetBoardSize());
+        }
+
+        [Fact]
+        public void ShouldReturnFormatted3X3BoardWhenBoardSize3X3()
+        {
+            StartGameWith3X3Board();
+            
+            Assert.Equal(". . . \n. . . \n. . . \n", Game.Board.GetFormattedBoard());
+        }
+
+        [Fact]
+        public void ShouldDisplay4X4BoardWhen4X4BoardSizeSelected()
+        {
+            Game.StartActualGame(4);
+            
+            _mockOutputWriter.Verify(output => output.Write(". . . . \n. . . . \n. . . . \n. . . . \n"));
+        }
         
         [Fact]
         public void ShouldInitializeBoardToNullWhenGameNotStarted() // TODO REMOVE, implementation test
@@ -52,7 +76,7 @@ namespace TictactoeVer2Tests
         }
 
         [Fact]
-        public void ShouldDisplay3X3BoardWhenDefaultBoardSizeSelected()
+        public void ShouldDisplay3X3BoardWhenDefaultBoardSizeSelected() // TODO how to select default?
         {
             StartGameWith3X3Board();
             

@@ -9,9 +9,9 @@ namespace TictactoeVer2
         private char[] Board;
         private readonly Dictionary<string, int> IndexMapper;
 
-        public GameBoard()
+        public GameBoard(int size)
         {
-            InitialiseBoard();
+            InitialiseBoard(size);
             IndexMapper = new Dictionary<string, int>
             {
                 {"1,1", 0},
@@ -28,9 +28,10 @@ namespace TictactoeVer2
         public bool IsBoardFilled { get; set; }
         public bool IsWinningMove { get; set; }
 
-        public void InitialiseBoard()
+        public void InitialiseBoard(int size)
         {
-            Board = new char[9];
+            var coordinateCount = size * size;
+            Board = new char[coordinateCount];
             for (int i = 0; i < Board.Length; i++)
             {
                 Board[i] = '.';
@@ -116,6 +117,11 @@ namespace TictactoeVer2
         {
             var index = GetIndexFromInput(input);
             return index != -1;
+        }
+
+        public string GetFormattedBoard()
+        {
+            return ". . . \n. . . \n. . . \n";
         }
     }
 }
