@@ -13,7 +13,6 @@ namespace TictactoeVer2
         public Tictactoe(IOutputWriter outputWriter)
         {
             CurrentPlayer = Player.X;
-            Board = new GameBoard();
             MessageHandler = new MessageHandler(outputWriter);
 
             InitializeGame();
@@ -129,6 +128,7 @@ namespace TictactoeVer2
         public void StartActualGame(int boardSize)
         {
             Status = GameStatus.Playing;
+            Board = new GameBoard();
             MessageHandler.DisplayBoard();
         }
     }

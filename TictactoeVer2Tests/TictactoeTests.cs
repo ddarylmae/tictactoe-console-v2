@@ -36,6 +36,14 @@ namespace TictactoeVer2Tests
             
             Assert.Equal(GameStatus.Playing, Game.Status);
         }
+        
+        [Fact]
+        public void ShouldInitializeBoardToNullWhenGameNotStarted() // TODO REMOVE, implementation test
+        {
+            Assert.Equal(GameStatus.NotStarted, Game.Status);
+            
+            Assert.Null(Game.Board);
+        }
 
         [Fact]
         public void ShouldInitializeGameWithNoBoardDisplayed()
@@ -54,7 +62,6 @@ namespace TictactoeVer2Tests
         [Fact]
         public void ShouldSetGameStatusToPlayingWhenGameHasStarted()
         {
-            // TODO add pre-condition for intialising 3x3 board
             StartGameWith3X3Board();
             
             Assert.Equal(GameStatus.Playing, Game.Status);
@@ -69,14 +76,16 @@ namespace TictactoeVer2Tests
         [Fact]
         public void ShouldInitialiseWithEmptyBoard()
         {
-            // TODO add pre-condition for intialising 3x3 board
+            StartGameWith3X3Board();
+
             Assert.Equal(9, Game.Board.GetBoardSize());
         }
         
         [Fact]
         public void ShouldInitialiseDefault3X3BoardWhenBoardSizeNotSpecified()
         {
-            // TODO add pre-condition for intialising 3x3 board
+            StartGameWith3X3Board();
+
             Assert.Equal(9, Game.Board.GetBoardSize());
         }
         
@@ -90,6 +99,8 @@ namespace TictactoeVer2Tests
         [Fact]
         public void ShouldSwitchToPlayerOWhenCurrentPlayerIsX()
         {
+            StartGameWith3X3Board();
+
             Game.InterpretInput("1,1");
             
             Assert.Equal(Player.O, Game.CurrentPlayer);
@@ -98,6 +109,8 @@ namespace TictactoeVer2Tests
         [Fact]
         public void ShouldSwitchToPlayerXWhenCurrentPlayerIsO()
         {
+            StartGameWith3X3Board();
+
             Game.InterpretInput("1,1");
             Game.InterpretInput("1,2");
             
@@ -107,6 +120,8 @@ namespace TictactoeVer2Tests
         [Fact]
         public void ShouldNotChangeCurrentPlayerWhenCoordinateFilled()
         {
+            StartGameWith3X3Board();
+
             Game.InterpretInput("1,1");
             Game.InterpretInput("1,1");
             
@@ -116,6 +131,8 @@ namespace TictactoeVer2Tests
         [Fact]
         public void ShouldNotChangeCurrentPlayerWhenCoordinateInvalid()
         {
+            StartGameWith3X3Board();
+
             Game.InterpretInput("1,4");
             
             Assert.Equal(Player.X, Game.CurrentPlayer);
@@ -128,7 +145,6 @@ namespace TictactoeVer2Tests
         [InlineData("aaaa", GameStatus.Playing)]
         public void ShouldSetCorrectGameStatus(string input, GameStatus expectedStatus)
         {
-            // TODO ADD PRE-CONDITION
             StartGameWith3X3Board();
             
             Game.InterpretInput(input);
@@ -139,6 +155,8 @@ namespace TictactoeVer2Tests
         [Fact]
         public void ShouldEndGameAndDeclarePlayerXAsWinner()
         {
+            StartGameWith3X3Board();
+
             PlayerMakesMove(Player.X, "1,1", Game);
             PlayerMakesMove(Player.O,"1,3", Game);
             PlayerMakesMove(Player.X,"2,1", Game);
@@ -158,6 +176,8 @@ namespace TictactoeVer2Tests
         [Fact]
         public void ShouldEndGameAndDeclarePlayerOAsWinner()
         {
+            StartGameWith3X3Board();
+            
             Game.InterpretInput("1,1");
             Game.InterpretInput("1,2");
             Game.InterpretInput("1,3");
@@ -172,6 +192,8 @@ namespace TictactoeVer2Tests
         [Fact]
         public void ShouldEndGameWhenBoardFilledAndNoWinner()
         {
+            StartGameWith3X3Board();
+            
             Game.InterpretInput("1,1");
             Game.InterpretInput("1,3");
             Game.InterpretInput("1,2");
@@ -188,7 +210,6 @@ namespace TictactoeVer2Tests
         [Fact]
         public void ShouldNotEndGameWhenBoardNotFilledAndNoWinner()
         {
-            // TODO ADD PRE-CONDITION
             StartGameWith3X3Board();
             
             Game.InterpretInput("1,1");
