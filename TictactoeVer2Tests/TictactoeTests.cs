@@ -16,6 +16,11 @@ namespace TictactoeVer2Tests
             Game = new Tictactoe(_mockOutputWriter.Object);
         }
         
+        private void StartGameWith3X3Board()
+        {
+            Game.StartActualGame(3);
+        }
+        
         [Fact]
         public void ShouldInitialiseGameToNotStarted()
         {
@@ -32,9 +37,18 @@ namespace TictactoeVer2Tests
             Assert.Equal(GameStatus.Playing, Game.Status);
         }
 
-        private void StartGameWith3X3Board()
+        [Fact]
+        public void ShouldInitializeGameWithNoBoardDisplayed()
         {
-            Game.StartActualGame(3);
+            _mockOutputWriter.Verify(output => output.Write(". . . \n. . . \n. . . \n. . . \n"), Times.Never);
+        }
+
+        [Fact]
+        public void ShouldDisplay3X3BoardWhenDefaultBoardSizeSelected()
+        {
+            StartGameWith3X3Board();
+            
+            _mockOutputWriter.Verify(output => output.Write(". . . \n. . . \n. . . \n. . . \n"));
         }
         
         [Fact]

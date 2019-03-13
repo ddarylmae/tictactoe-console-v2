@@ -22,7 +22,6 @@ namespace TictactoeVer2
         private void InitializeGame()
         {
             MessageHandler.WelcomeToGame();
-            Board.DisplayBoard();
 
             MessageHandler.DisplayInputBoardSize();
             MessageHandler.DisplayTakeTurn(CurrentPlayer);
@@ -130,6 +129,7 @@ namespace TictactoeVer2
         public void StartActualGame(int boardSize)
         {
             Status = GameStatus.Playing;
+            MessageHandler.DisplayBoard();
         }
     }
 }
