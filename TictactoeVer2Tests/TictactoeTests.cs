@@ -21,7 +21,7 @@ namespace TictactoeVer2Tests
         {
             Assert.Equal(GameStatus.NotStarted, Game.Status);
             
-            Game.StartActualGame(3);
+            StartGameWith3X3Board();
             
             Assert.Equal(GameStatus.Playing, Game.Status);
         }
