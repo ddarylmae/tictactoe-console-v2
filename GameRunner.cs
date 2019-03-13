@@ -2,7 +2,7 @@
 
 namespace TictactoeVer2
 {
-    internal class Program
+    internal class GameRunner
     {
         public static Tictactoe Tictactoe;
         
