@@ -15,9 +15,15 @@ namespace TictactoeVer2Tests
             
             Game = new Tictactoe(_mockOutputWriter.Object);
         }
+        
+        [Fact]
+        public void ShouldInitialiseGameToNotStarted()
+        {
+            Assert.Equal(GameStatus.NotStarted, Game.Status);
+        }
 
         [Fact]
-        public void ShouldSetGameStatusToPlayingWhenGameIsStarted() // TODO REMOVE
+        public void ShouldSetGameStatusToPlayingWhenGameIsStarted()
         {
             Assert.Equal(GameStatus.NotStarted, Game.Status);
             
@@ -29,12 +35,6 @@ namespace TictactoeVer2Tests
         private void StartGameWith3X3Board()
         {
             Game.StartActualGame(3);
-        }
-        
-        [Fact]
-        public void ShouldInitialiseGameToNotStarted()
-        {
-            Assert.Equal(GameStatus.NotStarted, Game.Status);
         }
         
         [Fact]
