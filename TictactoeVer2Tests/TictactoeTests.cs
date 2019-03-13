@@ -38,6 +38,22 @@ namespace TictactoeVer2Tests
         }
         
         [Fact]
+        public void ShouldInitialiseWithEmptyBoard()
+        {
+            StartGameWith3X3Board();
+
+            Assert.Equal(9, Game.Board.GetBoardSize());
+        }
+        
+        [Fact]
+        public void ShouldInitialiseDefault3X3BoardWhenBoardSizeNotSpecified()
+        {
+            StartGameWith3X3Board();
+
+            Assert.Equal(9, Game.Board.GetBoardSize());
+        }
+        
+        [Fact]
         public void ShouldInitializeBoardToNullWhenGameNotStarted() // TODO REMOVE, implementation test
         {
             Assert.Equal(GameStatus.NotStarted, Game.Status);
@@ -71,22 +87,6 @@ namespace TictactoeVer2Tests
         public void ShouldInitialiseWithNoWinner()
         {
             Assert.Equal(Player.None, Game.Winner);
-        }
-
-        [Fact]
-        public void ShouldInitialiseWithEmptyBoard()
-        {
-            StartGameWith3X3Board();
-
-            Assert.Equal(9, Game.Board.GetBoardSize());
-        }
-        
-        [Fact]
-        public void ShouldInitialiseDefault3X3BoardWhenBoardSizeNotSpecified()
-        {
-            StartGameWith3X3Board();
-
-            Assert.Equal(9, Game.Board.GetBoardSize());
         }
         
         [Fact]
