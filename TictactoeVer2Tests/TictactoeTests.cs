@@ -152,14 +152,15 @@ namespace TictactoeVer2Tests
         }
 
         [Fact]
-        public void ShouldDisplayInitialBoardWhenGameStarts()
+        public void ShouldInitialiseDefault3X3BoardWhenBoardSizeNotSpecified()
         {
-            _mockOutputWriter.Verify(output => output.Write(". . .\n. . .\n. . ."));
+            Assert.Equal(9, Game.Board.GetBoardSize());
         }
         
         [Fact]
-        public void ShouldDisplayInputBoardSizeWhenGameStarts()
+        public void ShouldDisplayWelcomeMessageAndInputBoardSizeWhenGameStarts()
         {
+            _mockOutputWriter.Verify(output => output.Write("Welcome to Tic Tac Toe!"));
             _mockOutputWriter.Verify(output => output.Write("Please input board size (ex. 3 for 3x3 board, 10 for 10x10): "));
         }
     }
