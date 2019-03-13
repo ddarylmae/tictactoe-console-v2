@@ -15,17 +15,34 @@ namespace TictactoeVer2Tests
             
             Game = new Tictactoe(_mockOutputWriter.Object);
         }
-        
-        [Fact]
-        public void ShouldStartWithPlayerX()
-        {
-            Assert.Equal(Player.X, Game.CurrentPlayer);
-            _mockOutputWriter.Verify(output => output.Write("Player X please enter a coord x,y to place your move or 'q' to give up: "));
-        }
 
         [Fact]
-        public void ShouldInitialiseWithGamePlaying()
+        public void ShouldSetGameStatusToPlayingWhenGameIsStarted() // TODO REMOVE
         {
+            Assert.Equal(GameStatus.NotStarted, Game.Status);
+            
+            Game.StartActualGame(3);
+            
+            Assert.Equal(GameStatus.Playing, Game.Status);
+        }
+
+        private void StartGameWith3X3Board()
+        {
+            Game.StartActualGame(3);
+        }
+        
+        [Fact]
+        public void ShouldInitialiseGameToNotStarted()
+        {
+            Assert.Equal(GameStatus.NotStarted, Game.Status);
+        }
+        
+        [Fact]
+        public void ShouldSetGameStatusToPlayingWhenGameHasStarted()
+        {
+            // TODO add pre-condition for intialising 3x3 board
+            StartGameWith3X3Board();
+            
             Assert.Equal(GameStatus.Playing, Game.Status);
         }
 
@@ -38,7 +55,22 @@ namespace TictactoeVer2Tests
         [Fact]
         public void ShouldInitialiseWithEmptyBoard()
         {
+            // TODO add pre-condition for intialising 3x3 board
             Assert.Equal(9, Game.Board.GetBoardSize());
+        }
+        
+        [Fact]
+        public void ShouldInitialiseDefault3X3BoardWhenBoardSizeNotSpecified()
+        {
+            // TODO add pre-condition for intialising 3x3 board
+            Assert.Equal(9, Game.Board.GetBoardSize());
+        }
+        
+        [Fact]
+        public void ShouldStartWithPlayerX()
+        {
+            Assert.Equal(Player.X, Game.CurrentPlayer);
+            _mockOutputWriter.Verify(output => output.Write("Player X please enter a coord x,y to place your move or 'q' to give up: "));
         }
         
         [Fact]
@@ -82,6 +114,9 @@ namespace TictactoeVer2Tests
         [InlineData("aaaa", GameStatus.Playing)]
         public void ShouldSetCorrectGameStatus(string input, GameStatus expectedStatus)
         {
+            // TODO ADD PRE-CONDITION
+            StartGameWith3X3Board();
+            
             Game.InterpretInput(input);
             
             Assert.Equal(expectedStatus, Game.Status);
@@ -139,6 +174,9 @@ namespace TictactoeVer2Tests
         [Fact]
         public void ShouldNotEndGameWhenBoardNotFilledAndNoWinner()
         {
+            // TODO ADD PRE-CONDITION
+            StartGameWith3X3Board();
+            
             Game.InterpretInput("1,1");
             Game.InterpretInput("1,3");
             Game.InterpretInput("1,2");
@@ -149,12 +187,6 @@ namespace TictactoeVer2Tests
             Game.InterpretInput("3,3");
             
             Assert.Equal(GameStatus.Playing, Game.Status);
-        }
-
-        [Fact]
-        public void ShouldInitialiseDefault3X3BoardWhenBoardSizeNotSpecified()
-        {
-            Assert.Equal(9, Game.Board.GetBoardSize());
         }
         
         [Fact]

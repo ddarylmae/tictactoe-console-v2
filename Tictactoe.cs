@@ -16,10 +16,10 @@ namespace TictactoeVer2
             Board = new GameBoard();
             MessageHandler = new MessageHandler(outputWriter);
 
-            StartGame();
+            InitializeGame();
         }
 
-        private void StartGame()
+        private void InitializeGame()
         {
             MessageHandler.WelcomeToGame();
             Board.DisplayBoard();
@@ -125,6 +125,11 @@ namespace TictactoeVer2
         private bool HasUserQuit(string input)
         {
             return input == "q";
+        }
+
+        public void StartActualGame(int boardSize)
+        {
+            Status = GameStatus.Playing;
         }
     }
 }
