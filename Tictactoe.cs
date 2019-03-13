@@ -24,6 +24,7 @@ namespace TictactoeVer2
             MessageHandler.WelcomeToGame();
             Board.DisplayBoard();
 
+            MessageHandler.DisplayInputBoardSize();
             MessageHandler.DisplayTakeTurn(CurrentPlayer);
         }
 

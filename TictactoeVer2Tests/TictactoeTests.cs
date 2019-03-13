@@ -156,5 +156,11 @@ namespace TictactoeVer2Tests
         {
             _mockOutputWriter.Verify(output => output.Write(". . .\n. . .\n. . ."));
         }
+        
+        [Fact]
+        public void ShouldDisplayInputBoardSizeWhenGameStarts()
+        {
+            _mockOutputWriter.Verify(output => output.Write("Please input board size (ex. 3 for 3x3 board, 10 for 10x10): "));
+        }
     }
 }
