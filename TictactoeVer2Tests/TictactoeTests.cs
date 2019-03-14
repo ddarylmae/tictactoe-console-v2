@@ -49,7 +49,7 @@ namespace TictactoeVer2Tests
         [Fact]
         public void ShouldInitializeGameWithNoBoardDisplayed()
         {
-            _mockOutputWriter.Verify(output => output.Write(". . . \n. . . \n. . . \n. . . \n"), Times.Never);
+            _mockOutputWriter.Verify(output => output.Write(". . . \n. . . \n. . . \n"), Times.Never);
         }
 
         [Fact]
@@ -84,12 +84,12 @@ namespace TictactoeVer2Tests
         }
         
         [Fact]
-        public void ShouldStartGameWithZeroInitialScores()
+        public void ShouldStartGameWithZeroInitialScores() // TODO change test to behavioural test
         {
             StartGameWith3X3Board();
             
-            Assert.Equal(0, Game.Player1.GetScore());
-            Assert.Equal(0, Game.Player2.GetScore());
+            Assert.Equal(0, Game.Player1.Score);
+            Assert.Equal(0, Game.Player2.Score);
         }
         
         [Fact]

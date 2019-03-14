@@ -60,7 +60,7 @@ namespace TictactoeVer2
             if (isMoveSuccessful)
             {
                 MessageHandler.DisplayMoveAccepted();
-                Board.DisplayBoard();
+                MessageHandler.DisplayBoard(Board.GetFormattedBoard());
 
                 if (Board.IsWinningMove)
                 {
