@@ -12,6 +12,7 @@ namespace TictactoeVer2
         private MessageHandler MessageHandler { get; set; }
         public PlayerModel Player1 { get; set; }
         public PlayerModel Player2 { get; set; }
+        public UserInputValidator InputValidator { get; set; }
 
         public Tictactoe(IOutputWriter outputWriter)
         {
@@ -19,6 +20,7 @@ namespace TictactoeVer2
             Player1 = new PlayerModel();
             Player2 = new PlayerModel();
             MessageHandler = new MessageHandler(outputWriter);
+            InputValidator = new UserInputValidator();
         }
 
         public void InitializeGame()

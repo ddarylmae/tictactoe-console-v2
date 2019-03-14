@@ -1,4 +1,5 @@
 ﻿using System.Configuration;
+using System.Runtime.InteropServices;
 using Moq;
 using TictactoeVer2;
 using Xunit;
@@ -47,6 +48,34 @@ namespace TictactoeVer2Tests
             _mockOutputWriter.Verify(output => output.Write("Let's start the game!"));
             _mockOutputWriter.Verify(output => output.Write(". . . . \n. . . . \n. . . . \n. . . . \n"));
         }
+        
+        [Theory]
+        [InlineData("aa")]
+        [InlineData("2")]
+        [InlineData("11")]
+        public void ShouldReturnFalseWhenBoardSizeInvalid(string choice)
+        {
+            Assert.False(Game.InputValidator.IsBoardSizeValid(choice));
+        }
+        
+        [Theory]
+        [InlineData("3")]
+        [InlineData("4")]
+        [InlineData("9")]
+        public void ShouldReturnTrueWhenBoardSizeValid(string choice)
+        {
+            Assert.True(Game.InputValidator.IsBoardSizeValid(choice));
+        }
+
+//        [Theory]
+//        [InlineData(2)]
+//        [InlineData(11)]
+//        public void ShoulNotStartGameWhenBoardSizeInputInvalid(int choice) // invalid test at some point, start game with valid board size already
+//        {
+//            Game.StartActualGame(choice);
+//            
+//            Assert.Equal(GameStatus.NotStarted, Game.Status);
+//        }
 
         [Fact]
         public void ShouldDisplay3X3BoardWhenDefaultBoardSizeSelected() // basis for selecting default
