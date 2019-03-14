@@ -210,17 +210,17 @@ namespace TictactoeVer2Tests
         {
             StartGameWith3X3Board();
 
-            PlayerMakesMove(Player.X, "1,1", Game);
-            PlayerMakesMove(Player.O,"1,3", Game);
-            PlayerMakesMove(Player.X,"2,1", Game);
-            PlayerMakesMove(Player.O,"3,3", Game);
-            PlayerMakesMove(Player.X,"3,1", Game);
+            PlayerMakesMove(Player.X, "1,1");
+            PlayerMakesMove(Player.O,"1,3");
+            PlayerMakesMove(Player.X,"2,1");
+            PlayerMakesMove(Player.O,"3,3");
+            PlayerMakesMove(Player.X,"3,1");
             
             Assert.Equal(GameStatus.Ended, Game.Status);
             Assert.Equal(Player.X, Game.Winner);
         }
 
-        private static void PlayerMakesMove(Player player, string move, Tictactoe Game)
+        private void PlayerMakesMove(Player player, string move)
         {
             Assert.Equal(player, Game.CurrentPlayer);
             Game.InterpretInput(move);
