@@ -52,6 +52,13 @@ namespace TictactoeVer2Tests
             
             Assert.Equal(". . . \n. . . \n. . . \n", Game.Board.GetFormattedBoard());
         }
+        
+        [Fact]
+        public void ShouldReturnFormatted4X4BoardWhenBoardSize4X4()
+        {
+            Game.StartActualGame(4);
+            Assert.Equal(". . . . \n. . . . \n. . . . \n. . . . \n", Game.Board.GetFormattedBoard());
+        }
 
         [Fact]
         public void ShouldDisplay4X4BoardWhen4X4BoardSizeSelected()
@@ -80,7 +87,7 @@ namespace TictactoeVer2Tests
         {
             StartGameWith3X3Board();
             
-            _mockOutputWriter.Verify(output => output.Write(". . . \n. . . \n. . . \n. . . \n"));
+            _mockOutputWriter.Verify(output => output.Write(". . . \n. . . \n. . . \n"));
         }
         
         [Fact]

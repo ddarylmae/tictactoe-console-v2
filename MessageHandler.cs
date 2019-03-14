@@ -59,9 +59,9 @@ namespace TictactoeVer2
             OutputMessage("Please input board size (ex. 3 for 3x3 board, 10 for 10x10): ");
         }
 
-        public void DisplayBoard()
+        public void DisplayBoard(string board)
         {
-            OutputMessage(". . . \n. . . \n. . . \n. . . \n");
+            OutputMessage(board);
         }
     }
 }

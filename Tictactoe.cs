@@ -129,7 +129,7 @@ namespace TictactoeVer2
         {
             Status = GameStatus.Playing;
             Board = new GameBoard(size);
-            MessageHandler.DisplayBoard();
+            MessageHandler.DisplayBoard(Board.GetFormattedBoard());
         }
     }
 }

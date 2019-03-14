@@ -121,7 +121,22 @@ namespace TictactoeVer2
 
         public string GetFormattedBoard()
         {
-            return ". . . \n. . . \n. . . \n";
+            var result = "";
+            for (int row = 0, index = 0; row < GetSideCount(); row++)
+            {
+                for (int column = 0; column < GetSideCount(); column++, index++)
+                {
+                    result += $"{Board[index]} ";
+                }
+                result += "\n";
+            }
+
+            return result;
+        }
+
+        private double GetSideCount()
+        {
+            return Math.Sqrt(Board.Length);
         }
     }
 }
