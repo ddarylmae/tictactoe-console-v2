@@ -11,7 +11,7 @@ namespace TictactoeVer2
             Tictactoe = new Tictactoe(new OutputWriter());
             
             Tictactoe.InitializeGame();
-            Tictactoe.StartActualGame(10);
+//            Tictactoe.StartActualGame(10);
             
             while (Tictactoe.Status == GameStatus.Playing)
             {

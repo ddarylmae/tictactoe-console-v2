@@ -16,7 +16,6 @@ namespace TictactoeVer2
         public void WelcomeToGame()
         {
             OutputMessage("Welcome to Tic Tac Toe!");
-            OutputMessage("Here's the current board: ");
         }
 
         public void DisplayTakeTurn(Player currentPlayer)
