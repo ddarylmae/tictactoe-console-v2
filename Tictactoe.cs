@@ -7,18 +7,21 @@ namespace TictactoeVer2
         public Player CurrentPlayer { get; set; }
         public GameStatus Status { get; set; }
         public Player Winner { get; set; }
+
         public GameBoard Board { get; set; }
         private MessageHandler MessageHandler { get; set; }
+        public PlayerModel Player1 { get; set; }
+        public PlayerModel Player2 { get; set; }
 
         public Tictactoe(IOutputWriter outputWriter)
         {
             CurrentPlayer = Player.X;
+            Player1 = new PlayerModel();
+            Player2 = new PlayerModel();
             MessageHandler = new MessageHandler(outputWriter);
-
-            InitializeGame();
         }
 
-        private void InitializeGame()
+        public void InitializeGame()
         {
             MessageHandler.WelcomeToGame();
 

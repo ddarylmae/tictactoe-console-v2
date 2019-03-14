@@ -14,6 +14,7 @@ namespace TictactoeVer2Tests
             _mockOutputWriter = new Mock<IOutputWriter>();
             
             Game = new Tictactoe(_mockOutputWriter.Object);
+            Game.InitializeGame();
         }
         
         private void StartGameWith3X3Board()
@@ -72,10 +73,30 @@ namespace TictactoeVer2Tests
         {
             Assert.Equal(Player.None, Game.Winner);
         }
+
+        [Fact]
+        public void ShouldStartGameWithPlayer1AndPlayer2()
+        {
+            StartGameWith3X3Board();
+            
+            Assert.NotNull(Game.Player1);
+            Assert.NotNull(Game.Player2);
+        }
         
         [Fact]
-        public void ShouldStartWithPlayerX()
+        public void ShouldStartGameWithZeroInitialScores()
         {
+            StartGameWith3X3Board();
+            
+            Assert.Equal(0, Game.Player1.GetScore());
+            Assert.Equal(0, Game.Player2.GetScore());
+        }
+        
+        [Fact]
+        public void ShouldStartWithPlayerXWhenGameStarts()
+        {
+            StartGameWith3X3Board();
+            
             Assert.Equal(Player.X, Game.CurrentPlayer);
             _mockOutputWriter.Verify(output => output.Write("Player X please enter a coord x,y to place your move or 'q' to give up: "));
         }
