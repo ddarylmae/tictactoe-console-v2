@@ -26,7 +26,6 @@ namespace TictactoeVer2
             MessageHandler.WelcomeToGame();
 
             MessageHandler.DisplayInputBoardSize();
-            MessageHandler.DisplayTakeTurn(CurrentPlayer);
         }
 
         public void InterpretInput(string input)
@@ -133,6 +132,7 @@ namespace TictactoeVer2
             Status = GameStatus.Playing;
             Board = new GameBoard(size);
             MessageHandler.DisplayBoard(Board.GetFormattedBoard());
+            MessageHandler.DisplayTakeTurn(CurrentPlayer);
         }
     }
 }
