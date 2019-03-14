@@ -62,5 +62,10 @@ namespace TictactoeVer2
         {
             OutputMessage(board);
         }
+
+        public void DisplayStartTheGame()
+        {
+            OutputMessage("Let's start the game!");
+        }
     }
 }

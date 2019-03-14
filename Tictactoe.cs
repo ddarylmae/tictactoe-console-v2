@@ -131,6 +131,7 @@ namespace TictactoeVer2
         {
             Status = GameStatus.Playing;
             Board = new GameBoard(size);
+            MessageHandler.DisplayStartTheGame();
             MessageHandler.DisplayBoard(Board.GetFormattedBoard());
             MessageHandler.DisplayTakeTurn(CurrentPlayer);
         }

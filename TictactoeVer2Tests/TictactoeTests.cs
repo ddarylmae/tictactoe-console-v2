@@ -25,33 +25,27 @@ namespace TictactoeVer2Tests
         }
         
         [Fact]
-        public void ShouldInitialiseGameToNotStarted()
+        public void ShouldDisplayWelcomeMessageAndInputBoardSizeWhenGameStarts()
         {
-            Assert.Equal(GameStatus.NotStarted, Game.Status);
+            _mockOutputWriter.Verify(output => output.Write("Welcome to Tic Tac Toe!"));
+            _mockOutputWriter.Verify(output => output.Write("Please input board size (ex. 3 for 3x3 board, 10 for 10x10): "));
         }
-
-        [Fact]
-        public void ShouldSetGameStatusToPlayingWhenGameIsStarted()
-        {
-            Assert.Equal(GameStatus.NotStarted, Game.Status);
-            
-            StartGameWith3X3Board();
-            
-            Assert.Equal(GameStatus.Playing, Game.Status);
-        }
-
-        [Fact]
-        public void ShouldDisplay4X4BoardWhen4X4BoardSizeSelected()
-        {
-            Game.StartActualGame(4);
-            
-            _mockOutputWriter.Verify(output => output.Write(". . . . \n. . . . \n. . . . \n. . . . \n"));
-        }
-
+        
         [Fact]
         public void ShouldInitializeGameWithNoBoardDisplayed()
         {
+            // TODO add initialize game
+            
             _mockOutputWriter.Verify(output => output.Write(". . . \n. . . \n. . . \n"), Times.Never);
+        }
+        
+        [Fact]
+        public void ShouldDisplayStartGameWith4X4BoardWhen4SizeInputted()
+        {
+            Game.StartActualGame(4);
+            
+            _mockOutputWriter.Verify(output => output.Write("Let's start the game!"));
+            _mockOutputWriter.Verify(output => output.Write(". . . . \n. . . . \n. . . . \n. . . . \n"));
         }
 
         [Fact]
@@ -60,6 +54,22 @@ namespace TictactoeVer2Tests
             StartGameWith3X3Board();
             
             _mockOutputWriter.Verify(output => output.Write(". . . \n. . . \n. . . \n"));
+        }
+        
+        [Fact]
+        public void ShouldInitialiseGameToNotStarted() // TODO Remove, implementation?
+        {
+            Assert.Equal(GameStatus.NotStarted, Game.Status);
+        }
+
+        [Fact]
+        public void ShouldSetGameStatusToPlayingWhenGameIsStarted() // TODO Remove, implementation?
+        {
+            Assert.Equal(GameStatus.NotStarted, Game.Status);
+            
+            StartGameWith3X3Board();
+            
+            Assert.Equal(GameStatus.Playing, Game.Status);
         }
         
         [Fact]
@@ -236,13 +246,6 @@ namespace TictactoeVer2Tests
             Game.InterpretInput("3,3");
             
             Assert.Equal(GameStatus.Playing, Game.Status);
-        }
-        
-        [Fact]
-        public void ShouldDisplayWelcomeMessageAndInputBoardSizeWhenGameStarts()
-        {
-            _mockOutputWriter.Verify(output => output.Write("Welcome to Tic Tac Toe!"));
-            _mockOutputWriter.Verify(output => output.Write("Please input board size (ex. 3 for 3x3 board, 10 for 10x10): "));
         }
     }
 }
