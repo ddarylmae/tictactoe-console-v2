@@ -67,11 +67,6 @@ namespace TictactoeVer2
             IsBoardFilled = Board.All(element => element != '.');
         }
 
-        public int GetBoardSize()
-        {
-            return Board.Length;
-        }
-
         public int GetIndexFromInput(string input)
         {
             var index = -1;
