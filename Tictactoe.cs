@@ -23,13 +23,12 @@ namespace TictactoeVer2
             
             CurrentPlayer = Player.X;
 
-            InitGameShowWelcome();
+            InitializeGame();
         }
 
-        public void InitGameShowWelcome()
+        public void InitializeGame()
         {
             MessageHandler.WelcomeToGame();
-
             MessageHandler.DisplayInputBoardSize();
         }
 
@@ -44,18 +43,23 @@ namespace TictactoeVer2
             }
             else
             {
-                if (CanTakeTurn(input))
-                {
-                    PerformTurn(input);
-                } 
-                else if(HasUserQuit(input))
-                {
-                    QuitGame();
-                }
-                else
-                {
-                    MessageHandler.DisplayMoveInvalid();
-                }
+                LetPlayerPlay(input);
+            }
+        }
+
+        private void LetPlayerPlay(string input)
+        {
+            if (CanTakeTurn(input))
+            {
+                PerformTurn(input);
+            }
+            else if (UserHasQuit(input))
+            {
+                QuitGame();
+            }
+            else
+            {
+                MessageHandler.DisplayMoveInvalid();
             }
         }
 
@@ -126,7 +130,7 @@ namespace TictactoeVer2
 
         private bool CanTakeTurn(string input)
         {
-            var hasUserQuit = HasUserQuit(input);
+            var hasUserQuit = UserHasQuit(input);
             var isInputValid = Board.IsValidCoordinate(input);
 
             return isInputValid && !hasUserQuit;
@@ -137,7 +141,7 @@ namespace TictactoeVer2
             CurrentPlayer = CurrentPlayer == Player.X ? Player.O : Player.X;
         }
         
-        private bool HasUserQuit(string input)
+        private bool UserHasQuit(string input)
         {
             return input == "q";
         }
