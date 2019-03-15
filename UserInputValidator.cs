@@ -15,6 +15,7 @@ namespace TictactoeVer2
             {
                 return size;
             }
+            
             return -1;
         }
 

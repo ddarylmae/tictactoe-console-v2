@@ -16,14 +16,19 @@ namespace TictactoeVer2
 
         public Tictactoe(IOutputWriter outputWriter)
         {
+            InitializeObjects(outputWriter);
+            
             CurrentPlayer = Player.X;
+
+            InitGameShowWelcome();
+        }
+
+        private void InitializeObjects(IOutputWriter outputWriter)
+        {
             Player1 = new PlayerModel();
             Player2 = new PlayerModel();
             MessageHandler = new MessageHandler(outputWriter);
             InputValidator = new UserInputValidator();
-
-            InitGameShowWelcome();
-            
         }
 
         public void InitGameShowWelcome()
@@ -146,6 +151,7 @@ namespace TictactoeVer2
         {
             Status = GameStatus.Playing;
             Board = new GameBoard(size);
+            
             MessageHandler.DisplayStartTheGame();
             MessageHandler.DisplayBoard(Board.GetFormattedBoard());
             MessageHandler.DisplayTakeTurn(CurrentPlayer);
