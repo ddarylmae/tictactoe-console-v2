@@ -54,28 +54,6 @@ namespace TictactoeVer2Tests
             _mockOutputWriter.Verify(output => output.Write("Let's start the game!"));
             _mockOutputWriter.Verify(output => output.Write(". . . . \n. . . . \n. . . . \n. . . . \n"));
         }
-        
-        [Theory]
-        [InlineData("aa")]
-        [InlineData("2")]
-        [InlineData("11")]
-        public void ShouldReturnFalseWhenBoardSizeInvalid(string choice)
-        {
-            InitializeTictactoeGame();
-
-            Assert.False(Game.InputValidator.IsBoardSizeValid(choice));
-        }
-        
-        [Theory]
-        [InlineData("3")]
-        [InlineData("4")]
-        [InlineData("9")]
-        public void ShouldReturnTrueWhenBoardSizeValid(string choice)
-        {
-            InitializeTictactoeGame();
-
-            Assert.True(Game.InputValidator.IsBoardSizeValid(choice));
-        }
 
         [Theory]
         [InlineData("2")]
