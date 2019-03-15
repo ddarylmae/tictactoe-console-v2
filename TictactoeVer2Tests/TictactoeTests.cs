@@ -77,16 +77,18 @@ namespace TictactoeVer2Tests
             Assert.True(Game.InputValidator.IsBoardSizeValid(choice));
         }
 
-//        [Theory]
-//        [InlineData(2)]
-//        [InlineData(11)]
-//        public void ShoulNotStartGameWhenBoardSizeInputInvalid(int choice) // invalid test at some point, start game with valid board size already
-//        {
-//            InitializeTictactoeGame();
-//            Game.StartActualGame(choice);
-//            
-//            Assert.Equal(GameStatus.NotStarted, Game.Status);
-//        }
+        [Theory]
+        [InlineData("2")]
+        [InlineData("11")]
+        public void ShouldNotStartGameWhenBoardSizeInputInvalid(string choice) 
+        {
+            InitializeTictactoeGame();
+            
+            Game.InterpretInput(choice);
+            
+            Assert.Equal(GameStatus.NotStarted, Game.Status);
+            _mockOutputWriter.Verify(output => output.Write("Let's start the game!"), Times.Never);
+        }
 
         [Fact]
         public void ShouldDisplay3X3BoardWhenDefaultBoardSizeSelected() // basis for selecting default
