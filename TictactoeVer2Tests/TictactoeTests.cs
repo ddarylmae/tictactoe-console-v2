@@ -178,7 +178,7 @@ namespace TictactoeVer2Tests
         }
         
         [Fact]
-        public void ShouldNotChangeCurrentPlayerWhenCoordinateInvalid()
+        public void ShouldNotChangeCurrentPlayerWhenCoordinateInvalid() // todo remove?
         {
             InitializeTictactoeGame();
             StartGameWith3X3Board();
@@ -186,6 +186,17 @@ namespace TictactoeVer2Tests
             Game.InterpretInput("1,4");
             
             Assert.Equal(Player.X, Game.CurrentPlayer);
+        }
+        
+        [Fact]
+        public void ShouldDisplayInvalidMoveWhenCoordinateInvalid()
+        {
+            InitializeTictactoeGame();
+            
+            Game.InterpretInput("5");
+            Game.InterpretInput("1,6");
+            
+            _mockOutputWriter.Verify(output => output.Write("Move invalid. Try again."));
         }
         
         [Theory]
@@ -204,7 +215,7 @@ namespace TictactoeVer2Tests
         }
 
         [Fact]
-        public void ShouldEndGameAndDeclarePlayerXAsWinner()
+        public void ShouldEndGameAndDeclarePlayerXAsWinnerWhenThreeInARow()
         {
             InitializeTictactoeGame();
             StartGameWith3X3Board();
