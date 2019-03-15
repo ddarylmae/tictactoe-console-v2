@@ -2,9 +2,25 @@ namespace TictactoeVer2
 {
     public class UserInputValidator
     {
-        public bool IsBoardSizeValid(string choice)
+        public bool IsBoardSizeValid(string input)
         {
-            return int.TryParse(choice, out var size) && size > 2 && size < 11;
+            var size = ParseBoardSize(input);
+            
+            return IsWithinRange(size);
+        }
+
+        private int ParseBoardSize(string choice)
+        {
+            if(int.TryParse(choice, out var size))
+            {
+                return size;
+            }
+            return -1;
+        }
+
+        private bool IsWithinRange(int size)
+        {
+            return size > 2 && size < 11;
         }
     }
 }

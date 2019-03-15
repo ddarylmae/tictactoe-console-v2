@@ -57,6 +57,7 @@ namespace TictactoeVer2Tests
 
         [Theory]
         [InlineData("2")]
+        [InlineData("aa")]
         [InlineData("11")]
         public void ShouldNotStartGameWhenBoardSizeInputInvalid(string choice) 
         {
