@@ -58,14 +58,14 @@ namespace TictactoeVer2Tests
         [InlineData("2")]
         [InlineData("aa")]
         [InlineData("11")]
-        public void ShouldNotStartGameWhenBoardSizeInputInvalid(string choice) 
+        public void ShouldDisplayErrorMessageWhenBoardSizeInvalid(string choice) 
         {
             InitializeTictactoeGame();
             
             Game.InterpretInput(choice);
             
             Assert.Equal(GameStatus.NotStarted, Game.Status);
-            _mockOutputWriter.Verify(output => output.Write("Let's start the game!"), Times.Never);
+            _mockOutputWriter.Verify(output => output.Write("Please enter a valid board size."));
         }
 
         [Fact]

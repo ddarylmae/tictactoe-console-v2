@@ -40,6 +40,10 @@ namespace TictactoeVer2
                 {
                     StartPlaying(int.Parse(input));
                 }
+                else
+                {
+                    MessageHandler.DisplayEnterValidBoardSize();
+                }
             }
             else
             {
