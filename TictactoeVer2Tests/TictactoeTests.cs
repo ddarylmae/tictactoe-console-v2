@@ -45,13 +45,12 @@ namespace TictactoeVer2Tests
         }
         
         [Fact]
-        public void ShouldDisplayStartGameWith4X4BoardWhen4SizeInputted()
+        public void ShouldDisplay4X4BoardWhen4SizeInputted()
         {
             InitializeTictactoeGame();
             
             Game.InterpretInput("4");
             
-            _mockOutputWriter.Verify(output => output.Write("Let's start the game!"));
             _mockOutputWriter.Verify(output => output.Write(". . . . \n. . . . \n. . . . \n. . . . \n"));
         }
 
@@ -79,23 +78,12 @@ namespace TictactoeVer2Tests
         }
         
         [Fact]
-        public void ShouldInitialiseGameToNotStarted() // TODO Remove, implementation?
+        public void ShouldDisplayStartTheGameWhenBoardSizeValid()
         {
             InitializeTictactoeGame();
-
-            Assert.Equal(GameStatus.NotStarted, Game.Status);
-        }
-
-        [Fact]
-        public void ShouldSetGameStatusToPlayingWhenGameIsStarted() // TODO Remove, implementation?
-        {
-            InitializeTictactoeGame();
-
-            Assert.Equal(GameStatus.NotStarted, Game.Status);
-            
             StartGameWith3X3Board();
             
-            Assert.Equal(GameStatus.Playing, Game.Status);
+            _mockOutputWriter.Verify(output => output.Write("Let's start the game!"));
         }
         
         [Fact]
