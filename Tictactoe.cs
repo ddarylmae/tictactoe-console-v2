@@ -21,9 +21,12 @@ namespace TictactoeVer2
             Player2 = new PlayerModel();
             MessageHandler = new MessageHandler(outputWriter);
             InputValidator = new UserInputValidator();
+
+            InitGameShowWelcome();
+            
         }
 
-        public void InitializeGame()
+        public void InitGameShowWelcome()
         {
             MessageHandler.WelcomeToGame();
 
@@ -32,17 +35,24 @@ namespace TictactoeVer2
 
         public void InterpretInput(string input)
         {
-            if (CanTakeTurn(input))
+            if (Status == GameStatus.NotStarted)
             {
-                PerformTurn(input);
-            } 
-            else if(HasUserQuit(input))
-            {
-                QuitGame();
+                StartPlaying(int.Parse(input));
             }
             else
             {
-                MessageHandler.DisplayMoveInvalid();
+                if (CanTakeTurn(input))
+                {
+                    PerformTurn(input);
+                } 
+                else if(HasUserQuit(input))
+                {
+                    QuitGame();
+                }
+                else
+                {
+                    MessageHandler.DisplayMoveInvalid();
+                }
             }
         }
 
@@ -129,7 +139,7 @@ namespace TictactoeVer2
             return input == "q";
         }
 
-        public void StartActualGame(int size)
+        public void StartPlaying(int size)
         {
             Status = GameStatus.Playing;
             Board = new GameBoard(size);

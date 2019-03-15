@@ -16,13 +16,13 @@ namespace TictactoeVer2Tests
             _mockOutputWriter = new Mock<IOutputWriter>();
             
             Game = new Tictactoe(_mockOutputWriter.Object);
-            Game.InitializeGame();
         }
         
         private void StartGameWith3X3Board()
         {
-            Game.InitializeGame();
-            Game.StartActualGame(3);
+            Game.InterpretInput("3");
+            
+            Assert.Equal(GameStatus.Playing, Game.Status);
         }
         
         [Fact]
@@ -43,7 +43,7 @@ namespace TictactoeVer2Tests
         [Fact]
         public void ShouldDisplayStartGameWith4X4BoardWhen4SizeInputted()
         {
-            Game.StartActualGame(4);
+            Game.InterpretInput("4");
             
             _mockOutputWriter.Verify(output => output.Write("Let's start the game!"));
             _mockOutputWriter.Verify(output => output.Write(". . . . \n. . . . \n. . . . \n. . . . \n"));
