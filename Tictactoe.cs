@@ -16,19 +16,14 @@ namespace TictactoeVer2
 
         public Tictactoe(IOutputWriter outputWriter)
         {
-            InitializeObjects(outputWriter);
-            
-            CurrentPlayer = Player.X;
-
-            InitGameShowWelcome();
-        }
-
-        private void InitializeObjects(IOutputWriter outputWriter)
-        {
             Player1 = new PlayerModel();
             Player2 = new PlayerModel();
             MessageHandler = new MessageHandler(outputWriter);
             InputValidator = new UserInputValidator();
+            
+            CurrentPlayer = Player.X;
+
+            InitGameShowWelcome();
         }
 
         public void InitGameShowWelcome()
