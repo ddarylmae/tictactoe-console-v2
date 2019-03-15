@@ -11,7 +11,7 @@ namespace TictactoeVer2Tests
         private Tictactoe Game { get; set; }
         private Mock<IOutputWriter> _mockOutputWriter;
         
-        public TictactoeTests()
+        public void InitializeTictactoeGame()
         {
             _mockOutputWriter = new Mock<IOutputWriter>();
             
@@ -20,6 +20,8 @@ namespace TictactoeVer2Tests
         
         private void StartGameWith3X3Board()
         {
+            InitializeTictactoeGame();
+            
             Game.InterpretInput("3");
             
             Assert.Equal(GameStatus.Playing, Game.Status);
@@ -28,6 +30,8 @@ namespace TictactoeVer2Tests
         [Fact]
         public void ShouldDisplayWelcomeMessageAndInputBoardSizeWhenGameStarts()
         {
+            InitializeTictactoeGame();
+            
             _mockOutputWriter.Verify(output => output.Write("Welcome to Tic Tac Toe!"));
             _mockOutputWriter.Verify(output => output.Write("Please input board size (ex. 3 for 3x3 board, 10 for 10x10): "));
         }
@@ -35,7 +39,7 @@ namespace TictactoeVer2Tests
         [Fact]
         public void ShouldInitializeGameWithNoBoardDisplayed()
         {
-            // TODO add initialize game
+            InitializeTictactoeGame();
             
             _mockOutputWriter.Verify(output => output.Write(". . . \n. . . \n. . . \n"), Times.Never);
         }
@@ -43,6 +47,8 @@ namespace TictactoeVer2Tests
         [Fact]
         public void ShouldDisplayStartGameWith4X4BoardWhen4SizeInputted()
         {
+            InitializeTictactoeGame();
+            
             Game.InterpretInput("4");
             
             _mockOutputWriter.Verify(output => output.Write("Let's start the game!"));
@@ -55,6 +61,8 @@ namespace TictactoeVer2Tests
         [InlineData("11")]
         public void ShouldReturnFalseWhenBoardSizeInvalid(string choice)
         {
+            InitializeTictactoeGame();
+
             Assert.False(Game.InputValidator.IsBoardSizeValid(choice));
         }
         
@@ -64,6 +72,8 @@ namespace TictactoeVer2Tests
         [InlineData("9")]
         public void ShouldReturnTrueWhenBoardSizeValid(string choice)
         {
+            InitializeTictactoeGame();
+
             Assert.True(Game.InputValidator.IsBoardSizeValid(choice));
         }
 
@@ -72,6 +82,7 @@ namespace TictactoeVer2Tests
 //        [InlineData(11)]
 //        public void ShoulNotStartGameWhenBoardSizeInputInvalid(int choice) // invalid test at some point, start game with valid board size already
 //        {
+//            InitializeTictactoeGame();
 //            Game.StartActualGame(choice);
 //            
 //            Assert.Equal(GameStatus.NotStarted, Game.Status);
@@ -80,6 +91,7 @@ namespace TictactoeVer2Tests
         [Fact]
         public void ShouldDisplay3X3BoardWhenDefaultBoardSizeSelected() // basis for selecting default
         {
+            InitializeTictactoeGame();
             StartGameWith3X3Board();
             
             _mockOutputWriter.Verify(output => output.Write(". . . \n. . . \n. . . \n"));
@@ -88,12 +100,16 @@ namespace TictactoeVer2Tests
         [Fact]
         public void ShouldInitialiseGameToNotStarted() // TODO Remove, implementation?
         {
+            InitializeTictactoeGame();
+
             Assert.Equal(GameStatus.NotStarted, Game.Status);
         }
 
         [Fact]
         public void ShouldSetGameStatusToPlayingWhenGameIsStarted() // TODO Remove, implementation?
         {
+            InitializeTictactoeGame();
+
             Assert.Equal(GameStatus.NotStarted, Game.Status);
             
             StartGameWith3X3Board();
@@ -104,6 +120,8 @@ namespace TictactoeVer2Tests
         [Fact]
         public void ShouldSetGameStatusToPlayingWhenGameHasStarted()
         {
+            InitializeTictactoeGame();
+
             StartGameWith3X3Board();
             
             Assert.Equal(GameStatus.Playing, Game.Status);
@@ -112,12 +130,16 @@ namespace TictactoeVer2Tests
         [Fact]
         public void ShouldInitialiseWithNoWinner()
         {
+            InitializeTictactoeGame();
+
             Assert.Equal(Player.None, Game.Winner);
         }
 
         [Fact]
         public void ShouldStartGameWithPlayer1AndPlayer2()
         {
+            InitializeTictactoeGame();
+
             StartGameWith3X3Board();
             
             Assert.NotNull(Game.Player1);
@@ -127,6 +149,7 @@ namespace TictactoeVer2Tests
         [Fact]
         public void ShouldStartGameWithZeroInitialScores() // TODO change test to behavioural test
         {
+            InitializeTictactoeGame();
             StartGameWith3X3Board();
             
             Assert.Equal(0, Game.Player1.Score);
@@ -136,24 +159,27 @@ namespace TictactoeVer2Tests
         [Fact]
         public void ShouldNotStartWithPlayerXWhenGameNotStarted()
         {
+            InitializeTictactoeGame();
+
             _mockOutputWriter.Verify(output => output.Write("Player X please enter a coord x,y to place your move or 'q' to give up: "), Times.Never);
         }
         
         [Fact]
         public void ShouldStartWithPlayerXWhenGameStarts() // TODO modify to start game when a board size has been chosen
         {
+            InitializeTictactoeGame();
             StartGameWith3X3Board();
             
             Assert.Equal(Player.X, Game.CurrentPlayer);
-            
             _mockOutputWriter.Verify(output => output.Write("Player X please enter a coord x,y to place your move or 'q' to give up: "));
         }
         
         [Fact]
         public void ShouldSwitchToPlayerOWhenCurrentPlayerIsX()
         {
+            InitializeTictactoeGame();
             StartGameWith3X3Board();
-
+            
             Game.InterpretInput("1,1");
             
             Assert.Equal(Player.O, Game.CurrentPlayer);
@@ -162,6 +188,7 @@ namespace TictactoeVer2Tests
         [Fact]
         public void ShouldSwitchToPlayerXWhenCurrentPlayerIsO()
         {
+            InitializeTictactoeGame();
             StartGameWith3X3Board();
 
             Game.InterpretInput("1,1");
@@ -173,6 +200,7 @@ namespace TictactoeVer2Tests
         [Fact]
         public void ShouldNotChangeCurrentPlayerWhenCoordinateFilled()
         {
+            InitializeTictactoeGame();
             StartGameWith3X3Board();
 
             Game.InterpretInput("1,1");
@@ -184,6 +212,7 @@ namespace TictactoeVer2Tests
         [Fact]
         public void ShouldNotChangeCurrentPlayerWhenCoordinateInvalid()
         {
+            InitializeTictactoeGame();
             StartGameWith3X3Board();
 
             Game.InterpretInput("1,4");
@@ -198,6 +227,7 @@ namespace TictactoeVer2Tests
         [InlineData("aaaa", GameStatus.Playing)]
         public void ShouldSetCorrectGameStatus(string input, GameStatus expectedStatus)
         {
+            InitializeTictactoeGame();
             StartGameWith3X3Board();
             
             Game.InterpretInput(input);
@@ -208,6 +238,7 @@ namespace TictactoeVer2Tests
         [Fact]
         public void ShouldEndGameAndDeclarePlayerXAsWinner()
         {
+            InitializeTictactoeGame();
             StartGameWith3X3Board();
 
             PlayerMakesMove(Player.X, "1,1");
@@ -229,6 +260,7 @@ namespace TictactoeVer2Tests
         [Fact]
         public void ShouldEndGameAndDeclarePlayerOAsWinner()
         {
+            InitializeTictactoeGame();
             StartGameWith3X3Board();
             
             Game.InterpretInput("1,1");
@@ -245,6 +277,7 @@ namespace TictactoeVer2Tests
         [Fact]
         public void ShouldEndGameWhenBoardFilledAndNoWinner()
         {
+            InitializeTictactoeGame();
             StartGameWith3X3Board();
             
             Game.InterpretInput("1,1");
@@ -263,6 +296,7 @@ namespace TictactoeVer2Tests
         [Fact]
         public void ShouldNotEndGameWhenBoardNotFilledAndNoWinner()
         {
+            InitializeTictactoeGame();
             StartGameWith3X3Board();
             
             Game.InterpretInput("1,1");
