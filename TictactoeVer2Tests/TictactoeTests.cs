@@ -134,12 +134,11 @@ namespace TictactoeVer2Tests
         }
         
         [Fact]
-        public void ShouldStartWithPlayerXWhenGameStarts() // TODO modify to start game when a board size has been chosen
+        public void ShouldStartWithPlayerXWhenGameStarts()
         {
             InitializeTictactoeGame();
             StartGameWith3X3Board();
             
-            Assert.Equal(Player.X, Game.CurrentPlayer);
             _mockOutputWriter.Verify(output => output.Write("Player X please enter a coord x,y to place your move or 'q' to give up: "));
         }
         
