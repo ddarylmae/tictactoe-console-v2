@@ -32,8 +32,8 @@ namespace TictactoeVer2Tests
         {
             InitializeTictactoeGame();
             
-            _mockOutputWriter.Verify(output => output.Write("Welcome to Tic Tac Toe!"));
-            _mockOutputWriter.Verify(output => output.Write("Please input board size (ex. 3 for 3x3 board, 10 for 10x10): "));
+            _mockOutputWriter.Verify(writer => writer.Write("Welcome to Tic Tac Toe!"));
+            _mockOutputWriter.Verify(writer => writer.Write("Please input board size (ex. 3 for 3x3 board, 10 for 10x10): "));
         }
         
         [Fact]
@@ -41,7 +41,7 @@ namespace TictactoeVer2Tests
         {
             InitializeTictactoeGame();
             
-            _mockOutputWriter.Verify(output => output.Write(". . . \n. . . \n. . . \n"), Times.Never);
+            _mockOutputWriter.Verify(writer => writer.Write(". . . \n. . . \n. . . \n"), Times.Never);
         }
         
         [Fact]
@@ -51,7 +51,7 @@ namespace TictactoeVer2Tests
             
             Game.InterpretInput("4");
             
-            _mockOutputWriter.Verify(output => output.Write(". . . . \n. . . . \n. . . . \n. . . . \n"));
+            _mockOutputWriter.Verify(writer => writer.Write(". . . . \n. . . . \n. . . . \n. . . . \n"));
         }
 
         [Theory]
@@ -65,7 +65,7 @@ namespace TictactoeVer2Tests
             Game.InterpretInput(choice);
             
             Assert.Equal(GameStatus.NotStarted, Game.Status);
-            _mockOutputWriter.Verify(output => output.Write("Please enter a valid board size."));
+            _mockOutputWriter.Verify(writer => writer.Write("Please enter a valid board size."));
         }
 
         [Fact]
@@ -74,7 +74,7 @@ namespace TictactoeVer2Tests
             InitializeTictactoeGame();
             StartGameWith3X3Board();
             
-            _mockOutputWriter.Verify(output => output.Write(". . . \n. . . \n. . . \n"));
+            _mockOutputWriter.Verify(writer => writer.Write(". . . \n. . . \n. . . \n"));
         }
         
         [Fact]
@@ -83,7 +83,7 @@ namespace TictactoeVer2Tests
             InitializeTictactoeGame();
             StartGameWith3X3Board();
             
-            _mockOutputWriter.Verify(output => output.Write("Let's start the game!"));
+            _mockOutputWriter.Verify(writer => writer.Write("Let's start the game!"));
         }
         
         [Fact]
@@ -111,7 +111,7 @@ namespace TictactoeVer2Tests
             
             StartGameWith3X3Board();
             
-            _mockOutputWriter.Verify(output => output.Write("Current Scores: Player X - 0\nPlayer O - 0\n"));
+            _mockOutputWriter.Verify(writer => writer.Write("Current Scores: Player X - 0\nPlayer O - 0\n"));
         }
         
         [Fact]
@@ -119,7 +119,7 @@ namespace TictactoeVer2Tests
         {
             InitializeTictactoeGame();
 
-            _mockOutputWriter.Verify(output => output.Write("Player X please enter a coord x,y to place your move or 'q' to give up: "), Times.Never);
+            _mockOutputWriter.Verify(writer => writer.Write("Player X please enter a coord x,y to place your move or 'q' to give up: "), Times.Never);
         }
         
         [Fact]
@@ -128,7 +128,7 @@ namespace TictactoeVer2Tests
             InitializeTictactoeGame();
             StartGameWith3X3Board();
             
-            _mockOutputWriter.Verify(output => output.Write("Player X please enter a coord x,y to place your move or 'q' to give up: "));
+            _mockOutputWriter.Verify(writer => writer.Write("Player X please enter a coord x,y to place your move or 'q' to give up: "));
         }
         
         [Fact]
@@ -185,7 +185,7 @@ namespace TictactoeVer2Tests
             Game.InterpretInput("5");
             Game.InterpretInput("1,6");
             
-            _mockOutputWriter.Verify(output => output.Write("Move invalid. Try again."));
+            _mockOutputWriter.Verify(writer => writer.Write("Move invalid. Try again."));
         }
         
         [Theory]
@@ -258,7 +258,7 @@ namespace TictactoeVer2Tests
             Game.InterpretInput("3,3");
             Game.InterpretInput("3,2");
             
-            Assert.Equal(GameStatus.Draw, Game.Status);
+            _mockOutputWriter.Verify(writer => writer.Write("Game has ended. No winner."));
         }
         
         [Fact]
