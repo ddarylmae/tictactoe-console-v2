@@ -85,24 +85,6 @@ namespace TictactoeVer2Tests
             
             _mockOutputWriter.Verify(writer => writer.Write("Let's start the game!"));
         }
-        
-        [Fact]
-        public void ShouldSetGameStatusToPlayingWhenGameHasStarted()
-        {
-            InitializeTictactoeGame();
-
-            StartGameWith3X3Board();
-            
-            Assert.Equal(GameStatus.Playing, Game.Status);
-        }
-
-        [Fact]
-        public void ShouldInitialiseWithNoWinner()
-        {
-            InitializeTictactoeGame();
-
-            Assert.Equal(Player.None, Game.Winner);
-        }
 
         [Fact]
         public void ShouldDisplayInitialScoresWhenGameStarts()
