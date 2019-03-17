@@ -68,11 +68,14 @@ namespace TictactoeVer2Tests
             _mockOutputWriter.Verify(writer => writer.Write("Please enter a valid board size."));
         }
 
-        [Fact]
-        public void ShouldDisplay3X3BoardWhenDefaultBoardSizeSelected() // basis for selecting default
+        [Theory]
+        [InlineData("")]
+        [InlineData("    ")]
+        public void ShouldDisplay3X3BoardWhenDefaultBoardSizeSelected(string blankInput)
         {
             InitializeTictactoeGame();
-            StartGameWith3X3Board();
+            
+            Game.InterpretInput(blankInput);
             
             _mockOutputWriter.Verify(writer => writer.Write(". . . \n. . . \n. . . \n"));
         }
@@ -94,14 +97,6 @@ namespace TictactoeVer2Tests
             StartGameWith3X3Board();
             
             _mockOutputWriter.Verify(writer => writer.Write("Current Scores: Player X - 0\nPlayer O - 0\n"));
-        }
-        
-        [Fact]
-        public void ShouldNotStartWithPlayerXWhenGameNotStarted()
-        {
-            InitializeTictactoeGame();
-
-            _mockOutputWriter.Verify(writer => writer.Write("Player X please enter a coord x,y to place your move or 'q' to give up: "), Times.Never);
         }
         
         [Fact]

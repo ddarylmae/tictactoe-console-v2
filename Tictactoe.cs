@@ -36,9 +36,9 @@ namespace TictactoeVer2
         {
             if (Status == GameStatus.NotStarted)
             {
-                if (InputValidator.IsBoardSizeValid(input))
+                if (InputValidator.TryParseBoardSize(input, out int size))
                 {
-                    SetupGameBoard(int.Parse(input));
+                    SetupGameBoard(size);
                 }
                 else
                 {
