@@ -12,30 +12,52 @@ namespace TictactoeVer2
         private MessageHandler MessageHandler { get; set; }
         public PlayerModel Player1 { get; set; }
         public PlayerModel Player2 { get; set; }
+        public UserInputValidator InputValidator { get; set; }
 
         public Tictactoe(IOutputWriter outputWriter)
         {
-            CurrentPlayer = Player.X;
             Player1 = new PlayerModel();
             Player2 = new PlayerModel();
             MessageHandler = new MessageHandler(outputWriter);
+            InputValidator = new UserInputValidator();
+            
+            CurrentPlayer = Player.X;
+
+            InitializeGame();
         }
 
         public void InitializeGame()
         {
             MessageHandler.WelcomeToGame();
-
             MessageHandler.DisplayInputBoardSize();
-            MessageHandler.DisplayTakeTurn(CurrentPlayer);
         }
 
         public void InterpretInput(string input)
         {
+            if (Status == GameStatus.NotStarted)
+            {
+                if (InputValidator.IsBoardSizeValid(input))
+                {
+                    StartPlaying(int.Parse(input));
+                }
+                else
+                {
+                    MessageHandler.DisplayEnterValidBoardSize();
+                }
+            }
+            else
+            {
+                LetPlayerPlay(input);
+            }
+        }
+
+        private void LetPlayerPlay(string input)
+        {
             if (CanTakeTurn(input))
             {
                 PerformTurn(input);
-            } 
-            else if(HasUserQuit(input))
+            }
+            else if (UserHasQuit(input))
             {
                 QuitGame();
             }
@@ -112,7 +134,7 @@ namespace TictactoeVer2
 
         private bool CanTakeTurn(string input)
         {
-            var hasUserQuit = HasUserQuit(input);
+            var hasUserQuit = UserHasQuit(input);
             var isInputValid = Board.IsValidCoordinate(input);
 
             return isInputValid && !hasUserQuit;
@@ -123,16 +145,19 @@ namespace TictactoeVer2
             CurrentPlayer = CurrentPlayer == Player.X ? Player.O : Player.X;
         }
         
-        private bool HasUserQuit(string input)
+        private bool UserHasQuit(string input)
         {
             return input == "q";
         }
 
-        public void StartActualGame(int size)
+        public void StartPlaying(int size)
         {
             Status = GameStatus.Playing;
             Board = new GameBoard(size);
+            
+            MessageHandler.DisplayStartTheGame();
             MessageHandler.DisplayBoard(Board.GetFormattedBoard());
+            MessageHandler.DisplayTakeTurn(CurrentPlayer);
         }
     }
 }
