@@ -189,18 +189,18 @@ namespace TictactoeVer2Tests
         }
         
         [Theory]
-        [InlineData("q", GameStatus.Ended)]
-        [InlineData("1,1", GameStatus.Playing)]
-        [InlineData("1,4", GameStatus.Playing)]
-        [InlineData("aaaa", GameStatus.Playing)]
-        public void ShouldSetCorrectGameStatus(string input, GameStatus expectedStatus)
+        [InlineData("q", "Player X has quit.")]
+        [InlineData("1,1", "Move accepted.")]
+        [InlineData("1,4", "Move invalid. Try again.")]
+        [InlineData("aaaa", "Move invalid. Try again.")]
+        public void ShouldDisplayCorrectMessageBasedOnInput(string input, string expectedMessage)
         {
             InitializeTictactoeGame();
             StartGameWith3X3Board();
             
             Game.InterpretInput(input);
             
-            Assert.Equal(expectedStatus, Game.Status);
+            _mockOutputWriter.Verify(writer => writer.Write(expectedMessage));
         }
 
         [Fact]
@@ -215,13 +215,13 @@ namespace TictactoeVer2Tests
             PlayerMakesMove(Player.O,"3,3");
             PlayerMakesMove(Player.X,"3,1");
             
-            Assert.Equal(GameStatus.Ended, Game.Status);
-            Assert.Equal(Player.X, Game.Winner);
+            _mockOutputWriter.Verify(writer => writer.Write("Game has ended. Player X has won!"));
         }
 
         private void PlayerMakesMove(Player player, string move)
         {
             Assert.Equal(player, Game.CurrentPlayer);
+            
             Game.InterpretInput(move);
         }
 
@@ -238,8 +238,7 @@ namespace TictactoeVer2Tests
             Game.InterpretInput("2,3");
             Game.InterpretInput("3,2");
             
-            Assert.Equal(GameStatus.Ended, Game.Status);
-            Assert.Equal(Player.O, Game.Winner);
+            _mockOutputWriter.Verify(writer => writer.Write("Game has ended. Player O has won!"));
         }
         
         [Fact]
@@ -276,7 +275,7 @@ namespace TictactoeVer2Tests
             Game.InterpretInput("2,3");
             Game.InterpretInput("3,3");
             
-            Assert.Equal(GameStatus.Playing, Game.Status);
+            _mockOutputWriter.Verify(writer => writer.Write("Player X please enter a coord x,y to place your move or 'q' to give up: "));
         }
     }
 }
