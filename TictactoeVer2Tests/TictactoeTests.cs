@@ -139,7 +139,7 @@ namespace TictactoeVer2Tests
             
             Game.InterpretInput("1,1");
             
-            Assert.Equal(Player.O, Game.CurrentPlayer);
+            _mockOutputWriter.Verify(writer => writer.Write("Player O please enter a coord x,y to place your move or 'q' to give up: "));
         }
         
         [Fact]
@@ -151,11 +151,11 @@ namespace TictactoeVer2Tests
             Game.InterpretInput("1,1");
             Game.InterpretInput("1,2");
             
-            Assert.Equal(Player.X, Game.CurrentPlayer);
+            _mockOutputWriter.Verify(writer => writer.Write("Player X please enter a coord x,y to place your move or 'q' to give up: "));
         }
 
         [Fact]
-        public void ShouldNotChangeCurrentPlayerWhenCoordinateFilled()
+        public void ShouldDisplayInvalidMoveWhenCoordinateFilled()
         {
             InitializeTictactoeGame();
             StartGameWith3X3Board();
@@ -163,18 +163,7 @@ namespace TictactoeVer2Tests
             Game.InterpretInput("1,1");
             Game.InterpretInput("1,1");
             
-            Assert.Equal(Player.O, Game.CurrentPlayer);
-        }
-        
-        [Fact]
-        public void ShouldNotChangeCurrentPlayerWhenCoordinateInvalid() // todo remove?
-        {
-            InitializeTictactoeGame();
-            StartGameWith3X3Board();
-
-            Game.InterpretInput("1,4");
-            
-            Assert.Equal(Player.X, Game.CurrentPlayer);
+            _mockOutputWriter.Verify(writer => writer.Write("Oh no, a piece is already at this place! Try again."));
         }
         
         [Fact]
