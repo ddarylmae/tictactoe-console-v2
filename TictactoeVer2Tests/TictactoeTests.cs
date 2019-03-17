@@ -105,24 +105,13 @@ namespace TictactoeVer2Tests
         }
 
         [Fact]
-        public void ShouldStartGameWithPlayer1AndPlayer2()
+        public void ShouldDisplayInitialScoresWhenGameStarts()
         {
             InitializeTictactoeGame();
-
+            
             StartGameWith3X3Board();
             
-            Assert.NotNull(Game.Player1);
-            Assert.NotNull(Game.Player2);
-        }
-        
-        [Fact]
-        public void ShouldStartGameWithZeroInitialScores() // TODO change test to behavioural test
-        {
-            InitializeTictactoeGame();
-            StartGameWith3X3Board();
-            
-            Assert.Equal(0, Game.Player1.Score);
-            Assert.Equal(0, Game.Player2.Score);
+            _mockOutputWriter.Verify(output => output.Write("Current Scores: Player X - 0\nPlayer O - 0\n"));
         }
         
         [Fact]
