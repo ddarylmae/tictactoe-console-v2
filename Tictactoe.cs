@@ -53,13 +53,13 @@ namespace TictactoeVer2
 
         private void LetPlayerMakeMove(string input)
         {
-            if (CanTakeTurn(input))
-            {
-                PerformTurn(input);
-            }
-            else if (UserHasQuit(input))
+            if (UserHasQuit(input))
             {
                 QuitGame();
+            }
+            else if (CanTakeTurn(input))
+            {
+                PerformTurn(input);
             }
             else
             {
@@ -134,10 +134,7 @@ namespace TictactoeVer2
 
         private bool CanTakeTurn(string input)
         {
-            var hasUserQuit = UserHasQuit(input);
-            var isInputValid = Board.IsValidCoordinate(input);
-
-            return isInputValid && !hasUserQuit;
+            return Board.IsValidCoordinate(input);
         }
 
         private void SwitchPlayer()
