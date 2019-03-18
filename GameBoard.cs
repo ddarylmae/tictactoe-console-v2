@@ -29,7 +29,7 @@ namespace TictactoeVer2
         public bool FillCoordinate(Move move)
         {
             var index = GetIndexFromInput(move);
-            if (IsCoordinateNotFilled(index))
+            if (!IsCoordinateFilled(index))
             {
                 var symbol = (move.Player == Player.O) ? 'O' : 'X';
                 Board[index] = symbol;
@@ -41,9 +41,9 @@ namespace TictactoeVer2
             return false;
         }
 
-        private bool IsCoordinateNotFilled(int index)
+        public bool IsCoordinateFilled(int index)
         {
-            return Board[index] == '.';
+            return Board[index] != '.';
         }
 
         private void CheckBoardFilled()
