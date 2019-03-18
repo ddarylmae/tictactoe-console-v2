@@ -64,7 +64,6 @@ namespace TictactoeVer2Tests
             
             Game.InterpretInput(choice);
             
-            Assert.Equal(GameStatus.NotStarted, Game.Status);
             _mockOutputWriter.Verify(writer => writer.Write("Please enter a valid board size."));
         }
 
