@@ -59,18 +59,6 @@ namespace TictactoeVer2
             if (IsRowColumnPair(inputElements) && IsRowColumnPairValidAndWithinRange(inputElements, out var row, out var column))
             {
                 index = (row - 1) * GetSideLength() + (column - 1);
-//                int.TryParse(inputElements[0], out var row);
-//                int.TryParse(inputElements[1], out var column);
-//                if(IsElementANumberAndWithinRange(inputElements[0], out var row) && IsElementANumberAndWithinRange(inputElements[1], out var column))
-//                if (IsRowColumnPairValidAndWithinRange(inputElements, out var row, out var column))
-//                {
-//                    index = (row - 1) * GetSideLength() + (column - 1);
-//                }
-
-//                if (row > 0 && row <= GetSideLength() && column > 0 && column <= GetSideLength())
-//                {
-//                    index = (row - 1) * GetSideLength() + (column - 1);
-//                }
             }
             
             return index;
@@ -88,7 +76,7 @@ namespace TictactoeVer2
             col = 0;
 
             return IsElementANumberAndWithinRange(rowStringValue, out row) &&
-                             IsElementANumberAndWithinRange(columnStringValue, out col);
+                   IsElementANumberAndWithinRange(columnStringValue, out col);
         }
 
         private bool IsElementANumberAndWithinRange(string element, out int number)

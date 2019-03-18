@@ -236,20 +236,6 @@ namespace TictactoeVer2Tests
             _mockOutputWriter.Verify(writer => writer.Write("Player X please enter a coord x,y to place your move or 'q' to give up: "));
         }
 
-        [Theory]
-        [InlineData("6,5", 34)]
-        [InlineData("4,1", 18)]
-        [InlineData("5,6", 29)]
-        [InlineData("3,4", 15)]
-        public void ShouldReturnCorrectIndexBasedOnInputCoordinate(string input, int expectedIndex)
-        {
-            GameBoard gameBoard = new GameBoard(6);
-            
-            var actualIndex = gameBoard.GetIndexFromInput(input);
-            
-            Assert.Equal(expectedIndex, actualIndex);
-        }
-
         [Fact]
         public void ShouldUpdateBoardWhenMoveValid()
         {
