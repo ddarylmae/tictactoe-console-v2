@@ -6,12 +6,12 @@ namespace TictactoeVer2
     {
         public Player CurrentPlayer { get; set; }
         public GameStatus Status { get; set; }
-        public Player Winner { get; set; }
+        private Player Winner { get; set; }
 
         public GameBoard Board { get; set; }
         private MessageHandler MessageHandler { get; set; }
-        public PlayerModel Player1 { get; set; }
-        public PlayerModel Player2 { get; set; }
+        private PlayerModel Player1 { get; set; }
+        private PlayerModel Player2 { get; set; }
         private UserInputValidator InputValidator { get; set; }
 
         public Tictactoe(IOutputWriter outputWriter)
@@ -142,7 +142,7 @@ namespace TictactoeVer2
             return input == "q";
         }
 
-        public void SetupGameBoard(int size)
+        private void SetupGameBoard(int size)
         {
             Status = GameStatus.Playing;
             Board = new GameBoard(size);
