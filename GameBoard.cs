@@ -56,15 +56,21 @@ namespace TictactoeVer2
             
             var inputElements = input.Split(',');
             
-            if (IsRowColumnPair(inputElements))
+            if (IsRowColumnPair(inputElements) && IsRowColumnPairValidAndWithinRange(inputElements, out var row, out var column))
             {
-                int.TryParse(inputElements[0], out var row);
-                int.TryParse(inputElements[1], out var column);
+                index = (row - 1) * GetSideLength() + (column - 1);
+//                int.TryParse(inputElements[0], out var row);
+//                int.TryParse(inputElements[1], out var column);
+//                if(IsElementANumberAndWithinRange(inputElements[0], out var row) && IsElementANumberAndWithinRange(inputElements[1], out var column))
+//                if (IsRowColumnPairValidAndWithinRange(inputElements, out var row, out var column))
+//                {
+//                    index = (row - 1) * GetSideLength() + (column - 1);
+//                }
 
-                if (row > 0 && row <= GetSideLength() && column > 0 && column <= GetSideLength())
-                {
-                    index = (row - 1) * GetSideLength() + (column - 1);
-                }
+//                if (row > 0 && row <= GetSideLength() && column > 0 && column <= GetSideLength())
+//                {
+//                    index = (row - 1) * GetSideLength() + (column - 1);
+//                }
             }
             
             return index;
@@ -75,9 +81,19 @@ namespace TictactoeVer2
             return inputElements.Length == 2;
         }
 
+        private bool IsRowColumnPairValidAndWithinRange(string[] elements, out int row, out int col)
+        {
+            var rowStringValue = elements[0];
+            var columnStringValue = elements[1];
+            col = 0;
+
+            return IsElementANumberAndWithinRange(rowStringValue, out row) &&
+                             IsElementANumberAndWithinRange(columnStringValue, out col);
+        }
+
         private bool IsElementANumberAndWithinRange(string element, out int number)
         {
-            return int.TryParse(element, out number) && number > 0 && number < GetSideLength();
+            return int.TryParse(element, out number) && number > 0 && number <= GetSideLength();
         }
 
         public void CheckWinningMove(char symbol)
