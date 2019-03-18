@@ -26,24 +26,18 @@ namespace TictactoeVer2
             }
         }
 
-        public bool FillCoordinate(Move move)
+        public void FillCoordinate(Move move)
         {
             var index = GetIndexFromInput(move);
-            if (!IsCoordinateFilled(index))
-            {
-                var symbol = (move.Player == Player.O) ? 'O' : 'X';
-                Board[index] = symbol;
-                CheckWinningMove(symbol);
-                CheckBoardFilled();
-                return true;    
-            }
-
-            return false;
+            var symbol = (move.Player == Player.O) ? 'O' : 'X';
+            Board[index] = symbol;
+            CheckWinningMove(symbol);
+            CheckBoardFilled();
         }
 
-        public bool IsCoordinateFilled(int index)
+        public bool IsCoordinateFilled(Move move)
         {
-            return Board[index] != '.';
+            return Board[GetIndexFromInput(move)] != '.';
         }
 
         private void CheckBoardFilled()

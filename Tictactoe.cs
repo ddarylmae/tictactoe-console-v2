@@ -83,10 +83,12 @@ namespace TictactoeVer2
         private void PerformTurn(Move move)
         {
             move.Player = CurrentPlayer;
-            var isMoveSuccessful = Board.FillCoordinate(move);;
-
-            if (isMoveSuccessful)
+            
+            var isCoordinateFilled = Board.IsCoordinateFilled(move);
+            if (!isCoordinateFilled)
             {
+                Board.FillCoordinate(move);
+                
                 MessageHandler.DisplayMoveAccepted();
                 MessageHandler.DisplayBoard(Board.GetFormattedBoard());
 
