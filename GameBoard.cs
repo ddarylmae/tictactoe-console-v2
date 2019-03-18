@@ -26,11 +26,6 @@ namespace TictactoeVer2
             }
         }
 
-        public char GetElementAt(string input)
-        {
-            return Board[GetIndexFromInput(input)];
-        }
-
         public bool FillCoordinate(string input, char symbol)
         {
             var index = GetIndexFromInput(input);
@@ -59,11 +54,12 @@ namespace TictactoeVer2
         {
             var index = -1;
             
-            var coordinates = input.Split(',');
-            if (coordinates.Length == 2)
+            var inputElements = input.Split(',');
+            
+            if (IsRowColumnPair(inputElements))
             {
-                var row = int.Parse(coordinates[0]);
-                var column = int.Parse(coordinates[1]);
+                int.TryParse(inputElements[0], out var row);
+                int.TryParse(inputElements[1], out var column);
 
                 if (row > 0 && row <= GetSideLength() && column > 0 && column <= GetSideLength())
                 {
@@ -73,19 +69,15 @@ namespace TictactoeVer2
             
             return index;
         }
-        
-        private bool IsElementANumberAndWithinRange(string element)
+
+        private static bool IsRowColumnPair(string[] inputElements)
         {
-            try
-            {
-                var numValue = Convert.ToInt32(element);
-                return numValue > 0 && numValue < 4;
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("Exception in converting");
-                return false;
-            }
+            return inputElements.Length == 2;
+        }
+
+        private bool IsElementANumberAndWithinRange(string element, out int number)
+        {
+            return int.TryParse(element, out number) && number > 0 && number < GetSideLength();
         }
 
         public void CheckWinningMove(char symbol)
