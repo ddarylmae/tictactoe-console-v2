@@ -5,6 +5,5 @@ namespace TictactoeVer2
         NotStarted,
         Playing,
         Ended,
-        Draw,
     }
 }

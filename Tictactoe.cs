@@ -15,8 +15,6 @@ namespace TictactoeVer2
         {
             MessageHandler = new MessageHandler(outputWriter);
             InputHandler = new UserInputHandler();
-            
-            CurrentPlayer = Player.X;
 
             InitializeGame();
         }
@@ -33,8 +31,7 @@ namespace TictactoeVer2
             {
                 if (InputHandler.TryParseBoardSize(input, out int size))
                 {
-                    SetupGameBoard(size);
-                    SetupGameState(size);
+                    SetupNewGame(size);
                 }
                 else
                 {
@@ -47,14 +44,20 @@ namespace TictactoeVer2
             }
         }
 
+        private void SetupNewGame(int boardSize)
+        {
+            SetupGameBoard(boardSize);
+            SetupGameState(boardSize);
+        }
+
         private void SetupGameState(int boardSize)
         {
+            Status = GameStatus.Playing;
             InputHandler.CurrentBoardSize = boardSize;
         }
 
         private void LetPlayerMakeMove(string input)
         {
-            
             if (UserHasQuit(input))
             {
                 QuitGame();
@@ -118,7 +121,7 @@ namespace TictactoeVer2
         private void DeclareDraw()
         {
             MessageHandler.DisplayNoWinner();
-            Status = GameStatus.Draw;
+            Status = GameStatus.Ended;
         }
 
         private void DeclareWinner()
@@ -140,7 +143,6 @@ namespace TictactoeVer2
 
         private void SetupGameBoard(int size)
         {
-            Status = GameStatus.Playing;
             Board = new GameBoard(size);
             
             MessageHandler.DisplayStartTheGame();
