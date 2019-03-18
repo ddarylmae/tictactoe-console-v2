@@ -39,6 +39,7 @@ namespace TictactoeVer2
                 if (InputParser.TryParseBoardSize(input, out int size))
                 {
                     SetupGameBoard(size);
+                    
                 }
                 else
                 {
@@ -53,13 +54,14 @@ namespace TictactoeVer2
 
         private void LetPlayerMakeMove(string input)
         {
+            
             if (UserHasQuit(input))
             {
                 QuitGame();
             }
-            else if (Board.IsValidCoordinate(input))
+            else if (InputParser.TryParseMove(input, Board.GetSideLength(), out Move move))
             {
-                PerformTurn(input);
+                PerformTurn(move);
             }
             else
             {
@@ -75,9 +77,10 @@ namespace TictactoeVer2
             Status = GameStatus.Ended;
         }
 
-        private void PerformTurn(string input)
+        private void PerformTurn(Move move)
         {
-            var isMoveSuccessful = MakeMove(input);
+            move.Player = CurrentPlayer;
+            var isMoveSuccessful = Board.FillCoordinate(move);;
 
             if (isMoveSuccessful)
             {
@@ -125,12 +128,11 @@ namespace TictactoeVer2
             Status = GameStatus.Ended;
         }
 
-        private bool MakeMove(string input)
-        {
-            var symbol = CurrentPlayer == Player.X ? 'X' : 'O';
-            var isMoveSuccessful = Board.FillCoordinate(input, symbol);
-            return isMoveSuccessful;
-        }
+//        private bool MakeMove(Move move)
+//        {
+//            var isMoveSuccessful = Board.FillCoordinate(move);
+//            return isMoveSuccessful;
+//        }
 
         private void SwitchPlayer()
         {

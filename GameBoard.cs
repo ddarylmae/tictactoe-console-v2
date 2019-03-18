@@ -26,11 +26,12 @@ namespace TictactoeVer2
             }
         }
 
-        public bool FillCoordinate(string input, char symbol)
+        public bool FillCoordinate(Move move)
         {
-            var index = GetIndexFromInput(input);
+            var index = GetIndexFromInput(move);
             if (IsCoordinateNotFilled(index))
             {
+                var symbol = (move.Player == Player.O) ? 'O' : 'X';
                 Board[index] = symbol;
                 CheckWinningMove(symbol);
                 CheckBoardFilled();
@@ -50,39 +51,14 @@ namespace TictactoeVer2
             IsBoardFilled = Board.All(element => element != '.');
         }
         
-        public int GetIndexFromInput(string input)
+        private int GetIndexFromInput(Move move)
         {
-            var index = -1;
-            
-            var inputElements = input.Split(',');
-            
-            if (IsRowColumnPair(inputElements) && IsRowColumnPairValidAndWithinRange(inputElements, out var row, out var column))
-            {
-                index = (row - 1) * GetSideLength() + (column - 1);
-            }
+            var index = (move.Row - 1) * GetSideLength() + (move.Column - 1);
             
             return index;
         }
 
-        private static bool IsRowColumnPair(string[] inputElements)
-        {
-            return inputElements.Length == 2;
-        }
-
-        private bool IsRowColumnPairValidAndWithinRange(string[] elements, out int row, out int col)
-        {
-            var rowStringValue = elements[0];
-            var columnStringValue = elements[1];
-            col = 0;
-
-            return IsElementANumberAndWithinRange(rowStringValue, out row) &&
-                   IsElementANumberAndWithinRange(columnStringValue, out col);
-        }
-
-        private bool IsElementANumberAndWithinRange(string element, out int number)
-        {
-            return int.TryParse(element, out number) && number > 0 && number <= GetSideLength();
-        }
+        
 
         public void CheckWinningMove(char symbol)
         {
@@ -99,9 +75,9 @@ namespace TictactoeVer2
             }
         }
 
-        public bool IsValidCoordinate(string input)
+        public bool IsValidCoordinate(Move move)
         {
-            var index = GetIndexFromInput(input);
+            var index = GetIndexFromInput(move);
             return index != -1;
         }
 
@@ -120,7 +96,7 @@ namespace TictactoeVer2
             return result;
         }
 
-        private int GetSideLength()
+        public int GetSideLength()
         {
             return (int) Math.Sqrt(Board.Length);
         }
