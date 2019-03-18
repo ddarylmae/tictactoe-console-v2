@@ -1,29 +1,17 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Xml;
 
 namespace TictactoeVer2
 {
     public class GameBoard
     {
         private char[] Board;
-        private readonly Dictionary<string, int> IndexMapper;
 
         public GameBoard(int size)
         {
             InitialiseBoard(size);
-            IndexMapper = new Dictionary<string, int>
-            {
-                {"1,1", 0},
-                {"1,2", 1},
-                {"1,3", 2},
-                {"2,1", 3},
-                {"2,2", 4},
-                {"2,3", 5},
-                {"3,1", 6},
-                {"3,2", 7},
-                {"3,3", 8}
-            };
         }
         public bool IsBoardFilled { get; set; }
         public bool IsWinningMove { get; set; }
@@ -38,16 +26,12 @@ namespace TictactoeVer2
             }
         }
 
-        public char GetElementAt(string input)
+        public bool FillCoordinate(Move move)
         {
-            return Board[GetIndexFromInput(input)];
-        }
-
-        public bool FillCoordinate(string input, char symbol)
-        {
-            var index = GetIndexFromInput(input);
+            var index = GetIndexFromInput(move);
             if (IsCoordinateNotFilled(index))
             {
+                var symbol = (move.Player == Player.O) ? 'O' : 'X';
                 Board[index] = symbol;
                 CheckWinningMove(symbol);
                 CheckBoardFilled();
@@ -66,21 +50,14 @@ namespace TictactoeVer2
         {
             IsBoardFilled = Board.All(element => element != '.');
         }
-
-        public int GetIndexFromInput(string input)
+        
+        private int GetIndexFromInput(Move move)
         {
-            var index = -1;
-            try
-            {
-                index = IndexMapper[input];
-            }
-            catch(KeyNotFoundException e)
-            {
-                
-            }
+            var index = (move.Row - 1) * GetSideLength() + (move.Column - 1);
+            
             return index;
         }
-
+        
         public void CheckWinningMove(char symbol)
         {
             if (Board[0] == symbol && Board[1] == symbol && Board[2] == symbol ||
@@ -96,18 +73,18 @@ namespace TictactoeVer2
             }
         }
 
-        public bool IsValidCoordinate(string input)
+        public bool IsValidCoordinate(Move move)
         {
-            var index = GetIndexFromInput(input);
+            var index = GetIndexFromInput(move);
             return index != -1;
         }
 
         public string GetFormattedBoard()
         {
             var result = "";
-            for (int row = 0, index = 0; row < GetSideCount(); row++)
+            for (int row = 0, index = 0; row < GetSideLength(); row++)
             {
-                for (int column = 0; column < GetSideCount(); column++, index++)
+                for (int column = 0; column < GetSideLength(); column++, index++)
                 {
                     result += $"{Board[index]} ";
                 }
@@ -117,9 +94,9 @@ namespace TictactoeVer2
             return result;
         }
 
-        private double GetSideCount()
+        public int GetSideLength()
         {
-            return Math.Sqrt(Board.Length);
+            return (int) Math.Sqrt(Board.Length);
         }
     }
 }

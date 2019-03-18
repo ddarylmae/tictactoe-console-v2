@@ -6,20 +6,20 @@ namespace TictactoeVer2
     {
         public Player CurrentPlayer { get; set; }
         public GameStatus Status { get; set; }
-        public Player Winner { get; set; }
+        private Player Winner { get; set; }
 
-        public GameBoard Board { get; set; }
+        private GameBoard Board { get; set; }
         private MessageHandler MessageHandler { get; set; }
-        public PlayerModel Player1 { get; set; }
-        public PlayerModel Player2 { get; set; }
-        private UserInputValidator InputValidator { get; set; }
+        private PlayerModel Player1 { get; set; }
+        private PlayerModel Player2 { get; set; }
+        private UserInputHandler InputHandler { get; set; }
 
         public Tictactoe(IOutputWriter outputWriter)
         {
             Player1 = new PlayerModel();
             Player2 = new PlayerModel();
             MessageHandler = new MessageHandler(outputWriter);
-            InputValidator = new UserInputValidator();
+            InputHandler = new UserInputHandler();
             
             CurrentPlayer = Player.X;
 
@@ -36,9 +36,10 @@ namespace TictactoeVer2
         {
             if (Status == GameStatus.NotStarted)
             {
-                if (InputValidator.TryParseBoardSize(input, out int size))
+                if (InputHandler.TryParseBoardSize(input, out int size))
                 {
                     SetupGameBoard(size);
+                    SetupGameState(size);
                 }
                 else
                 {
@@ -51,15 +52,21 @@ namespace TictactoeVer2
             }
         }
 
+        private void SetupGameState(int boardSize)
+        {
+            InputHandler.CurrentBoardSize = boardSize;
+        }
+
         private void LetPlayerMakeMove(string input)
         {
+            
             if (UserHasQuit(input))
             {
                 QuitGame();
             }
-            else if (CanTakeTurn(input))
+            else if (InputHandler.TryParseMove(input, out Move move))
             {
-                PerformTurn(input);
+                PerformTurn(move);
             }
             else
             {
@@ -75,9 +82,10 @@ namespace TictactoeVer2
             Status = GameStatus.Ended;
         }
 
-        private void PerformTurn(string input)
+        private void PerformTurn(Move move)
         {
-            var isMoveSuccessful = MakeMove(input);
+            move.Player = CurrentPlayer;
+            var isMoveSuccessful = Board.FillCoordinate(move);;
 
             if (isMoveSuccessful)
             {
@@ -125,18 +133,6 @@ namespace TictactoeVer2
             Status = GameStatus.Ended;
         }
 
-        private bool MakeMove(string input)
-        {
-            var symbol = CurrentPlayer == Player.X ? 'X' : 'O';
-            var isMoveSuccessful = Board.FillCoordinate(input, symbol);
-            return isMoveSuccessful;
-        }
-
-        private bool CanTakeTurn(string input)
-        {
-            return Board.IsValidCoordinate(input);
-        }
-
         private void SwitchPlayer()
         {
             CurrentPlayer = CurrentPlayer == Player.X ? Player.O : Player.X;
@@ -147,7 +143,7 @@ namespace TictactoeVer2
             return input == "q";
         }
 
-        public void SetupGameBoard(int size)
+        private void SetupGameBoard(int size)
         {
             Status = GameStatus.Playing;
             Board = new GameBoard(size);

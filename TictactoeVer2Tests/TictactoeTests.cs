@@ -235,5 +235,16 @@ namespace TictactoeVer2Tests
             
             _mockOutputWriter.Verify(writer => writer.Write("Player X please enter a coord x,y to place your move or 'q' to give up: "));
         }
+
+        [Fact]
+        public void ShouldUpdateBoardWhenMoveValid()
+        {
+            InitializeTictactoeGame();
+            
+            Game.InterpretInput("5");
+            Game.InterpretInput("1,5");
+            
+            _mockOutputWriter.Verify(writer => writer.Write(". . . . X \n. . . . . \n. . . . . \n. . . . . \n. . . . . \n"));
+        }
     }
 }
