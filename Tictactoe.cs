@@ -57,7 +57,7 @@ namespace TictactoeVer2
             {
                 QuitGame();
             }
-            else if (CanTakeTurn(input))
+            else if (Board.IsValidCoordinate(input))
             {
                 PerformTurn(input);
             }
@@ -130,11 +130,6 @@ namespace TictactoeVer2
             var symbol = CurrentPlayer == Player.X ? 'X' : 'O';
             var isMoveSuccessful = Board.FillCoordinate(input, symbol);
             return isMoveSuccessful;
-        }
-
-        private bool CanTakeTurn(string input)
-        {
-            return Board.IsValidCoordinate(input);
         }
 
         private void SwitchPlayer()
