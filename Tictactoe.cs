@@ -12,7 +12,7 @@ namespace TictactoeVer2
         private MessageHandler MessageHandler { get; set; }
         public PlayerModel Player1 { get; set; }
         public PlayerModel Player2 { get; set; }
-        public UserInputValidator InputValidator { get; set; }
+        private UserInputValidator InputValidator { get; set; }
 
         public Tictactoe(IOutputWriter outputWriter)
         {
@@ -26,7 +26,7 @@ namespace TictactoeVer2
             InitializeGame();
         }
 
-        public void InitializeGame()
+        private void InitializeGame()
         {
             MessageHandler.WelcomeToGame();
             MessageHandler.DisplayInputBoardSize();
@@ -36,9 +36,9 @@ namespace TictactoeVer2
         {
             if (Status == GameStatus.NotStarted)
             {
-                if (InputValidator.IsBoardSizeValid(input))
+                if (InputValidator.TryParseBoardSize(input, out int size))
                 {
-                    StartPlaying(int.Parse(input));
+                    SetupGameBoard(size);
                 }
                 else
                 {
@@ -47,19 +47,19 @@ namespace TictactoeVer2
             }
             else
             {
-                LetPlayerPlay(input);
+                LetPlayerMakeMove(input);
             }
         }
 
-        private void LetPlayerPlay(string input)
+        private void LetPlayerMakeMove(string input)
         {
-            if (CanTakeTurn(input))
-            {
-                PerformTurn(input);
-            }
-            else if (UserHasQuit(input))
+            if (UserHasQuit(input))
             {
                 QuitGame();
+            }
+            else if (CanTakeTurn(input))
+            {
+                PerformTurn(input);
             }
             else
             {
@@ -134,10 +134,7 @@ namespace TictactoeVer2
 
         private bool CanTakeTurn(string input)
         {
-            var hasUserQuit = UserHasQuit(input);
-            var isInputValid = Board.IsValidCoordinate(input);
-
-            return isInputValid && !hasUserQuit;
+            return Board.IsValidCoordinate(input);
         }
 
         private void SwitchPlayer()
@@ -150,7 +147,7 @@ namespace TictactoeVer2
             return input == "q";
         }
 
-        public void StartPlaying(int size)
+        public void SetupGameBoard(int size)
         {
             Status = GameStatus.Playing;
             Board = new GameBoard(size);

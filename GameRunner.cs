@@ -10,10 +10,7 @@ namespace TictactoeVer2
         {
             Tictactoe = new Tictactoe(new OutputWriter());
             
-//            Tictactoe.InitializeGame();
-//            Tictactoe.StartActualGame(10);
-            
-            while (Tictactoe.Status != GameStatus.Ended) // != Game.Ended
+            while (Tictactoe.Status != GameStatus.Ended)
             {
                 var input = Console.ReadLine();
                 Tictactoe.InterpretInput(input);
