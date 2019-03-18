@@ -8,23 +8,10 @@ namespace TictactoeVer2
     public class GameBoard
     {
         private char[] Board;
-//        private readonly Dictionary<string, int> IndexMapper;
 
         public GameBoard(int size)
         {
             InitialiseBoard(size);
-//            IndexMapper = new Dictionary<string, int>
-//            {
-//                {"1,1", 0},
-//                {"1,2", 1},
-//                {"1,3", 2},
-//                {"2,1", 3},
-//                {"2,2", 4},
-//                {"2,3", 5},
-//                {"3,1", 6},
-//                {"3,2", 7},
-//                {"3,3", 8}
-//            };
         }
         public bool IsBoardFilled { get; set; }
         public bool IsWinningMove { get; set; }
@@ -67,26 +54,6 @@ namespace TictactoeVer2
         {
             IsBoardFilled = Board.All(element => element != '.');
         }
-
-//        public int GetIndexFromInput(string input)
-//        {
-//            var index = -1;
-//            try
-//            {
-//                index = IndexMapper[input];
-//            }
-//            catch(KeyNotFoundException e)
-//            {
-//                
-//            }
-//            return index;
-//        }
-
-
-//        public string[] Split(string input)
-//        {
-//            return input.Split(',');
-//        }
         
         public int GetIndexFromInput(string input)
         {
