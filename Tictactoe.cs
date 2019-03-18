@@ -12,14 +12,14 @@ namespace TictactoeVer2
         private MessageHandler MessageHandler { get; set; }
         private PlayerModel Player1 { get; set; }
         private PlayerModel Player2 { get; set; }
-        private UserInputValidator InputValidator { get; set; }
+        private UserInputParser InputParser { get; set; }
 
         public Tictactoe(IOutputWriter outputWriter)
         {
             Player1 = new PlayerModel();
             Player2 = new PlayerModel();
             MessageHandler = new MessageHandler(outputWriter);
-            InputValidator = new UserInputValidator();
+            InputParser = new UserInputParser();
             
             CurrentPlayer = Player.X;
 
@@ -36,7 +36,7 @@ namespace TictactoeVer2
         {
             if (Status == GameStatus.NotStarted)
             {
-                if (InputValidator.TryParseBoardSize(input, out int size))
+                if (InputParser.TryParseBoardSize(input, out int size))
                 {
                     SetupGameBoard(size);
                 }

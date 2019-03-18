@@ -1,6 +1,6 @@
 namespace TictactoeVer2
 {
-    public class UserInputValidator
+    public class UserInputParser
     {
         private int DefaultBoardSize = 3;
         
