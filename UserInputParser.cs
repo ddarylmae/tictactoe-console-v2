@@ -1,6 +1,6 @@
 namespace TictactoeVer2
 {
-    public class StringParser
+    public class UserInputParser
     {
         private const int DefaultBoardSize = 3;
         
