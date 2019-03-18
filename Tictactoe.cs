@@ -8,18 +8,18 @@ namespace TictactoeVer2
         public GameStatus Status { get; set; }
         private Player Winner { get; set; }
 
-        public GameBoard Board { get; set; }
+        private GameBoard Board { get; set; }
         private MessageHandler MessageHandler { get; set; }
         private PlayerModel Player1 { get; set; }
         private PlayerModel Player2 { get; set; }
-        private UserInputParser InputParser { get; set; }
+        private UserInputHandler InputHandler { get; set; }
 
         public Tictactoe(IOutputWriter outputWriter)
         {
             Player1 = new PlayerModel();
             Player2 = new PlayerModel();
             MessageHandler = new MessageHandler(outputWriter);
-            InputParser = new UserInputParser();
+            InputHandler = new UserInputHandler();
             
             CurrentPlayer = Player.X;
 
@@ -36,10 +36,10 @@ namespace TictactoeVer2
         {
             if (Status == GameStatus.NotStarted)
             {
-                if (InputParser.TryParseBoardSize(input, out int size))
+                if (InputHandler.TryParseBoardSize(input, out int size))
                 {
                     SetupGameBoard(size);
-                    
+                    SetupGameState(size);
                 }
                 else
                 {
@@ -52,6 +52,11 @@ namespace TictactoeVer2
             }
         }
 
+        private void SetupGameState(int boardSize)
+        {
+            InputHandler.CurrentBoardSize = boardSize;
+        }
+
         private void LetPlayerMakeMove(string input)
         {
             
@@ -59,7 +64,7 @@ namespace TictactoeVer2
             {
                 QuitGame();
             }
-            else if (InputParser.TryParseMove(input, Board.GetSideLength(), out Move move))
+            else if (InputHandler.TryParseMove(input, out Move move))
             {
                 PerformTurn(move);
             }
@@ -127,12 +132,6 @@ namespace TictactoeVer2
             MessageHandler.DisplayWinner(Winner);
             Status = GameStatus.Ended;
         }
-
-//        private bool MakeMove(Move move)
-//        {
-//            var isMoveSuccessful = Board.FillCoordinate(move);
-//            return isMoveSuccessful;
-//        }
 
         private void SwitchPlayer()
         {

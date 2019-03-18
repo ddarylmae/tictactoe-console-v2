@@ -57,9 +57,7 @@ namespace TictactoeVer2
             
             return index;
         }
-
         
-
         public void CheckWinningMove(char symbol)
         {
             if (Board[0] == symbol && Board[1] == symbol && Board[2] == symbol ||
