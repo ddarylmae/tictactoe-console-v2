@@ -24,7 +24,7 @@ namespace TictactoeVer2Tests
             
             Game.InterpretInput("3");
             
-            Assert.Equal(GameStatus.Playing, Game.Status);
+            _mockOutputWriter.Verify(writer => writer.Write(". . . \n. . . \n. . . \n"));
         }
         
         [Fact]
@@ -32,16 +32,9 @@ namespace TictactoeVer2Tests
         {
             InitializeTictactoeGame();
             
+            _mockOutputWriter.Verify(writer => writer.Write(It.IsAny<string>()), Times.Exactly(2));
             _mockOutputWriter.Verify(writer => writer.Write("Welcome to Tic Tac Toe!"));
             _mockOutputWriter.Verify(writer => writer.Write("Please input board size (ex. 3 for 3x3 board, 10 for 10x10): "));
-        }
-        
-        [Fact]
-        public void ShouldInitializeGameWithNoBoardDisplayed()
-        {
-            InitializeTictactoeGame();
-            
-            _mockOutputWriter.Verify(writer => writer.Write(". . . \n. . . \n. . . \n"), Times.Never);
         }
         
         [Fact]
