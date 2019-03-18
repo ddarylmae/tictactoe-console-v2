@@ -1,29 +1,30 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Xml;
 
 namespace TictactoeVer2
 {
     public class GameBoard
     {
         private char[] Board;
-        private readonly Dictionary<string, int> IndexMapper;
+//        private readonly Dictionary<string, int> IndexMapper;
 
         public GameBoard(int size)
         {
             InitialiseBoard(size);
-            IndexMapper = new Dictionary<string, int>
-            {
-                {"1,1", 0},
-                {"1,2", 1},
-                {"1,3", 2},
-                {"2,1", 3},
-                {"2,2", 4},
-                {"2,3", 5},
-                {"3,1", 6},
-                {"3,2", 7},
-                {"3,3", 8}
-            };
+//            IndexMapper = new Dictionary<string, int>
+//            {
+//                {"1,1", 0},
+//                {"1,2", 1},
+//                {"1,3", 2},
+//                {"2,1", 3},
+//                {"2,2", 4},
+//                {"2,3", 5},
+//                {"3,1", 6},
+//                {"3,2", 7},
+//                {"3,3", 8}
+//            };
         }
         public bool IsBoardFilled { get; set; }
         public bool IsWinningMove { get; set; }
@@ -67,18 +68,57 @@ namespace TictactoeVer2
             IsBoardFilled = Board.All(element => element != '.');
         }
 
+//        public int GetIndexFromInput(string input)
+//        {
+//            var index = -1;
+//            try
+//            {
+//                index = IndexMapper[input];
+//            }
+//            catch(KeyNotFoundException e)
+//            {
+//                
+//            }
+//            return index;
+//        }
+
+
+//        public string[] Split(string input)
+//        {
+//            return input.Split(',');
+//        }
+        
         public int GetIndexFromInput(string input)
         {
             var index = -1;
+            
+            var coordinates = input.Split(',');
+            if (coordinates.Length == 2)
+            {
+                var row = int.Parse(coordinates[0]);
+                var column = int.Parse(coordinates[1]);
+
+                if (row > 0 && row <= GetSideLength() && column > 0 && column <= GetSideLength())
+                {
+                    index = (row - 1) * GetSideLength() + (column - 1);
+                }
+            }
+            
+            return index;
+        }
+        
+        private bool IsElementANumberAndWithinRange(string element)
+        {
             try
             {
-                index = IndexMapper[input];
+                var numValue = Convert.ToInt32(element);
+                return numValue > 0 && numValue < 4;
             }
-            catch(KeyNotFoundException e)
+            catch (Exception e)
             {
-                
+                Console.WriteLine("Exception in converting");
+                return false;
             }
-            return index;
         }
 
         public void CheckWinningMove(char symbol)
@@ -105,9 +145,9 @@ namespace TictactoeVer2
         public string GetFormattedBoard()
         {
             var result = "";
-            for (int row = 0, index = 0; row < GetSideCount(); row++)
+            for (int row = 0, index = 0; row < GetSideLength(); row++)
             {
-                for (int column = 0; column < GetSideCount(); column++, index++)
+                for (int column = 0; column < GetSideLength(); column++, index++)
                 {
                     result += $"{Board[index]} ";
                 }
@@ -117,9 +157,9 @@ namespace TictactoeVer2
             return result;
         }
 
-        private double GetSideCount()
+        private int GetSideLength()
         {
-            return Math.Sqrt(Board.Length);
+            return (int) Math.Sqrt(Board.Length);
         }
     }
 }

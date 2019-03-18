@@ -1,8 +1,8 @@
 namespace TictactoeVer2
 {
-    public class UserInputParser
+    public class StringParser
     {
-        private int DefaultBoardSize = 3;
+        private const int DefaultBoardSize = 3;
         
         public bool TryParseBoardSize(string input, out int size)
         {
@@ -15,7 +15,7 @@ namespace TictactoeVer2
             return int.TryParse(input, out size) && IsWithinRange(size);
         }
         
-        public bool IsInputBlank(string input)
+        private bool IsInputBlank(string input)
         {
             return input.Trim() == "";
         }

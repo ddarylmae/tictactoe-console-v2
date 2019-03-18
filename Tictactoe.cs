@@ -12,14 +12,14 @@ namespace TictactoeVer2
         private MessageHandler MessageHandler { get; set; }
         private PlayerModel Player1 { get; set; }
         private PlayerModel Player2 { get; set; }
-        private UserInputParser InputParser { get; set; }
+        private StringParser InputParser { get; set; }
 
         public Tictactoe(IOutputWriter outputWriter)
         {
             Player1 = new PlayerModel();
             Player2 = new PlayerModel();
             MessageHandler = new MessageHandler(outputWriter);
-            InputParser = new UserInputParser();
+            InputParser = new StringParser();
             
             CurrentPlayer = Player.X;
 
