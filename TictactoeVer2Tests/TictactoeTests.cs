@@ -78,6 +78,37 @@ namespace TictactoeVer2Tests
             
             _mockOutputWriter.Verify(writer => writer.Write("Let's start the game!"));
         }
+        
+
+        [Fact]
+        public void ShouldReturnOnePointWhenOneThreeInARowLineFound()
+        {
+            var board = new GameBoard(6);
+            var moveWithAnticipatedPoint = new Move {Row = 1, Column = 3, Player = Player.X};
+            
+            board.FillCoordinate(new Move{ Row = 1, Column = 1, Player = Player.X});
+            board.FillCoordinate(new Move{ Row = 1, Column = 2, Player = Player.X});
+            board.FillCoordinate(moveWithAnticipatedPoint);
+
+            var points = board.CountPossiblePointsFromMove(moveWithAnticipatedPoint);
+            
+            Assert.Equal(1, points);
+        }
+        
+        [Fact]
+        public void ShouldDisplayUpdatedScoreWhenPlayerGainsPoint()
+        {
+            InitializeTictactoeGame();
+            StartGameWith3X3Board();
+            
+            Game.InterpretInput("1,1");
+            Game.InterpretInput("2,1");
+            Game.InterpretInput("1,2");
+            Game.InterpretInput("2,2");
+            Game.InterpretInput("1,3");
+            
+            _mockOutputWriter.Verify(writer => writer.Write("Current Scores:\nPlayer X - 1 \nPlayer Y - 0 \n"));
+        }
 
         [Fact]
         public void ShouldDisplayInitialScoresWhenGameStarts()

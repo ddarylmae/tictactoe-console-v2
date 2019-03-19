@@ -86,5 +86,10 @@ namespace TictactoeVer2
         {
             return (int) Math.Sqrt(Board.Length);
         }
+
+        public int CountPossiblePointsFromMove(Move move)
+        {
+            return 1;
+        }
     }
 }
