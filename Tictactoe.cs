@@ -33,6 +33,7 @@ namespace TictactoeVer2
                 if (InputHandler.TryParseBoardSize(input, out int size))
                 {
                     SetupNewGame(size);
+                    DisplayStartGameMessage();
                 }
                 else
                 {
@@ -47,10 +48,16 @@ namespace TictactoeVer2
 
         private void SetupNewGame(int boardSize)
         {
-            SetupGameBoard(boardSize);
             SetupGameState(boardSize);
+            Board = new GameBoard(boardSize);
+        }
 
+        private void DisplayStartGameMessage()
+        {
+            MessageHandler.DisplayStartTheGame();
             MessageHandler.DisplayCurrentScores(ScoreBoard);
+            MessageHandler.DisplayBoard(Board.GetFormattedBoard());
+            MessageHandler.DisplayTakeTurn(CurrentPlayer);
         }
 
         private void SetupGameState(int boardSize)
@@ -147,13 +154,6 @@ namespace TictactoeVer2
             return input == "q";
         }
 
-        private void SetupGameBoard(int size)
-        {
-            Board = new GameBoard(size);
-            
-            MessageHandler.DisplayStartTheGame();
-            MessageHandler.DisplayBoard(Board.GetFormattedBoard());
-            MessageHandler.DisplayTakeTurn(CurrentPlayer);
-        }
+        
     }
 }

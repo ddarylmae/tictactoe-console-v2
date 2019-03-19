@@ -1,6 +1,4 @@
-﻿using System.Configuration;
-using System.Runtime.InteropServices;
-using Moq;
+﻿using Moq;
 using TictactoeVer2;
 using Xunit;
 
