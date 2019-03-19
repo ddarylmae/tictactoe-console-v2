@@ -88,7 +88,7 @@ namespace TictactoeVer2Tests
             
             StartGameWith3X3Board();
             
-            _mockOutputWriter.Verify(writer => writer.Write("Current Scores: Player X - 0\nPlayer O - 0\n"));
+            _mockOutputWriter.Verify(writer => writer.Write("Current Scores:\nPlayer X - 0 \nPlayer Y - 0 \n"));
         }
         
         [Fact]

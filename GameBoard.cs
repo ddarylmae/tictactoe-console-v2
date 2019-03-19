@@ -67,12 +67,6 @@ namespace TictactoeVer2
             }
         }
 
-        public bool IsValidCoordinate(Move move)
-        {
-            var index = GetIndexFromInput(move);
-            return index != -1;
-        }
-
         public string GetFormattedBoard()
         {
             var result = "";
@@ -88,7 +82,7 @@ namespace TictactoeVer2
             return result;
         }
 
-        public int GetSideLength()
+        private int GetSideLength()
         {
             return (int) Math.Sqrt(Board.Length);
         }

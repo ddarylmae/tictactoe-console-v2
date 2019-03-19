@@ -72,5 +72,10 @@ namespace TictactoeVer2
         {
             OutputMessage("Please enter a valid board size.");
         }
+
+        public void DisplayCurrentScores(ScoreBoard scoreBoard)
+        {
+            OutputMessage($"Current Scores:\nPlayer X - {scoreBoard.X} \nPlayer Y - {scoreBoard.Y} \n");
+        }
     }
 }

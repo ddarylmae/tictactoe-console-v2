@@ -5,6 +5,7 @@ namespace TictactoeVer2
     public class Tictactoe
     {
         public Player CurrentPlayer { get; set; }
+        public ScoreBoard ScoreBoard;
         public GameStatus Status { get; set; }
         private Player Winner { get; set; }
         private GameBoard Board { get; set; }
@@ -48,11 +49,14 @@ namespace TictactoeVer2
         {
             SetupGameBoard(boardSize);
             SetupGameState(boardSize);
+
+            MessageHandler.DisplayCurrentScores(ScoreBoard);
         }
 
         private void SetupGameState(int boardSize)
         {
             Status = GameStatus.Playing;
+            ScoreBoard = new ScoreBoard();
             InputHandler.CurrentBoardSize = boardSize;
         }
 
