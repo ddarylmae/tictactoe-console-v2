@@ -117,7 +117,22 @@ namespace TictactoeVer2Tests
             board.FillCoordinate(new Move{ Row = 4, Column = 3, Player = Player.X});
             board.FillCoordinate(moveWithAnticipatedPoint);
 
-            var points = board.CountPossiblePointsFromMove(moveWithAnticipatedPoint);
+            var points = board.CheckEntireBoard(Player.X);
+            
+            Assert.Equal(1, points);
+        }
+        
+        [Fact]
+        public void ShouldReturnOnePointWhenThreeInAColumnFound()
+        {
+            var board = new GameBoard(6);
+            var moveWithAnticipatedPoint = new Move {Row = 3, Column = 1, Player = Player.X};
+            
+            board.FillCoordinate(new Move{ Row = 3, Column = 2, Player = Player.X});
+            board.FillCoordinate(new Move{ Row = 3, Column = 3, Player = Player.X});
+            board.FillCoordinate(moveWithAnticipatedPoint);
+
+            var points = board.CheckEntireBoard(Player.X);
             
             Assert.Equal(1, points);
         }

@@ -34,6 +34,9 @@ namespace TictactoeVer2
             Board[index] = symbol;
             CheckWinningMove(symbol);
             CheckBoardFilled();
+            
+            // TODO call CountPossiblePointsFromMove
+//            CheckEntireBoard(move.Player);
         }
 
         public bool IsCoordinateFilled(Move move)
@@ -93,6 +96,38 @@ namespace TictactoeVer2
             var points = 0;
             var row = move.Row;
             var col = move.Column;
+
+            return points;
+        }
+        
+        public int CheckEntireBoard(Player player)
+        {
+            var points = 0;
+            var symbol = (player == Player.X) ? 'X' : 'O';
+            
+            // HORIZONTALLY
+            for (int x = 0; x < Board.Length; x += GetSideLength())
+            {
+                for (int y = x, ctr = 0; ctr < GetSideLength()-1; ctr++, y++)
+                {
+                    if (Board[y] == symbol && Board[y] == Board[y+1] && Board[y] == Board[y+2])
+                    {
+                        points++;
+                    }
+                }
+            }
+            
+            // VERTICALLY
+            for (int x = 0; x < GetSideLength()-1; x++)
+            {
+                for (int y = x; y < Board.Length - (GetSideLength() * 2); y+=GetSideLength())
+                {
+                    if (Board[y] == symbol && Board[y] == Board[y+GetSideLength()] && Board[y] == Board[y+(GetSideLength()*2)])
+                    {
+                        points++;
+                    }
+                }
+            }
 
             return points;
         }
