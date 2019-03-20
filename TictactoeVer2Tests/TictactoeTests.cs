@@ -79,9 +79,8 @@ namespace TictactoeVer2Tests
             _mockOutputWriter.Verify(writer => writer.Write("Let's start the game!"));
         }
         
-
         [Fact]
-        public void ShouldReturnOnePointWhenOneThreeInARowLineFound()
+        public void ShouldReturnTwoPointsWhenTwo3InARowLineFound()
         {
             var board = new GameBoard(6);
             var moveWithAnticipatedPoint = new Move {Row = 1, Column = 3, Player = Player.X};
@@ -92,7 +91,45 @@ namespace TictactoeVer2Tests
 
             var points = board.CountPossiblePointsFromMove(moveWithAnticipatedPoint);
             
+            Assert.Equal(2, points);
+        }
+
+        [Fact]
+        public void ShouldReturnZeroWhenNoThreeInARowLineFound()
+        {
+            var board = new GameBoard(6);
+            var move = new Move {Row = 2, Column = 3, Player = Player.X};
+            
+            board.FillCoordinate(move);
+
+            var points = board.CountPossiblePointsFromMove(move);
+            
+            Assert.Equal(0, points);
+        }
+
+        [Fact]
+        public void ShouldReturnOnePointWhenOneThreeInARowLineFound()
+        {
+            var board = new GameBoard(6);
+            var moveWithAnticipatedPoint = new Move {Row = 4, Column = 4, Player = Player.X};
+            
+            board.FillCoordinate(new Move{ Row = 4, Column = 2, Player = Player.X});
+            board.FillCoordinate(new Move{ Row = 4, Column = 3, Player = Player.X});
+            board.FillCoordinate(moveWithAnticipatedPoint);
+
+            var points = board.CountPossiblePointsFromMove(moveWithAnticipatedPoint);
+            
             Assert.Equal(1, points);
+        }
+
+        [Fact]
+        public void ShouldReturnTrueWhenRowValid()
+        {
+            var board = new GameBoard(8);
+
+            var index = board.IsRowAndColumnValid(2, 9);
+            
+            Assert.True(index);
         }
         
         [Fact]

@@ -153,7 +153,5 @@ namespace TictactoeVer2
         {
             return input == "q";
         }
-
-        
     }
 }
