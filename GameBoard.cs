@@ -102,12 +102,12 @@ namespace TictactoeVer2
 
             totalPoints = GetPointsOnHorizontalLines(symbol) +
                           GetPointsOnVerticalLines(symbol) +
-                          GetPointsOnUpperRightToBottomLeftDiagonal(symbol);
+                          GetPointsOnTopRightToBottomLeftDiagonal(symbol);
 
             return totalPoints;
         }
 
-        public int GetPointsOnUpperRightToBottomLeftDiagonal(char symbol)
+        public int GetPointsOnTopRightToBottomLeftDiagonal(char symbol)
         {
             var points = 0;
             var side = GetSideLength();
@@ -130,6 +130,40 @@ namespace TictactoeVer2
                     points = AddPointsIfThreeInARow(symbol, currentIndex, increment, points);
                 }
             }
+                
+            return points;
+        }
+        
+        public int GetPointsFromTopLeftToBottomRightDiagonal(char symbol)
+        {
+            var points = 0;
+            var side = GetSideLength();
+            var increment = side + 1;
+            
+            // Loop for checking diagonals from column
+            for (int columnIndex = side-3, x=2; columnIndex >=0; columnIndex--, x++)
+            {
+                for (int current=columnIndex; current + increment < x*increment+columnIndex; current+=increment)
+                { 
+                    points = AddPointsIfThreeInARow(symbol, current, increment, points);
+                }
+            }
+
+            for (int edge=side; edge+side <= Board.Length-side*2; edge+=side)
+            {
+                for (int currentIndex=edge; currentIndex+increment*2 < Board.Length; currentIndex+=increment)
+                {
+                    points = AddPointsIfThreeInARow(symbol, currentIndex, increment, points);
+                }
+            }
+
+//            for (int edgeIndex = side; edgeIndex+side < Board.Length-side*2; edgeIndex+=side)
+//            {
+//                for (int current = edgeIndex, y=side-2; current+increment*2 < Board.Length; current+=increment, y--)
+//                {
+//                    points = AddPointsIfThreeInARow(symbol, current, increment, points);
+//                }
+//            }
                 
             return points;
         }

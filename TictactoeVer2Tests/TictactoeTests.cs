@@ -136,7 +136,37 @@ namespace TictactoeVer2Tests
             board.FillCoordinate(new Move{ Row = 10, Column = 8, Player = Player.X});
             board.FillCoordinate(moveWithAnticipatedPoint);
 
-            var points = board.GetPointsOnUpperRightToBottomLeftDiagonal('X');
+            var points = board.GetPointsOnTopRightToBottomLeftDiagonal('X');
+            
+            Assert.Equal(1, points);
+        }
+        
+        [Fact]
+        public void ShouldReturnOnePointWhenOneThreeInARowTLToBRFoundUpper()
+        {
+            var board = new GameBoard(10);
+            var moveWithAnticipatedPoint = new Move{Row = 1, Column = 8, Player = Player.X};
+            
+            board.FillCoordinate(new Move{ Row = 2, Column = 9, Player = Player.X});
+            board.FillCoordinate(new Move{ Row = 3, Column = 10, Player = Player.X});
+            board.FillCoordinate(moveWithAnticipatedPoint);
+
+            var points = board.GetPointsFromTopLeftToBottomRightDiagonal('X');
+            
+            Assert.Equal(1, points);
+        }
+        
+        [Fact]
+        public void ShouldReturnOnePointWhenOneThreeInARowTLToBRFoundLower()
+        {
+            var board = new GameBoard(10);
+            var moveWithAnticipatedPoint = new Move{Row = 8, Column = 1, Player = Player.X};
+            
+            board.FillCoordinate(new Move{ Row = 9, Column = 2, Player = Player.X});
+            board.FillCoordinate(new Move{ Row = 10, Column = 3, Player = Player.X});
+            board.FillCoordinate(moveWithAnticipatedPoint);
+
+            var points = board.GetPointsFromTopLeftToBottomRightDiagonal('X');
             
             Assert.Equal(1, points);
         }
