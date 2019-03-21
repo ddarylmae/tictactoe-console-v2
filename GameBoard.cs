@@ -100,29 +100,64 @@ namespace TictactoeVer2
             return points;
         }
         
-        public int CheckEntireBoard(Player player)
+        public int GetPossiblePointsFromBoard(Player player)
+        {
+            var totalPoints = 0;
+            var symbol = (player == Player.X) ? 'X' : 'O';
+
+            totalPoints = GetPointsOnHorizontalLines(symbol) +
+                          GetPointsOnVerticalLines(symbol);
+
+            return totalPoints;
+        }
+
+        private int GetPointsOnDiagonals(char symbol)
         {
             var points = 0;
-            var symbol = (player == Player.X) ? 'X' : 'O';
             
-            // HORIZONTALLY
-            for (int x = 0; x < Board.Length; x += GetSideLength())
+            for (int x = 0 + 2; x < GetSideLength() - 1; x++)
             {
-                for (int y = x, ctr = 0; ctr < GetSideLength()-1; ctr++, y++)
+                for (int y = x; y < Board.Length - (GetSideLength() * 2); y += GetSideLength())
                 {
-                    if (Board[y] == symbol && Board[y] == Board[y+1] && Board[y] == Board[y+2])
+                    if (Board[y] == symbol && Board[y] == Board[y + GetSideLength()] &&
+                        Board[y] == Board[y + (GetSideLength() * 2)])
                     {
                         points++;
                     }
                 }
             }
+
+            return points;
+        }
+
+        private int GetPointsOnVerticalLines(char symbol)
+        {
+            var points = 0;
             
-            // VERTICALLY
-            for (int x = 0; x < GetSideLength()-1; x++)
+            for (int x = 0; x < GetSideLength() - 1; x++)
             {
-                for (int y = x; y < Board.Length - (GetSideLength() * 2); y+=GetSideLength())
+                for (int y = x; y < Board.Length - (GetSideLength() * 2); y += GetSideLength())
                 {
-                    if (Board[y] == symbol && Board[y] == Board[y+GetSideLength()] && Board[y] == Board[y+(GetSideLength()*2)])
+                    if (Board[y] == symbol && Board[y] == Board[y + GetSideLength()] &&
+                        Board[y] == Board[y + (GetSideLength() * 2)])
+                    {
+                        points++;
+                    }
+                }
+            }
+
+            return points;
+        }
+
+        private int GetPointsOnHorizontalLines(char symbol)
+        {
+            var points = 0;
+            
+            for (int x = 0; x < Board.Length; x += GetSideLength())
+            {
+                for (int y = x, ctr = 0; ctr < GetSideLength() - 1; ctr++, y++)
+                {
+                    if (Board[y] == symbol && Board[y] == Board[y + 1] && Board[y] == Board[y + 2])
                     {
                         points++;
                     }

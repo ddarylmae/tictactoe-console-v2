@@ -117,7 +117,7 @@ namespace TictactoeVer2Tests
             board.FillCoordinate(new Move{ Row = 4, Column = 3, Player = Player.X});
             board.FillCoordinate(moveWithAnticipatedPoint);
 
-            var points = board.CheckEntireBoard(Player.X);
+            var points = board.GetPossiblePointsFromBoard(Player.X);
             
             Assert.Equal(1, points);
         }
@@ -132,7 +132,7 @@ namespace TictactoeVer2Tests
             board.FillCoordinate(new Move{ Row = 3, Column = 3, Player = Player.X});
             board.FillCoordinate(moveWithAnticipatedPoint);
 
-            var points = board.CheckEntireBoard(Player.X);
+            var points = board.GetPossiblePointsFromBoard(Player.X);
             
             Assert.Equal(1, points);
         }
