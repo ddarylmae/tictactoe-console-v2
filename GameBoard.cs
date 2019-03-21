@@ -1,8 +1,5 @@
 using System;
-using System.Collections.Generic;
-using System.Data;
 using System.Linq;
-using System.Xml;
 
 namespace TictactoeVer2
 {
@@ -111,22 +108,30 @@ namespace TictactoeVer2
             return totalPoints;
         }
 
-        private int GetPointsOnDiagonals(char symbol)
+        public int GetPointsOnUpperRightToBottomLeftDiagonal(char symbol)
         {
             var points = 0;
             
-            for (int x = 0 + 2; x < GetSideLength() - 1; x++)
+            for (int x=2; x < GetSideLength(); x++)
             {
-                for (int y = x; y < Board.Length - (GetSideLength() * 2); y += GetSideLength())
+                for (int y = x; y+GetSideLength()-1 < GetSideLength()*x; y += GetSideLength()-1)
                 {
-                    if (Board[y] == symbol && Board[y] == Board[y + GetSideLength()] &&
-                        Board[y] == Board[y + (GetSideLength() * 2)])
+                    if (Board[y] == symbol && Board[y] == Board[y + GetSideLength()-1] &&
+                        Board[y] == Board[y + (GetSideLength()-1) * 2])
                     {
                         points++;
                     }
                 }
             }
 
+//            for (int i = GetSideLength() * 2 - 1; i <= Board.Length - (GetSideLength() * 2 - 1); i+= GetSideLength())
+//            {
+//                for (int j = i; j < 9; j++)
+//                {
+//                    
+//                }
+//            }
+                
             return points;
         }
 
@@ -139,7 +144,7 @@ namespace TictactoeVer2
                 for (int y = x; y < Board.Length - (GetSideLength() * 2); y += GetSideLength())
                 {
                     if (Board[y] == symbol && Board[y] == Board[y + GetSideLength()] &&
-                        Board[y] == Board[y + (GetSideLength() * 2)])
+                        Board[y] == Board[y + GetSideLength() * 2])
                     {
                         points++;
                     }
