@@ -82,7 +82,7 @@ namespace TictactoeVer2Tests
         [Fact]
         public void ShouldReturnTwoPointsWhenTwo3InARowLineFound()
         {
-            var board = new GameBoard(6);
+            var board = new GameBoard(7);
             var moveWithAnticipatedPoint = new Move {Row = 4, Column = 1, Player = Player.X};
             
             board.FillCoordinate(new Move{ Row = 3, Column = 2, Player = Player.X});

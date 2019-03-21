@@ -22,7 +22,7 @@ namespace TictactoeVer2
 
         public void AddScore(Player player, int score)
         {
-            Scores[player] += score;
+            Scores[player] = score;
         }
     }
 }

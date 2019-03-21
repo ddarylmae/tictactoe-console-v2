@@ -197,7 +197,7 @@ namespace TictactoeVer2
             
             for (int x = 0; x < Board.Length; x += GetSideLength())
             {
-                for (int y = x, ctr = 0; ctr < GetSideLength() - 1; ctr++, y++)
+                for (int y = x, ctr = 0; ctr < GetSideLength() - 2; ctr++, y++)
                 {
                     if (Board[y] == symbol && Board[y] == Board[y + 1] && Board[y] == Board[y + 2])
                     {
