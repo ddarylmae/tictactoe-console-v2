@@ -112,32 +112,37 @@ namespace TictactoeVer2
         {
             var points = 0;
             var side = GetSideLength();
-            var indexIncrement = side - 1;
+            var increment = side - 1;
             
-            for (int x=2; x < side; x++)
+            // Loop for checking diagonals from column
+            for (int columnIndex=2; columnIndex < side; columnIndex++)
             {
-                for (int y = x; y+indexIncrement < side*x; y += indexIncrement)
+                for (int current=columnIndex; current + increment < side*columnIndex; current+=increment)
                 {
-                    if (Board[y] == symbol && Board[y] == Board[y + indexIncrement] &&
-                        Board[y] == Board[y + (indexIncrement) * 2])
-                    {
-                        points++;
-                    }
+                    points = AddPointsIfThreeInARow(symbol, current, increment, points);
                 }
             }
 
-            for (int i = side * 2 - 1; i <= Board.Length - (side * 2 - 1); i+= side)
+            // Loop for checking diagonals from right edge
+            for (int edgeIndex = side * 2 - 1; edgeIndex <= Board.Length - (side * 2 - 1); edgeIndex += side)
             {
-                for (int j = i; j + indexIncrement * 2 < Board.Length; j+=indexIncrement)
+                for (int currentIndex=edgeIndex; currentIndex + increment * 2 < Board.Length; currentIndex+=increment)
                 {
-                    if (Board[j] == symbol && Board[j] == Board[j + indexIncrement] &&
-                        Board[j] == Board[j + (indexIncrement) * 2])
-                    {
-                        points++;
-                    }
+                    points = AddPointsIfThreeInARow(symbol, currentIndex, increment, points);
                 }
             }
                 
+            return points;
+        }
+
+        private int AddPointsIfThreeInARow(char symbol, int current, int indexIncrement, int points)
+        {
+            if (Board[current] == symbol && Board[current] == Board[current + indexIncrement] &&
+                Board[current] == Board[current + (indexIncrement) * 2])
+            {
+                points++;
+            }
+
             return points;
         }
 
