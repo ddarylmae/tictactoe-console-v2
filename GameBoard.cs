@@ -111,25 +111,27 @@ namespace TictactoeVer2
         public int GetPointsOnUpperRightToBottomLeftDiagonal(char symbol)
         {
             var points = 0;
+            var side = GetSideLength();
+            var indexIncrement = side - 1;
             
-            for (int x=2; x < GetSideLength(); x++)
+            for (int x=2; x < side; x++)
             {
-                for (int y = x; y+GetSideLength()-1 < GetSideLength()*x; y += GetSideLength()-1)
+                for (int y = x; y+indexIncrement < side*x; y += indexIncrement)
                 {
-                    if (Board[y] == symbol && Board[y] == Board[y + GetSideLength()-1] &&
-                        Board[y] == Board[y + (GetSideLength()-1) * 2])
+                    if (Board[y] == symbol && Board[y] == Board[y + indexIncrement] &&
+                        Board[y] == Board[y + (indexIncrement) * 2])
                     {
                         points++;
                     }
                 }
             }
 
-            for (int i = GetSideLength() * 2 - 1; i <= Board.Length - (GetSideLength() * 2 - 1); i+= GetSideLength())
+            for (int i = side * 2 - 1; i <= Board.Length - (side * 2 - 1); i+= side)
             {
-                for (int j = i; j+(GetSideLength()-1)*2 < Board.Length; j+=GetSideLength()-1)
+                for (int j = i; j + indexIncrement * 2 < Board.Length; j+=indexIncrement)
                 {
-                    if (Board[j] == symbol && Board[j] == Board[j + GetSideLength()-1] &&
-                        Board[j] == Board[j + (GetSideLength()-1) * 2])
+                    if (Board[j] == symbol && Board[j] == Board[j + indexIncrement] &&
+                        Board[j] == Board[j + (indexIncrement) * 2])
                     {
                         points++;
                     }
