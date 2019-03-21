@@ -90,9 +90,7 @@ namespace TictactoeVer2
 
         public int CountPossiblePointsFromMove(Move move)
         {
-            var points = 0;
-            var row = move.Row;
-            var col = move.Column;
+            var points = GetPossiblePointsFromBoard(move.Player);
 
             return points;
         }
@@ -103,7 +101,8 @@ namespace TictactoeVer2
             var symbol = (player == Player.X) ? 'X' : 'O';
 
             totalPoints = GetPointsOnHorizontalLines(symbol) +
-                          GetPointsOnVerticalLines(symbol);
+                          GetPointsOnVerticalLines(symbol) +
+                          GetPointsOnUpperRightToBottomLeftDiagonal(symbol);
 
             return totalPoints;
         }
