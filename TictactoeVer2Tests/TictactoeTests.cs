@@ -142,7 +142,7 @@ namespace TictactoeVer2Tests
         }
         
         [Fact]
-        public void ShouldReturnOnePointWhenOneThreeInARowTLToBRFoundUpper()
+        public void ShouldReturnOnePointWhenOneThreeInARowTopLeftToLowerRightFoundUpper()
         {
             var board = new GameBoard(10);
             var moveWithAnticipatedPoint = new Move{Row = 1, Column = 8, Player = Player.X};
@@ -157,7 +157,7 @@ namespace TictactoeVer2Tests
         }
         
         [Fact]
-        public void ShouldReturnOnePointWhenOneThreeInARowTLToBRFoundLower()
+        public void ShouldReturnOnePointWhenOneThreeInARowTopLeftToBottomRightFound()
         {
             var board = new GameBoard(10);
             var moveWithAnticipatedPoint = new Move{Row = 8, Column = 1, Player = Player.X};
@@ -208,7 +208,7 @@ namespace TictactoeVer2Tests
             Game.InterpretInput("2,2");
             Game.InterpretInput("1,3");
             
-            _mockOutputWriter.Verify(writer => writer.Write("Current Scores:\nPlayer X - 1 \nPlayer Y - 0 \n"));
+            _mockOutputWriter.Verify(writer => writer.Write("Current Scores:\nPlayer X - 1 \nPlayer O - 0 \n"));
         }
 
         [Fact]
@@ -218,7 +218,7 @@ namespace TictactoeVer2Tests
             
             StartGameWith3X3Board();
             
-            _mockOutputWriter.Verify(writer => writer.Write("Current Scores:\nPlayer X - 0 \nPlayer Y - 0 \n"));
+            _mockOutputWriter.Verify(writer => writer.Write("Current Scores:\nPlayer X - 0 \nPlayer O - 0 \n"));
         }
         
         [Fact]

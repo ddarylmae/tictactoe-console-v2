@@ -50,12 +50,13 @@ namespace TictactoeVer2
         {
             SetupGameState(boardSize);
             Board = new GameBoard(boardSize);
+            ScoreBoard = new ScoreBoard();
         }
 
         private void DisplayStartGameMessage()
         {
             MessageHandler.DisplayStartTheGame();
-            MessageHandler.DisplayCurrentScores(ScoreBoard);
+            MessageHandler.DisplayCurrentScores(ScoreBoard.GetScores());
             MessageHandler.DisplayBoard(Board.GetFormattedBoard());
             MessageHandler.DisplayTakeTurn(CurrentPlayer);
         }
@@ -102,6 +103,13 @@ namespace TictactoeVer2
                 
                 MessageHandler.DisplayMoveAccepted();
                 MessageHandler.DisplayBoard(Board.GetFormattedBoard());
+
+                var points = Board.GetPossiblePointsFromBoard(CurrentPlayer);
+                if (points > 0)
+                {
+                    ScoreBoard.AddScore(CurrentPlayer, points);
+                    MessageHandler.DisplayCurrentScores(ScoreBoard.GetScores());
+                }
 
                 if (Board.IsWinningMove)
                 {

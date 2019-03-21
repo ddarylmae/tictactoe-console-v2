@@ -102,7 +102,8 @@ namespace TictactoeVer2
 
             totalPoints = GetPointsOnHorizontalLines(symbol) +
                           GetPointsOnVerticalLines(symbol) +
-                          GetPointsOnTopRightToBottomLeftDiagonal(symbol);
+                          GetPointsOnTopRightToBottomLeftDiagonal(symbol) + 
+                          GetPointsFromTopLeftToBottomRightDiagonal(symbol);
 
             return totalPoints;
         }
@@ -149,21 +150,13 @@ namespace TictactoeVer2
                 }
             }
 
-            for (int edge=side; edge+side <= Board.Length-side*2; edge+=side)
+            for (int edgeIndex=side; edgeIndex+side <= Board.Length-side*2; edgeIndex+=side)
             {
-                for (int currentIndex=edge; currentIndex+increment*2 < Board.Length; currentIndex+=increment)
+                for (int currentIndex=edgeIndex; currentIndex+increment*2 < Board.Length; currentIndex+=increment)
                 {
                     points = AddPointsIfThreeInARow(symbol, currentIndex, increment, points);
                 }
             }
-
-//            for (int edgeIndex = side; edgeIndex+side < Board.Length-side*2; edgeIndex+=side)
-//            {
-//                for (int current = edgeIndex, y=side-2; current+increment*2 < Board.Length; current+=increment, y--)
-//                {
-//                    points = AddPointsIfThreeInARow(symbol, current, increment, points);
-//                }
-//            }
                 
             return points;
         }
