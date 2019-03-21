@@ -125,11 +125,11 @@ namespace TictactoeVer2Tests
         [Fact]
         public void ShouldReturnOnePointWhenOneThreeInARowDiagonalFound()
         {
-            var board = new GameBoard(5);
-            var moveWithAnticipatedPoint = new Move{Row = 5, Column = 3, Player = Player.X};
+            var board = new GameBoard(10);
+            var moveWithAnticipatedPoint = new Move{Row = 8, Column = 10, Player = Player.X};
             
-            board.FillCoordinate(new Move{ Row = 4, Column = 4, Player = Player.X});
-            board.FillCoordinate(new Move{ Row = 3, Column = 5, Player = Player.X});
+            board.FillCoordinate(new Move{ Row = 9, Column = 9, Player = Player.X});
+            board.FillCoordinate(new Move{ Row = 10, Column = 8, Player = Player.X});
             board.FillCoordinate(moveWithAnticipatedPoint);
 
             var points = board.GetPointsOnUpperRightToBottomLeftDiagonal('X');

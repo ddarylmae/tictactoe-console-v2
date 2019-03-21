@@ -124,13 +124,17 @@ namespace TictactoeVer2
                 }
             }
 
-//            for (int i = GetSideLength() * 2 - 1; i <= Board.Length - (GetSideLength() * 2 - 1); i+= GetSideLength())
-//            {
-//                for (int j = i; j < 9; j++)
-//                {
-//                    
-//                }
-//            }
+            for (int i = GetSideLength() * 2 - 1; i <= Board.Length - (GetSideLength() * 2 - 1); i+= GetSideLength())
+            {
+                for (int j = i; j+(GetSideLength()-1)*2 < Board.Length; j+=GetSideLength()-1)
+                {
+                    if (Board[j] == symbol && Board[j] == Board[j + GetSideLength()-1] &&
+                        Board[j] == Board[j + (GetSideLength()-1) * 2])
+                    {
+                        points++;
+                    }
+                }
+            }
                 
             return points;
         }
