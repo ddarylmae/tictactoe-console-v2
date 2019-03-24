@@ -15,7 +15,7 @@ namespace TictactoeVer2Tests
             _mockOutputWriter = new Mock<IOutputWriter>();
             _mockScoreCalculator = new Mock<IScoreCalculator>();
             
-            Game = new Tictactoe(_mockOutputWriter.Object, _mockScoreCalculator.Object);
+            Game = new Tictactoe(_mockOutputWriter.Object);
         }
         
         private void StartGameWith3X3Board()
@@ -124,51 +124,6 @@ namespace TictactoeVer2Tests
             board.FillCoordinate(moveWithAnticipatedPoint);
 
             var points = board.GetPossiblePointsFromBoard(Player.X);
-            
-            Assert.Equal(1, points);
-        }
-        
-        [Fact]
-        public void ShouldReturnOnePointWhenOneThreeInARowDiagonalFound()
-        {
-            var board = new GameBoard(10);
-            var moveWithAnticipatedPoint = new Move{Row = 8, Column = 10, Player = Player.X};
-            
-            board.FillCoordinate(new Move{ Row = 9, Column = 9, Player = Player.X});
-            board.FillCoordinate(new Move{ Row = 10, Column = 8, Player = Player.X});
-            board.FillCoordinate(moveWithAnticipatedPoint);
-
-            var points = board.GetPointsOnTopRightToBottomLeftDiagonal('X');
-            
-            Assert.Equal(1, points);
-        }
-        
-        [Fact]
-        public void ShouldReturnOnePointWhenOneThreeInARowTopLeftToLowerRightFoundUpper()
-        {
-            var board = new GameBoard(10);
-            var moveWithAnticipatedPoint = new Move{Row = 1, Column = 8, Player = Player.X};
-            
-            board.FillCoordinate(new Move{ Row = 2, Column = 9, Player = Player.X});
-            board.FillCoordinate(new Move{ Row = 3, Column = 10, Player = Player.X});
-            board.FillCoordinate(moveWithAnticipatedPoint);
-
-            var points = board.GetPointsFromTopLeftToBottomRightDiagonal('X');
-            
-            Assert.Equal(1, points);
-        }
-        
-        [Fact]
-        public void ShouldReturnOnePointWhenOneThreeInARowTopLeftToBottomRightFound()
-        {
-            var board = new GameBoard(10);
-            var moveWithAnticipatedPoint = new Move{Row = 8, Column = 1, Player = Player.X};
-            
-            board.FillCoordinate(new Move{ Row = 9, Column = 2, Player = Player.X});
-            board.FillCoordinate(new Move{ Row = 10, Column = 3, Player = Player.X});
-            board.FillCoordinate(moveWithAnticipatedPoint);
-
-            var points = board.GetPointsFromTopLeftToBottomRightDiagonal('X');
             
             Assert.Equal(1, points);
         }

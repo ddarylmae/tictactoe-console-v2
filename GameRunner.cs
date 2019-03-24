@@ -8,7 +8,8 @@ namespace TictactoeVer2
         
         public static void Main(string[] args)
         {
-            Tictactoe = new Tictactoe(new OutputWriter(), new ThreeInARowScoreCalculator());
+            Tictactoe = new Tictactoe(
+                new OutputWriter());
             
             while (Tictactoe.Status != GameStatus.Ended)
             {
