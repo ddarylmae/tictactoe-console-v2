@@ -11,11 +11,13 @@ namespace TictactoeVer2
         private GameBoard Board { get; set; }
         private MessageHandler MessageHandler { get; set; }
         private UserInputHandler InputHandler { get; set; }
+        public IScoreCalculator ThreeInARowScoreCalculator { get; set; }
 
-        public Tictactoe(IOutputWriter outputWriter)
+        public Tictactoe(IOutputWriter outputWriter, IScoreCalculator threeInARowScoreCalculator)
         {
             MessageHandler = new MessageHandler(outputWriter);
             InputHandler = new UserInputHandler();
+            ThreeInARowScoreCalculator = threeInARowScoreCalculator;
 
             InitializeGame();
         }
@@ -104,7 +106,8 @@ namespace TictactoeVer2
                 MessageHandler.DisplayMoveAccepted();
                 MessageHandler.DisplayBoard(Board.GetFormattedBoard());
 
-                var points = Board.GetPossiblePointsFromBoard(CurrentPlayer);
+//                var points = Board.GetPossiblePointsFromBoard(CurrentPlayer);
+                var points = ThreeInARowScoreCalculator.GetPossiblePointsFromBoard(CurrentPlayer);
                 if (points > 0)
                 {
                     ScoreBoard.AddScore(CurrentPlayer, points);

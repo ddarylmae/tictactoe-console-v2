@@ -8,12 +8,14 @@ namespace TictactoeVer2Tests
     {
         private Tictactoe Game { get; set; }
         private Mock<IOutputWriter> _mockOutputWriter;
+        private Mock<IScoreCalculator> _mockScoreCalculator;
         
         public void InitializeTictactoeGame()
         {
             _mockOutputWriter = new Mock<IOutputWriter>();
+            _mockScoreCalculator = new Mock<IScoreCalculator>();
             
-            Game = new Tictactoe(_mockOutputWriter.Object);
+            Game = new Tictactoe(_mockOutputWriter.Object, _mockScoreCalculator.Object);
         }
         
         private void StartGameWith3X3Board()
@@ -93,7 +95,7 @@ namespace TictactoeVer2Tests
             
             board.FillCoordinate(moveWithAnticipatedPoint);
 
-            var points = board.CountPossiblePointsFromMove(moveWithAnticipatedPoint);
+            var points = board.GetPossiblePointsFromBoard(Player.X);
             
             Assert.Equal(2, points);
         }
@@ -106,7 +108,7 @@ namespace TictactoeVer2Tests
             
             board.FillCoordinate(move);
 
-            var points = board.CountPossiblePointsFromMove(move);
+            var points = board.GetPossiblePointsFromBoard(Player.X);
             
             Assert.Equal(0, points);
         }
@@ -184,16 +186,6 @@ namespace TictactoeVer2Tests
             var points = board.GetPossiblePointsFromBoard(Player.X);
             
             Assert.Equal(1, points);
-        }
-
-        [Fact]
-        public void ShouldReturnTrueWhenRowValid()
-        {
-            var board = new GameBoard(8);
-
-            var result = board.IsRowAndColumnValid(2, 9);
-            
-            Assert.False(result);
         }
         
         [Fact]

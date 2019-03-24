@@ -87,13 +87,6 @@ namespace TictactoeVer2
         {
             return (int) Math.Sqrt(Board.Length);
         }
-
-        public int CountPossiblePointsFromMove(Move move)
-        {
-            var points = GetPossiblePointsFromBoard(move.Player);
-
-            return points;
-        }
         
         public int GetPossiblePointsFromBoard(Player player)
         {
@@ -207,11 +200,6 @@ namespace TictactoeVer2
             }
 
             return points;
-        }
-
-        public bool IsRowAndColumnValid(int pathRow, int pathCol)
-        {
-            return pathRow > 0 && pathRow <= GetSideLength() && pathCol > 0 && pathCol <= GetSideLength();
         }
     }
 }
