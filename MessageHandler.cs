@@ -72,5 +72,10 @@ namespace TictactoeVer2
         {
             OutputMessage("Please enter a valid board size.");
         }
+
+        public void DisplayCurrentScores(string scores)
+        {
+            OutputMessage(scores);
+        }
     }
 }
