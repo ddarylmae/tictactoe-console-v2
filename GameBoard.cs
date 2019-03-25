@@ -12,7 +12,7 @@ namespace TictactoeVer2
         {
             InitialiseBoard(size);
             
-            ScoreCalculator = new ThreeInARowScoreCalculator(Board);
+            ScoreCalculator = new ThreeInARowScoreCalculator();
         }
         public bool IsBoardFilled { get; set; }
         public bool IsWinningMove { get; set; }
@@ -93,7 +93,7 @@ namespace TictactoeVer2
             var totalPoints = 0;
 //            var symbol = (player == Player.X) ? 'X' : 'O';
 
-            totalPoints = ScoreCalculator.GetPossiblePointsFromBoard(player);
+            totalPoints = ScoreCalculator.GetPossiblePointsFromBoard(Board, player);
 
             return totalPoints;
         }
