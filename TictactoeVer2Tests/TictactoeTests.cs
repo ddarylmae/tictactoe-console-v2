@@ -91,21 +91,6 @@ namespace TictactoeVer2Tests
             Game.InterpretInput("10");
             
             Game.InterpretInput("4,1");
-            Game.InterpretInput("8,1");
-            
-            Game.InterpretInput("3,2");
-            Game.InterpretInput("7,2");
-            
-            Game.InterpretInput("2,3");
-            Game.InterpretInput("8,6");
-            
-            Game.InterpretInput("5,5");
-            Game.InterpretInput("10,5");
-            
-            Game.InterpretInput("5,6");
-            Game.InterpretInput("9,6");
-            
-            Game.InterpretInput("5,7");
             
             _mockOutputWriter.Verify(writer => writer.Write("Current Scores:\nPlayer X - 2 \nPlayer O - 0 \n"));
         }
@@ -120,10 +105,6 @@ namespace TictactoeVer2Tests
             _mockScoreCalculator.Setup(x => x.CalculatePoints(It.IsAny<GameBoard>(), Player.X)).Returns(1);
             
             Game.InterpretInput("1,1");
-            Game.InterpretInput("2,1");
-            Game.InterpretInput("1,2");
-            Game.InterpretInput("2,2");
-            Game.InterpretInput("1,3");
             
             _mockOutputWriter.Verify(writer => writer.Write("Current Scores:\nPlayer X - 1 \nPlayer O - 0 \n"));
         }
