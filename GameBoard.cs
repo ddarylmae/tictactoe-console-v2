@@ -5,28 +5,26 @@ namespace TictactoeVer2
 {
     public class GameBoard : IGameBoard
     {
-        private Player[] Board;
+        private Player[] _board;
 
         public GameBoard(int size)
         {
             InitialiseBoard(size);
-
         }
-        public bool IsWinningMove { get; set; }
 
-        public void InitialiseBoard(int size)
+        private void InitialiseBoard(int size)
         {
             var coordinateCount = size * size;
-            Board = new Player[coordinateCount];
-            for (int i = 0; i < Board.Length; i++)
+            _board = new Player[coordinateCount];
+            for (int i = 0; i < _board.Length; i++)
             {
-                Board[i] = Player.None;
+                _board[i] = Player.None;
             }
         }
 
-        public bool IsCoordinateFilled(Move move)
+        private bool IsCoordinateFilled(Move move)
         {
-            return Board[GetIndexFromInput(move)] != Player.None;
+            return _board[GetIndexFromInput(move)] != Player.None;
         }
         
         private int GetIndexFromInput(Move move)
@@ -43,7 +41,7 @@ namespace TictactoeVer2
             {
                 for (int column = 0; column < GetSideLength(); column++, index++)
                 {
-                    var current = Board[index];
+                    var current = _board[index];
                     if (current == Player.None)
                     {
                         formattedBoard += ". ";
@@ -67,31 +65,26 @@ namespace TictactoeVer2
                 return FillResult.Taken;
             }
             
-            Board[index] = move.Player;
+            _board[index] = move.Player;
 
             return FillResult.Successful;
         }
 
         public bool IsFilled()
         {
-            return Board.All(element => element != Player.None);
+            return _board.All(element => element != Player.None);
         }
 
         public Player GetPlayerAt(int row, int column)
         {
             var index = GetIndexFromInput(new Move{Row = row, Column = column});
 
-            return Board[index];
+            return _board[index];
         }
 
-        int IGameBoard.GetSideLength()
+        public int GetSideLength()
         {
-            return GetSideLength();
-        }
-
-        private int GetSideLength()
-        {
-            return (int) Math.Sqrt(Board.Length);
+            return (int) Math.Sqrt(_board.Length);
         }
     }
 }
