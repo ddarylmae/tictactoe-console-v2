@@ -38,8 +38,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FillResult.cs" />
     <Compile Include="GameBoard.cs" />
     <Compile Include="GameStatus.cs" />
+    <Compile Include="IGameBoard.cs" />
     <Compile Include="IOutputWriter.cs" />
     <Compile Include="IScoreCalculator.cs" />
     <Compile Include="MessageHandler.cs" />
