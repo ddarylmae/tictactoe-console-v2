@@ -2,13 +2,13 @@ namespace TictactoeVer2
 {
     public interface IScoreCalculator
     {
-        int GetPossiblePointsFromBoard(IGameBoard board, Player currentPlayer);
+        int CalculatePoints(IGameBoard board, Player currentPlayer);
     }
 
     public interface IGameBoard
     {
         // fillCoordinate, isCoordinateFilled
-        FillResult FillSpecCoordinate(Move move);
+        FillResult FillCoordinate(Move move);
         // checkIfBoardIsFilled
         bool IsFilled();
         // getValueFromRowAndColumn

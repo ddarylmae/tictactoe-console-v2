@@ -6,7 +6,6 @@ namespace TictactoeVer2
     public class GameBoard : IGameBoard
     {
         private char[] Board;
-//        private IScoreCalculator ScoreCalculator { get; set; }
 
         public GameBoard(int size)
         {
@@ -25,13 +24,13 @@ namespace TictactoeVer2
             }
         }
 
-        public void FillCoordinate(Move move)
-        {
-            var index = GetIndexFromInput(move);
-            var symbol = (move.Player == Player.O) ? 'O' : 'X';
-            Board[index] = symbol;
-            CheckWinningMove(symbol);
-        }
+//        public void FillCoordinate(Move move)
+//        {
+//            var index = GetIndexFromInput(move);
+//            var symbol = (move.Player == Player.O) ? 'O' : 'X';
+//            Board[index] = symbol;
+//            CheckWinningMove(symbol);
+//        }
 
         public bool IsCoordinateFilled(Move move)
         {
@@ -44,23 +43,8 @@ namespace TictactoeVer2
             
             return index;
         }
-        
-        public void CheckWinningMove(char symbol)
-        {
-            if (Board[0] == symbol && Board[1] == symbol && Board[2] == symbol ||
-                Board[3] == symbol && Board[4]== symbol && Board[5] == symbol ||
-                Board[6] == symbol && Board[7]== symbol && Board[8] == symbol ||
-                Board[0] == symbol && Board[3]== symbol && Board[6] == symbol ||
-                Board[1] == symbol && Board[4]== symbol && Board[7] == symbol ||
-                Board[2] == symbol && Board[5]== symbol && Board[8] == symbol ||
-                Board[0] == symbol && Board[4]== symbol && Board[8] == symbol ||
-                Board[2] == symbol && Board[4]== symbol && Board[6] == symbol)
-            {
-                IsWinningMove = true;
-            }
-        }
 
-        public string GetFormattedBoard()
+        public string GetFormatted()
         {
             var result = "";
             for (int row = 0, index = 0; row < GetSideLength(); row++)
@@ -75,7 +59,7 @@ namespace TictactoeVer2
             return result;
         }
 
-        public FillResult FillSpecCoordinate(Move move)
+        public FillResult FillCoordinate(Move move)
         {
             var index = GetIndexFromInput(move);
             if (Board[index] != '.')
@@ -118,15 +102,5 @@ namespace TictactoeVer2
         {
             return (int) Math.Sqrt(Board.Length);
         }
-        
-//        public int GetPossiblePointsFromBoard(Player player)
-//        {
-//            var totalPoints = 0;
-////            var symbol = (player == Player.X) ? 'X' : 'O';
-//
-////            totalPoints = ScoreCalculator.GetPossiblePointsFromBoard(Board, player);
-//
-//            return totalPoints;
-//        }
     }
 }

@@ -4,7 +4,7 @@ namespace TictactoeVer2
 {
     public class ThreeInARowScoreCalculator : IScoreCalculator
     {
-        public int GetPossiblePointsFromBoard(IGameBoard board, Player currentPlayer)
+        public int CalculatePoints(IGameBoard board, Player currentPlayer)
         {
             return GetTotalPoints(board, currentPlayer);
         }

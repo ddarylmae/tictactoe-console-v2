@@ -59,7 +59,7 @@ namespace TictactoeVer2
         {
             MessageHandler.DisplayStartTheGame();
             MessageHandler.DisplayCurrentScores(ScoreBoard.GetScores());
-            MessageHandler.DisplayBoard(Board.GetFormattedBoard());
+            MessageHandler.DisplayBoard(Board.GetFormatted());
             MessageHandler.DisplayTakeTurn(CurrentPlayer);
         }
 
@@ -98,42 +98,42 @@ namespace TictactoeVer2
         private void PerformTurn(Move move)
         {
             move.Player = CurrentPlayer;
-            
-            var isCoordinateFilled = Board.IsCoordinateFilled(move);
-            if (!isCoordinateFilled)
+            var result = Board.FillCoordinate(move);
+
+            switch (result)
             {
-                Board.FillCoordinate(move);
-                
-                MessageHandler.DisplayMoveAccepted();
-                MessageHandler.DisplayBoard(Board.GetFormattedBoard());
+                case FillResult.Taken:
+                    MessageHandler.DisplayCoordinateIsFilled();
+                    break;
+                case FillResult.Successful:
+                    MessageHandler.DisplayMoveAccepted();
+                    MessageHandler.DisplayBoard(Board.GetFormatted());
 
-//                var points = Board.GetPossiblePointsFromBoard(CurrentPlayer);
-                var points = ScoreCalculator.GetPossiblePointsFromBoard(Board, CurrentPlayer);
-                if (points > 0)
-                {
-                    ScoreBoard.AddScore(CurrentPlayer, points);
-                    MessageHandler.DisplayCurrentScores(ScoreBoard.GetScores());
-                }
+                    DisplayNewScoresIfPlayerScoredPoints();
 
-//                if (Board.IsWinningMove)
-//                {
-//                    DeclareWinner();
-//                }
-//                else
-//                {
-                    if (Board.IsFilled())
-                    {
-                        DeclareDraw();
-                    }
-                    else
-                    {
-                        ContinueGame();
-                    }
-//                }
+                    break;
+            }
+            
+            
+            if (Board.IsFilled())
+            {
+                DeclareDraw();
             }
             else
             {
-                MessageHandler.DisplayCoordinateIsFilled();
+                ContinueGame();
+            }
+        }
+
+        private void DisplayNewScoresIfPlayerScoredPoints()
+        {
+            var currentScore = ScoreBoard.GetScoreOf(CurrentPlayer);
+            var calculatedScore = ScoreCalculator.CalculatePoints(Board, CurrentPlayer);
+
+            if (calculatedScore > currentScore)
+            {
+                ScoreBoard.UpdateScore(CurrentPlayer, calculatedScore);
+                MessageHandler.DisplayCurrentScores(ScoreBoard.GetScores());
             }
         }
 

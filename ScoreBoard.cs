@@ -15,12 +15,17 @@ namespace TictactoeVer2
             };
         }
 
+        public int GetScoreOf(Player player)
+        {
+            return Scores[player];
+        }
+
         public string GetScores()
         {
             return $"Current Scores:\nPlayer X - {Scores[Player.X]} \nPlayer O - {Scores[Player.O]} \n";
         }
 
-        public void AddScore(Player player, int score)
+        public void UpdateScore(Player player, int score)
         {
             Scores[player] = score;
         }
