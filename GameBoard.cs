@@ -24,14 +24,6 @@ namespace TictactoeVer2
             }
         }
 
-//        public void FillCoordinate(Move move)
-//        {
-//            var index = GetIndexFromInput(move);
-//            var symbol = (move.Player == Player.O) ? 'O' : 'X';
-//            Board[index] = symbol;
-//            CheckWinningMove(symbol);
-//        }
-
         public bool IsCoordinateFilled(Move move)
         {
             return Board[GetIndexFromInput(move)] != '.';

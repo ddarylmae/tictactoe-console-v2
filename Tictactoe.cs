@@ -108,12 +108,10 @@ namespace TictactoeVer2
                 case FillResult.Successful:
                     MessageHandler.DisplayMoveAccepted();
                     MessageHandler.DisplayBoard(Board.GetFormatted());
-
                     DisplayNewScoresIfPlayerScoredPoints();
 
                     break;
             }
-            
             
             if (Board.IsFilled())
             {

@@ -6,15 +6,10 @@ namespace TictactoeVer2
     {
         public int CalculatePoints(IGameBoard board, Player currentPlayer)
         {
-            return GetTotalPoints(board, currentPlayer);
+            return GetTotalPointsFromLines(board, currentPlayer);
         }
 
-        private char GetSymbolFromPlayer(Player currentPlayer)
-        {
-            return currentPlayer == Player.X ? 'X' : 'O';
-        }
-
-        private int GetTotalPoints(IGameBoard board, Player player)
+        private int GetTotalPointsFromLines(IGameBoard board, Player player)
         {
             return GetPointsOnVerticalLines(board, player) + 
                    GetPointsOnHorizontalLines(board, player) + 
@@ -56,23 +51,9 @@ namespace TictactoeVer2
                     var below = board.GetPlayerAt(row, column + 1);
                     var nextToBelow = board.GetPlayerAt(row, column + 2);
 
-                    if (currentCoordinate == player && currentCoordinate == below && currentCoordinate == nextToBelow)
-                    {
-                        points++;
-                    }
+                    points = AddPointsIfThreeInARow(player, currentCoordinate, below, nextToBelow, points);
                 }
             }
-            
-//            for (int x = 0; x < board.Length; x += GetSideLength(board))
-//            {
-//                for (int y = x, ctr = 0; ctr < GetSideLength(board) - 2; ctr++, y++)
-//                {
-//                    if (board[y] == symbol && board[y] == board[y + 1] && board[y] == board[y + 2])
-//                    {
-//                        points++;
-//                    }
-//                }
-//            }
 
             return points;
         }
@@ -90,12 +71,7 @@ namespace TictactoeVer2
                     var bottomLeftBelow = board.GetPlayerAt(row + 1, curCol - 1);
                     var bottomLeftBelowBelow = board.GetPlayerAt(row + 2, curCol - 2);
 
-                    if (currentCoord == player && 
-                        currentCoord == bottomLeftBelow &&
-                        currentCoord == bottomLeftBelowBelow)
-                    {
-                        points++;
-                    }
+                    points = AddPointsIfThreeInARow(player, currentCoord, bottomLeftBelow, bottomLeftBelowBelow, points);
                 }
             }
             
@@ -113,24 +89,6 @@ namespace TictactoeVer2
                 }
                 
             }
-            
-            // Loop for checking diagonals from column
-//            for (int columnIndex=2; columnIndex < side; columnIndex++)
-//            {
-//                for (int current=columnIndex; current + increment < side*columnIndex; current+=increment)
-//                {
-//                    points = AddPointsIfThreeInARow(board, player, current, increment, points);
-//                }
-//            }
-//
-//            // Loop for checking diagonals from right edge
-//            for (int edgeIndex = side * 2 - 1; edgeIndex <= board.Length - (side * 2 - 1); edgeIndex += side)
-//            {
-//                for (int currentIndex=edgeIndex; currentIndex + increment * 2 < board.Length; currentIndex+=increment)
-//                {
-//                    points = AddPointsIfThreeInARow(board, symbol, currentIndex, increment, points);
-//                }
-//            }
                 
             return points;
         }
@@ -178,36 +136,8 @@ namespace TictactoeVer2
                     points = AddPointsIfThreeInARow(player, current, bottomRight, bottomRightRight, points);
                 }
             }
-            
-            // Loop for checking diagonals from column
-//            for (int columnIndex = side-3, x=2; columnIndex >=0; columnIndex--, x++)
-//            {
-//                for (int current=columnIndex; current + increment < x*increment+columnIndex; current+=increment)
-//                { 
-//                    points = AddPointsIfThreeInARow(board, symbol, current, increment, points);
-//                }
-//            }
-//
-//            for (int edgeIndex=side; edgeIndex+side <= board.Length-side*2; edgeIndex+=side)
-//            {
-//                for (int currentIndex=edgeIndex; currentIndex+increment*2 < board.Length; currentIndex+=increment)
-//                {
-//                    points = AddPointsIfThreeInARow(board, symbol, currentIndex, increment, points);
-//                }
-//            }
                 
             return points;
         }
-
-//        private int AddPointsIfThreeInARow(IGameBoard board, Player player, int current, int indexIncrement, int points)
-//        {
-//            if (board[current] == symbol && board[current] == board[current + indexIncrement] &&
-//                board[current] == board[current + (indexIncrement) * 2])
-//            {
-//                points++;
-//            }
-//
-//            return points;
-//        }
     }
 }
