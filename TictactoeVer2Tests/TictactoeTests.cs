@@ -208,44 +208,6 @@ namespace TictactoeVer2Tests
             _mockOutputWriter.Verify(writer => writer.Write(expectedMessage));
         }
 
-//        [Fact]
-//        public void ShouldEndGameAndDeclarePlayerXAsWinnerWhenThreeInARow()
-//        {
-//            InitializeTictactoeGame();
-//            StartGameWith3X3Board();
-//
-//            PlayerMakesMove(Player.X, "1,1");
-//            PlayerMakesMove(Player.O,"1,3");
-//            PlayerMakesMove(Player.X,"2,1");
-//            PlayerMakesMove(Player.O,"3,3");
-//            PlayerMakesMove(Player.X,"3,1");
-//            
-//            _mockOutputWriter.Verify(writer => writer.Write("Game has ended. Player X has won!"));
-//        }
-
-        private void PlayerMakesMove(Player player, string move)
-        {
-            Assert.Equal(player, Game.CurrentPlayer);
-            
-            Game.InterpretInput(move);
-        }
-
-//        [Fact]
-//        public void ShouldEndGameAndDeclarePlayerOAsWinner()
-//        {
-//            InitializeTictactoeGame();
-//            StartGameWith3X3Board();
-//            
-//            Game.InterpretInput("1,1");
-//            Game.InterpretInput("1,2");
-//            Game.InterpretInput("1,3");
-//            Game.InterpretInput("2,2");
-//            Game.InterpretInput("2,3");
-//            Game.InterpretInput("3,2");
-//            
-//            _mockOutputWriter.Verify(writer => writer.Write("Game has ended. Player O has won!"));
-//        }
-        
         [Fact]
         public void ShouldEndGameWhenBoardFilledAndNoWinner()
         {

@@ -15,6 +15,7 @@ namespace TictactoeVer2
         Player GetPlayerAt(int row, int column);
         // getSideLength
         int GetSideLength();
+        string GetFormatted();
     }
 
     public enum FillResult

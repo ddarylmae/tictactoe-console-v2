@@ -5,10 +5,10 @@ namespace TictactoeVer2
     public class Tictactoe
     {
         public Player CurrentPlayer { get; set; }
-        public ScoreBoard ScoreBoard;
+        private ScoreBoard ScoreBoard;
         public GameStatus Status { get; set; }
         private Player Winner { get; set; }
-        private GameBoard Board { get; set; }
+        private IGameBoard Board { get; set; }
         private MessageHandler MessageHandler { get; set; }
         private UserInputHandler InputHandler { get; set; }
         private IScoreCalculator ScoreCalculator;
