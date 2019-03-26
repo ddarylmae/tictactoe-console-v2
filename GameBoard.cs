@@ -5,7 +5,7 @@ namespace TictactoeVer2
 {
     public class GameBoard : IGameBoard
     {
-        private char[] Board;
+        private Player[] Board;
 
         public GameBoard(int size)
         {
@@ -17,16 +17,16 @@ namespace TictactoeVer2
         public void InitialiseBoard(int size)
         {
             var coordinateCount = size * size;
-            Board = new char[coordinateCount];
+            Board = new Player[coordinateCount];
             for (int i = 0; i < Board.Length; i++)
             {
-                Board[i] = '.';
+                Board[i] = Player.None;
             }
         }
 
         public bool IsCoordinateFilled(Move move)
         {
-            return Board[GetIndexFromInput(move)] != '.';
+            return Board[GetIndexFromInput(move)] != Player.None;
         }
         
         private int GetIndexFromInput(Move move)
@@ -38,51 +38,50 @@ namespace TictactoeVer2
 
         public string GetFormatted()
         {
-            var result = "";
+            var formattedBoard = "";
             for (int row = 0, index = 0; row < GetSideLength(); row++)
             {
                 for (int column = 0; column < GetSideLength(); column++, index++)
                 {
-                    result += $"{Board[index]} ";
+                    var current = Board[index];
+                    if (current == Player.None)
+                    {
+                        formattedBoard += ". ";
+                    }
+                    else
+                    {
+                        formattedBoard += $"{current} ";   
+                    }
                 }
-                result += "\n";
+                formattedBoard += "\n";
             }
 
-            return result;
+            return formattedBoard;
         }
 
         public FillResult FillCoordinate(Move move)
         {
             var index = GetIndexFromInput(move);
-            if (Board[index] != '.')
+            if (IsCoordinateFilled(move))
             {
                 return FillResult.Taken;
             }
             
-            var symbol = (move.Player == Player.O) ? 'O' : 'X';
-            Board[index] = symbol;
+            Board[index] = move.Player;
 
             return FillResult.Successful;
         }
 
         public bool IsFilled()
         {
-            return Board.All(element => element != '.');
+            return Board.All(element => element != Player.None);
         }
 
         public Player GetPlayerAt(int row, int column)
         {
             var index = GetIndexFromInput(new Move{Row = row, Column = column});
-            if (Board[index] == 'X')
-            {
-                return Player.X;
-            }
-            if (Board[index] == 'O')
-            {
-                return Player.O;
-            }
 
-            return Player.None;
+            return Board[index];
         }
 
         int IGameBoard.GetSideLength()
