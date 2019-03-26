@@ -15,7 +15,7 @@ namespace TictactoeVer2Tests
             _mockOutputWriter = new Mock<IOutputWriter>();
             _mockScoreCalculator = new Mock<IScoreCalculator>();
             
-            Game = new Tictactoe(_mockOutputWriter.Object);
+            Game = new Tictactoe(_mockOutputWriter.Object, _mockScoreCalculator.Object);
         }
         
         private void StartGameWith3X3Board()
@@ -82,72 +82,106 @@ namespace TictactoeVer2Tests
         }
         
         [Fact]
-        public void ShouldReturnTwoPointsWhenTwo3InARowLineFound()
+        public void ShouldReturnOnePointWhenThreeInARowTopLeftToBottomRightDiagonalFound()
         {
-            var board = new GameBoard(7);
-            var moveWithAnticipatedPoint = new Move {Row = 4, Column = 1, Player = Player.X};
-            
-            board.FillCoordinate(new Move{ Row = 3, Column = 2, Player = Player.X});
-            board.FillCoordinate(new Move{ Row = 2, Column = 3, Player = Player.X});
-            board.FillCoordinate(new Move{ Row = 5, Column = 5, Player = Player.X});
-            board.FillCoordinate(new Move{ Row = 5, Column = 6, Player = Player.X});
-            board.FillCoordinate(new Move{ Row = 5, Column = 7, Player = Player.X});
-            
-            board.FillCoordinate(moveWithAnticipatedPoint);
+            var board = new GameBoard(10);
+            var scoreCalculator = new ThreeInARowScoreCalculator();
 
-            var points = board.GetPossiblePointsFromBoard(Player.X);
+            board.FillSpecCoordinate(new Move {Row = 8, Column = 8, Player = Player.X});
+            board.FillSpecCoordinate(new Move {Row = 7, Column = 7, Player = Player.X});
+            board.FillSpecCoordinate(new Move {Row = 9, Column = 9, Player = Player.X});
+
+            var points = scoreCalculator.GetPointsFromTopLeftToBottomRightDiagonal(board, Player.X);
+            
+            Assert.Equal(1, points);
+        }
+        
+        [Fact]
+        public void ShouldReturnOnePointWhenThreeInARowTopRightToBottomLeftDiagonalFound()
+        {
+            var board = new GameBoard(6);
+            var scoreCalculator = new ThreeInARowScoreCalculator();
+
+            board.FillSpecCoordinate(new Move {Row = 1, Column = 5, Player = Player.X});
+            board.FillSpecCoordinate(new Move {Row = 2, Column = 4, Player = Player.X});
+            board.FillSpecCoordinate(new Move {Row = 3, Column = 3, Player = Player.X});
+            
+            board.FillSpecCoordinate(new Move {Row = 4, Column = 6, Player = Player.X});
+            board.FillSpecCoordinate(new Move {Row = 5, Column = 5, Player = Player.X});
+            board.FillSpecCoordinate(new Move {Row = 6, Column = 4, Player = Player.X});
+
+            var points = scoreCalculator.GetPointsOnTopRightToBottomLeftDiagonal(board, Player.X);
             
             Assert.Equal(2, points);
         }
-
+        
         [Fact]
-        public void ShouldReturnZeroWhenNoThreeInARowLineFound()
+        public void ShouldReturnOnePointWhenThreeInARowVerticalFound()
         {
-            var board = new GameBoard(6);
-            var move = new Move {Row = 2, Column = 3, Player = Player.X};
-            
-            board.FillCoordinate(move);
+            var board = new GameBoard(5);
+            var scoreCalculator = new ThreeInARowScoreCalculator();
 
-            var points = board.GetPossiblePointsFromBoard(Player.X);
+            board.FillSpecCoordinate(new Move {Row = 5, Column = 5, Player = Player.X});
+            board.FillSpecCoordinate(new Move {Row = 4, Column = 5, Player = Player.X});
+            board.FillSpecCoordinate(new Move {Row = 3, Column = 5, Player = Player.X});
+
+            var points = scoreCalculator.GetPointsOnVerticalLines(board, Player.X);
             
-            Assert.Equal(0, points);
+            Assert.Equal(1, points);
         }
 
         [Fact]
-        public void ShouldReturnOnePointWhenOneThreeInARowLineFound()
+        public void ShouldReturnOnePointWhenThreeInARowHorizontalFound()
         {
-            var board = new GameBoard(6);
-            var moveWithAnticipatedPoint = new Move {Row = 4, Column = 4, Player = Player.X};
-            
-            board.FillCoordinate(new Move{ Row = 4, Column = 2, Player = Player.X});
-            board.FillCoordinate(new Move{ Row = 4, Column = 3, Player = Player.X});
-            board.FillCoordinate(moveWithAnticipatedPoint);
+            var board = new GameBoard(5);
+            var scoreCalculator = new ThreeInARowScoreCalculator();
 
-            var points = board.GetPossiblePointsFromBoard(Player.X);
+            board.FillSpecCoordinate(new Move {Row = 5, Column = 1, Player = Player.X});
+            board.FillSpecCoordinate(new Move {Row = 5, Column = 2, Player = Player.X});
+            board.FillSpecCoordinate(new Move {Row = 5, Column = 3, Player = Player.X});
+
+            var points = scoreCalculator.GetPointsOnHorizontalLines(board, Player.X);
             
             Assert.Equal(1, points);
         }
         
         [Fact]
-        public void ShouldReturnOnePointWhenThreeInAColumnFound()
-        {
-            var board = new GameBoard(6);
-            var moveWithAnticipatedPoint = new Move {Row = 3, Column = 1, Player = Player.X};
-            
-            board.FillCoordinate(new Move{ Row = 3, Column = 2, Player = Player.X});
-            board.FillCoordinate(new Move{ Row = 3, Column = 3, Player = Player.X});
-            board.FillCoordinate(moveWithAnticipatedPoint);
-
-            var points = board.GetPossiblePointsFromBoard(Player.X);
-            
-            Assert.Equal(1, points);
-        }
-        
-        [Fact]
-        public void ShouldDisplayUpdatedScoreWhenPlayerGainsPoint()
+        public void ShouldReturnTwoPointsWhenTwo3InARowLineFound()
         {
             InitializeTictactoeGame();
+
+            _mockScoreCalculator.Setup(x => x.GetPossiblePointsFromBoard(It.IsAny<GameBoard>(), Player.X)).Returns(2);
+            
+            Game.InterpretInput("10");
+            
+            Game.InterpretInput("4,1");
+            Game.InterpretInput("8,1");
+            
+            Game.InterpretInput("3,2");
+            Game.InterpretInput("7,2");
+            
+            Game.InterpretInput("2,3");
+            Game.InterpretInput("8,6");
+            
+            Game.InterpretInput("5,5");
+            Game.InterpretInput("10,5");
+            
+            Game.InterpretInput("5,6");
+            Game.InterpretInput("9,6");
+            
+            Game.InterpretInput("5,7");
+            
+            _mockOutputWriter.Verify(writer => writer.Write("Current Scores:\nPlayer X - 2 \nPlayer O - 0 \n"));
+        }
+        
+        [Fact]
+        public void ShouldDisplayUpdatedScoresWhenPlayerGainsPoint()
+        {
+            InitializeTictactoeGame();
+            
             StartGameWith3X3Board();
+
+            _mockScoreCalculator.Setup(x => x.GetPossiblePointsFromBoard(It.IsAny<GameBoard>(), Player.X)).Returns(1);
             
             Game.InterpretInput("1,1");
             Game.InterpretInput("2,1");
@@ -238,20 +272,20 @@ namespace TictactoeVer2Tests
             _mockOutputWriter.Verify(writer => writer.Write(expectedMessage));
         }
 
-        [Fact]
-        public void ShouldEndGameAndDeclarePlayerXAsWinnerWhenThreeInARow()
-        {
-            InitializeTictactoeGame();
-            StartGameWith3X3Board();
-
-            PlayerMakesMove(Player.X, "1,1");
-            PlayerMakesMove(Player.O,"1,3");
-            PlayerMakesMove(Player.X,"2,1");
-            PlayerMakesMove(Player.O,"3,3");
-            PlayerMakesMove(Player.X,"3,1");
-            
-            _mockOutputWriter.Verify(writer => writer.Write("Game has ended. Player X has won!"));
-        }
+//        [Fact]
+//        public void ShouldEndGameAndDeclarePlayerXAsWinnerWhenThreeInARow()
+//        {
+//            InitializeTictactoeGame();
+//            StartGameWith3X3Board();
+//
+//            PlayerMakesMove(Player.X, "1,1");
+//            PlayerMakesMove(Player.O,"1,3");
+//            PlayerMakesMove(Player.X,"2,1");
+//            PlayerMakesMove(Player.O,"3,3");
+//            PlayerMakesMove(Player.X,"3,1");
+//            
+//            _mockOutputWriter.Verify(writer => writer.Write("Game has ended. Player X has won!"));
+//        }
 
         private void PlayerMakesMove(Player player, string move)
         {
@@ -260,21 +294,21 @@ namespace TictactoeVer2Tests
             Game.InterpretInput(move);
         }
 
-        [Fact]
-        public void ShouldEndGameAndDeclarePlayerOAsWinner()
-        {
-            InitializeTictactoeGame();
-            StartGameWith3X3Board();
-            
-            Game.InterpretInput("1,1");
-            Game.InterpretInput("1,2");
-            Game.InterpretInput("1,3");
-            Game.InterpretInput("2,2");
-            Game.InterpretInput("2,3");
-            Game.InterpretInput("3,2");
-            
-            _mockOutputWriter.Verify(writer => writer.Write("Game has ended. Player O has won!"));
-        }
+//        [Fact]
+//        public void ShouldEndGameAndDeclarePlayerOAsWinner()
+//        {
+//            InitializeTictactoeGame();
+//            StartGameWith3X3Board();
+//            
+//            Game.InterpretInput("1,1");
+//            Game.InterpretInput("1,2");
+//            Game.InterpretInput("1,3");
+//            Game.InterpretInput("2,2");
+//            Game.InterpretInput("2,3");
+//            Game.InterpretInput("3,2");
+//            
+//            _mockOutputWriter.Verify(writer => writer.Write("Game has ended. Player O has won!"));
+//        }
         
         [Fact]
         public void ShouldEndGameWhenBoardFilledAndNoWinner()

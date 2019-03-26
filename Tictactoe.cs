@@ -11,11 +11,13 @@ namespace TictactoeVer2
         private GameBoard Board { get; set; }
         private MessageHandler MessageHandler { get; set; }
         private UserInputHandler InputHandler { get; set; }
+        private IScoreCalculator ScoreCalculator;
 
-        public Tictactoe(IOutputWriter outputWriter)
+        public Tictactoe(IOutputWriter outputWriter, IScoreCalculator scoreCalculator)
         {
             MessageHandler = new MessageHandler(outputWriter);
             InputHandler = new UserInputHandler();
+            ScoreCalculator = scoreCalculator;
 
             InitializeGame();
         }
@@ -64,6 +66,7 @@ namespace TictactoeVer2
         private void SetupGameState(int boardSize)
         {
             Status = GameStatus.Playing;
+            CurrentPlayer = Player.X;
             ScoreBoard = new ScoreBoard();
             InputHandler.CurrentBoardSize = boardSize;
         }
@@ -104,20 +107,21 @@ namespace TictactoeVer2
                 MessageHandler.DisplayMoveAccepted();
                 MessageHandler.DisplayBoard(Board.GetFormattedBoard());
 
-                var points = Board.GetPossiblePointsFromBoard(CurrentPlayer);
+//                var points = Board.GetPossiblePointsFromBoard(CurrentPlayer);
+                var points = ScoreCalculator.GetPossiblePointsFromBoard(Board, CurrentPlayer);
                 if (points > 0)
                 {
                     ScoreBoard.AddScore(CurrentPlayer, points);
                     MessageHandler.DisplayCurrentScores(ScoreBoard.GetScores());
                 }
 
-                if (Board.IsWinningMove)
-                {
-                    DeclareWinner();
-                }
-                else
-                {
-                    if (Board.IsBoardFilled)
+//                if (Board.IsWinningMove)
+//                {
+//                    DeclareWinner();
+//                }
+//                else
+//                {
+                    if (Board.IsFilled())
                     {
                         DeclareDraw();
                     }
@@ -125,7 +129,7 @@ namespace TictactoeVer2
                     {
                         ContinueGame();
                     }
-                }
+//                }
             }
             else
             {

@@ -3,18 +3,16 @@ using System.Linq;
 
 namespace TictactoeVer2
 {
-    public class GameBoard
+    public class GameBoard : IGameBoard
     {
         private char[] Board;
-        private IScoreCalculator ScoreCalculator { get; set; }
+//        private IScoreCalculator ScoreCalculator { get; set; }
 
         public GameBoard(int size)
         {
             InitialiseBoard(size);
-            
-            ScoreCalculator = new ThreeInARowScoreCalculator();
+
         }
-        public bool IsBoardFilled { get; set; }
         public bool IsWinningMove { get; set; }
 
         public void InitialiseBoard(int size)
@@ -33,17 +31,11 @@ namespace TictactoeVer2
             var symbol = (move.Player == Player.O) ? 'O' : 'X';
             Board[index] = symbol;
             CheckWinningMove(symbol);
-            CheckBoardFilled();
         }
 
         public bool IsCoordinateFilled(Move move)
         {
             return Board[GetIndexFromInput(move)] != '.';
-        }
-
-        private void CheckBoardFilled()
-        {
-            IsBoardFilled = Board.All(element => element != '.');
         }
         
         private int GetIndexFromInput(Move move)
@@ -83,19 +75,58 @@ namespace TictactoeVer2
             return result;
         }
 
+        public FillResult FillSpecCoordinate(Move move)
+        {
+            var index = GetIndexFromInput(move);
+            if (Board[index] != '.')
+            {
+                return FillResult.Taken;
+            }
+            
+            var symbol = (move.Player == Player.O) ? 'O' : 'X';
+            Board[index] = symbol;
+
+            return FillResult.Successful;
+        }
+
+        public bool IsFilled()
+        {
+            return Board.All(element => element != '.');
+        }
+
+        public Player GetPlayerAt(int row, int column)
+        {
+            var index = GetIndexFromInput(new Move{Row = row, Column = column});
+            if (Board[index] == 'X')
+            {
+                return Player.X;
+            }
+            if (Board[index] == 'O')
+            {
+                return Player.O;
+            }
+
+            return Player.None;
+        }
+
+        int IGameBoard.GetSideLength()
+        {
+            return GetSideLength();
+        }
+
         private int GetSideLength()
         {
             return (int) Math.Sqrt(Board.Length);
         }
         
-        public int GetPossiblePointsFromBoard(Player player)
-        {
-            var totalPoints = 0;
-//            var symbol = (player == Player.X) ? 'X' : 'O';
-
-            totalPoints = ScoreCalculator.GetPossiblePointsFromBoard(Board, player);
-
-            return totalPoints;
-        }
+//        public int GetPossiblePointsFromBoard(Player player)
+//        {
+//            var totalPoints = 0;
+////            var symbol = (player == Player.X) ? 'X' : 'O';
+//
+////            totalPoints = ScoreCalculator.GetPossiblePointsFromBoard(Board, player);
+//
+//            return totalPoints;
+//        }
     }
 }
